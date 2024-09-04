@@ -21,6 +21,13 @@
   --border_color: #769BF5;
   --ffont_family: "Roboto", sans-serif;
 }
+input, button{
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+
+}
 
 /* The home page styleing starts here */
 
@@ -76,11 +83,42 @@ a .selection_btn{
   font-weight: 700;
  }
  
- .dashcontainer {
-  display: flex;
-  gap: 3rem;
-  width: 100%;
+ .main-aside{
+  border: 3px solid #769BF5;
  }
+
+ .search-bar{
+  height: 50px;
+  border-bottom: 3px solid #769BF5;
+ }
+ .search-btn i{
+  color: var(--text_Dcolor);
+  font-size: large;
+  margin: 1rem 0 0 1rem;
+ }
+
+.aside-contant{
+ background-color: #2A2B45 ;
+ margin: 0.5rem;
+ border-radius: 10px;
+ padding: 10px;
+
+}
+.search-bar input{
+  font-size: large;
+
+}
+.contant{
+  display: flex;
+  gap: 1rem;
+}
+img{
+  width: 30px;
+}
+.text-contant a {
+  text-decoration: none;
+  color: var(--text_Dcolor);
+}
 
  .main_display {
   width: 90%;

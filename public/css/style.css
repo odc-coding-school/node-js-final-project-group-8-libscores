@@ -18,6 +18,7 @@
   --text_Dcolor: #ffffff;
   --lhover_color: #fe0101;
   --tableD_hoverc: #808080;
+  --border_color: #769BF5;
   --ffont_family: "Roboto", sans-serif;
 }
 
@@ -53,9 +54,9 @@ header{
 }
 
 .selection_link {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 1.5rem 0;
+  display: flex;
+  gap: 4rem;
+  padding: 2rem 0;
 }
 
 a .selection_btn:focus{
@@ -67,14 +68,73 @@ a .selection_btn:focus{
 
 a .selection_btn{
   background: var(--btnDefC); 
+  border: none;
   outline: none;
   border-radius: 2rem;
-  padding: .5rem 2rem;
+  padding: .6rem 2.3rem;
   color: var(--text_Dcolor);
+  font-weight: 700;
  }
  
+ .dashcontainer {
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+ }
 
+ .main_display {
+  width: 90%;
+  height: max-content;
+  min-height: 90vh;
+  border: 3px solid var(--border_color);
+ }
 
+ .main_nav{
+  width: 100%;
+  height:8vh;
+  border-bottom: 3px solid var(--border_color);
+  display: flex;
+  justify-content: center;
+ }
+
+ .main_nav_lc {
+  height: 100%;
+  width: 94%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ }
+
+ .m_link_btn{
+  padding: .4rem .9rem;
+  border: none;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--bg_color);
+  border-radius: .8rem;
+ }
+
+ .main_link {
+  color: var(--text_Dcolor);
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.2rem;
+ }
+
+ .main_link span {
+  font-weight: 300;
+ }
+
+ .main_link i{
+  font-size: 2rem;
+ }
+
+ .info_display{
+  width: 100%;
+  height: max-content;
+  min-height: 90vh;
+ }
 
 
 

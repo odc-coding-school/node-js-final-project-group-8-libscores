@@ -1,0 +1,88 @@
+/* Font family links */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+/* The unversial selector*/
+* {
+  padding: 0%;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+/* Setting the colors and font family in the root */
+:root{
+  --bg_color: #020035;
+  --btnDefC: #43456E;
+  --focusTColo: #000000;
+  --text_Dcolor: #ffffff;
+  --lhover_color: #fe0101;
+  --tableD_hoverc: #808080;
+  --ffont_family: "Roboto", sans-serif;
+}
+
+/* The home page styleing starts here */
+
+header{
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  align-items: end;
+}
+
+.navbar-nav{
+  display: flex;
+  gap: 16rem;
+}
+
+.link_colorh i, .link_colorh span {
+  color: var(--lhover_color);
+}
+
+.link_color i, .link_color span {
+  color: var(--text_Dcolor);
+}
+
+.link_color i:hover, .link_color span:hover,
+.link_color i:focus, .link_color span:focus {
+  color: var(--lhover_color);
+}
+
+.home_body {
+  background: var(--bg_color);
+}
+
+.selection_link {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1.5rem 0;
+}
+
+a .selection_btn:focus{
+ background: var(--text_Dcolor); 
+ outline: none;
+ border-radius: 2rem;
+ color: var(--focusTColo);
+}
+
+a .selection_btn{
+  background: var(--btnDefC); 
+  outline: none;
+  border-radius: 2rem;
+  padding: .5rem 2rem;
+  color: var(--text_Dcolor);
+ }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+/* The home page styling ends here */

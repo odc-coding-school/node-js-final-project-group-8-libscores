@@ -60,6 +60,13 @@ header{
   background: var(--bg_color);
 }
 
+.dashcontainer{
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+  height: max-content;
+}
+
 .selection_link {
   display: flex;
   gap: 4rem;
@@ -121,7 +128,7 @@ img{
 }
 
  .main_display {
-  width: 90%;
+  width: 80%;
   height: max-content;
   min-height: 90vh;
   border: 3px solid var(--border_color);
@@ -150,6 +157,7 @@ img{
   font-size: 1.5rem;
   color: var(--bg_color);
   border-radius: .8rem;
+  background: var(--text_Dcolor);
  }
 
  .main_link {

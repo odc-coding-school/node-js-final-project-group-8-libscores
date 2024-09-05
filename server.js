@@ -36,6 +36,18 @@ app.get("/", (req, res) => {
   res.render('dashboard');
 })
 
+app.get("/league1_overview", (req, res) => {
+  res.render('league1_overview');
+})
+
+
+app.get("/league1_matches", (req, res) => {
+  res.render('league1_matches');
+})
+
+app.get("/league1_table", (req, res) => {
+  res.render('league1_table');
+})
 
 // Server listening
 app.listen(port, () => {

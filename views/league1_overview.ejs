@@ -1,0 +1,385 @@
+<%- include ("partials/header.ejs") %>
+    <div class="">
+      <div class="selection_link">
+        <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
+        <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
+        <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
+      </div>
+      <section class="dashcontainer">
+        <%- include ("partials/sidebar.ejs") %>
+          <main class="main_display">
+            <nav class="border-bottom">
+                <div class="">
+                  <div class="qualification_group">
+                    <div class="qualification_link">
+                      <a href="" class="qualification">
+                        <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                        <div>
+                          <h5 class="text_color">League 1</h5>
+                          <p>Liberia</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="qualification_link">
+                     <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="" id="navbarCollapse">
+                  <div class="d-flex">
+                    <a href="/league1_overview" class="nav-item nav-link  link_colorh d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Overview</a>
+                    <a href="/league1_matches" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Matches</a>
+                    <a href="/league1_table" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Table</a>
+                </div>
+              </div>
+            </nav>
+          <section class="main_content-sec">
+            <ul class="nav flex-column gap-2">
+              <li class="nav-item">
+                  <a class="nav-item nav-link sidebar_headlings text_color d-flex justify-content-between align-items-center" href="#">
+                    <span>FIXTURES</span>
+                      <i class="fa-solid fa-angle-right"></i>
+                  </a>
+                  <fieldset class="league1_content">
+                    <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
+                    <div class="d-flex lign-items-center gap-4 ms-2">
+                      <div class="d-flex align-items-center flex-column">
+                        <p>14 SEP</p>
+                        <p>11:30</p>
+                      </div>
+                      <div class="main_content_teams">
+                        <div class="d-flex gap-2">
+                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                          <p>NPA Anchors</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                          <p>Watanga FC</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="contant me-2">
+                       <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+                    </div>
+                   </a>
+                </fieldset>
+                <fieldset class="league1_content">
+                  <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
+                  <div class="d-flex lign-items-center gap-4 ms-2">
+                    <div class="d-flex align-items-center flex-column">
+                      <p>14 SEP</p>
+                      <p>11:30</p>
+                    </div>
+                    <div class="main_content_teams">
+                      <div class="d-flex gap-2">
+                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                        <p>NPA Anchors</p>
+                      </div>
+                      <div class="d-flex gap-2">
+                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                        <p>Watanga FC</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="contant me-2">
+                     <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+                  </div>
+                 </a>
+              </fieldset>
+              <fieldset class="league1_content">
+                <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+                <div class="d-flex lign-items-center gap-4 ms-2">
+                  <div class="d-flex align-items-center flex-column">
+                    <p>14 SEP</p>
+                    <p>11:30</p>
+                  </div>
+                  <div class="main_content_teams">
+                    <div class="d-flex gap-2">
+                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                      <p>NPA Anchors</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                      <p>Watanga FC</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="contant me-2">
+                   <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+                </div>
+               </a>
+            </fieldset>
+            <fieldset class="league1_content">
+              <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+              <div class="d-flex lign-items-center gap-4 ms-2">
+                <div class="d-flex align-items-center flex-column">
+                  <p>14 SEP</p>
+                  <p>11:30</p>
+                </div>
+                <div class="main_content_teams">
+                  <div class="d-flex gap-2">
+                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                    <p>NPA Anchors</p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                    <p>Watanga FC</p>
+                  </div>
+                </div>
+              </div>
+              <div class="contant me-2">
+                 <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+              </div>
+             </a>
+          </fieldset>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item nav-link sidebar_headlings text_color d-flex justify-content-between align-items-center" href="#">
+              <span>Results</span>
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+            <fieldset class="league1_content">
+              <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+              <div class="d-flex lign-items-center gap-4 ms-2">
+                <div class="d-flex align-items-center flex-column">
+                  <p>14 SEP</p>
+                  <p>11:30</p>
+                </div>
+                <div class="main_content_teams">
+                  <div class="d-flex gap-2">
+                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                    <p>NPA Anchors</p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                    <p>Watanga FC</p>
+                  </div>
+                </div>
+              </div>
+              <div class="contant me-2 d-flex">
+                  <div class="">
+                   <p class="fw_blod">1</p>
+                  <p class="fw_blod">2</p>
+                  </div>
+                  <div>
+                    <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+                  </div>
+              </div>
+             </a>
+          </fieldset>
+          <fieldset class="league1_content">
+            <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+            <div class="d-flex lign-items-center gap-4 ms-2">
+              <div class="d-flex align-items-center flex-column">
+                <p>14 SEP</p>
+                <p>11:30</p>
+              </div>
+              <div class="main_content_teams">
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <p>NPA Anchors</p>
+                </div>
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <p>Watanga FC</p>
+                </div>
+              </div>
+            </div>
+            <div class="contant me-2 d-flex">
+              <div class="">
+                <p class="fw_blod">1</p>
+                <p class="fw_blod">2</p>
+              </div>
+              <div>
+                <button type="button" onclick="selsect_favorite">
+                  <i class="fa-regular fa-star fs-2 text_color"></i>
+                 </button>
+              </div>
+          </div>
+           </a>
+        </fieldset>
+        <fieldset class="league1_content">
+          <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+          <div class="d-flex lign-items-center gap-4 ms-2">
+            <div class="d-flex align-items-center flex-column">
+              <p class="">14 SEP</p>
+              <p class="">11:30</p>
+            </div>
+            <div class="main_content_teams">
+              <div class="d-flex gap-2">
+                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                <p>NPA Anchors</p>
+              </div>
+              <div class="d-flex gap-2">
+                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                <p>Watanga FC</p>
+              </div>
+            </div>
+          </div>
+          <div class="contant me-2 d-flex">
+            <div class="">
+             <p class="fw_blod">1</p>
+            <p class="fw_blod">2</p>
+            </div>
+            <div>
+              <button type="button" onclick="selsect_favorite">
+                <i class="fa-regular fa-star fs-2 text_color"></i>
+               </button>
+            </div>
+        </div>
+         </a>
+      </fieldset>
+      <fieldset class="league1_content">
+        <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+        <div class="d-flex lign-items-center gap-4 ms-2">
+          <div class="d-flex align-items-center flex-column">
+            <p>14 SEP</p>
+            <p>11:30</p>
+          </div>
+          <div class="main_content_teams">
+            <div class="d-flex gap-2">
+              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+              <p>NPA Anchors</p>
+            </div>
+            <div class="d-flex gap-2">
+              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+              <p>Watanga FC</p>
+            </div>
+          </div>
+        </div>
+        <div class="contant me-2 d-flex">
+          <div class="">
+           <p class="fw_blod">1</p>
+          <p class="fw_blod">2</p>
+          </div>
+          <div>
+            <button type="button" onclick="selsect_favorite">
+              <i class="fa-regular fa-star fs-2 text_color"></i>
+             </button>
+          </div>
+      </div>
+       </a>
+    </fieldset>
+        </li>
+        </ul>
+          </section>
+          <table class="table_leageu1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>P</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>F</th>
+                    <th>A</th>
+                    <th>GD</th>
+                    <th>PTS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                      <span>Manchester City</span>
+                    </td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>9</td>
+                    <td>2</td>
+                    <td>7</td>
+                    <td>9</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>
+                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                    <span>Manchester City</span>
+                  </td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>9</td>
+                  <td>2</td>
+                  <td>7</td>
+                  <td>9</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <span>Manchester City</span>
+                </td>
+                <td>3</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td>9</td>
+                <td>2</td>
+                <td>7</td>
+                <td>9</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>
+                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                <span>Manchester City</span>
+              </td>
+              <td>3</td>
+              <td>3</td>
+              <td>0</td>
+              <td>0</td>
+              <td>9</td>
+              <td>2</td>
+              <td>7</td>
+              <td>9</td>
+          </tr>
+          <tr>
+            <td>5</td>
+                <td>
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <span>Manchester City</span>
+               </td>
+               <td>3</td>
+               <td>3</td>
+               <td>0</td>
+               <td>0</td>
+               <td>9</td>
+               <td>2</td>
+               <td>7</td>
+               <td>9</td>
+           </tr>  
+           <tr>
+             <td rowspan="4">
+              <a href="/full_table">See Fulltable</a>
+             </td>
+           </tr>                 
+            </tbody>
+        </table>
+        
+        
+          </main>
+      </section>
+    </div>
+  </div>
+</body>
+
+
+</html>

@@ -176,19 +176,68 @@ img{
   font-size: 2rem;
  }
 
- .info_display{
-  width: 100%;
-  height: max-content;
-  min-height: 90vh;
+ .qualification_group{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: antiquewhite;
  }
 
+ .qualification{
+  display: flex;
+  margin: 2rem 0 0 1rem;
+  gap: 1rem;
+  align-items: center;
+  font-size: 15px;
+  line-height: 0.6rem;
+ }
+ .qualification_img{
+  width: 40px;
+ }
+ .qualification_group i {
+  margin-right: 2rem;
+ }  
 
+.main_content{
+  background-color: #2A2B45 ;
+  margin: 0.5rem;
+  border-radius: 10px;
+  padding-top: 2px;
+}
 
+.main_content:hover{
+  background: #43456E;
+}
 
+.main_content a{
+  color: var(--tableD_hoverc);
+}
 
+.main_content a:hover{
+  color: var(--text_Dcolor);
+  border: var(--border_color);
+}
 
+.main_content_teams{
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+  align-items: center;
+  justify-content: center;
+}
 
+.main_content_imgs{
+  width: 25px;
+  height: 28px;
+}
 
+.qualification_link a{
+  color: var(--tableD_hoverc);
+  text-decoration: none;
+}
 
+.qualification_link a:hover{
+  color: var(--lhover_color);
+}
 
 /* The home page styling ends here */

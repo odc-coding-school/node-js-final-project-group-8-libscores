@@ -116,6 +116,13 @@ a .selection_btn{
  padding: 10px;
 
 }
+a.aside-contant:focus{
+  background-color: #769BF5; 
+  outline: none;
+  border-radius: 2rem;
+  color: var(--focusTColo);
+ }
+ 
 .search-bar input{
   font-size: large;
 

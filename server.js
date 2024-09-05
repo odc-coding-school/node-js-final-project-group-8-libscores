@@ -36,6 +36,11 @@ app.get("/", (req, res) => {
   res.render('dashboard');
 })
 
+// Team Page
+app.get("/team", (req, res) => {
+  res.render('team.ejs');
+})
+
 
 // Server listening
 app.listen(port, () => {

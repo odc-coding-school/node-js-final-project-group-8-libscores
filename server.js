@@ -48,6 +48,11 @@ app.get("/league1_matches", (req, res) => {
 app.get("/league1_table", (req, res) => {
   res.render('league1_table');
 })
+// Team Page
+app.get("/team", (req, res) => {
+  res.render('team.ejs');
+})
+
 
 // Server listening
 app.listen(port, () => {

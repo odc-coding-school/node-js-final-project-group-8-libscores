@@ -25,6 +25,8 @@ app.use(session({
 })
 );
 
+app.set('view cache', false);
+
 // Setting up static directory
 app.use(express.static("public"));
 

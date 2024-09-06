@@ -269,6 +269,10 @@ a .contant .text_content{
   color: var(--lhover_color);
 }
 
+#detail_list, .nav.flex-column.gap-2 {
+  transition: all 0.3s ease;
+}
+
 /* The home page styling ends here */
 
 /* The league 1 styling starts here */

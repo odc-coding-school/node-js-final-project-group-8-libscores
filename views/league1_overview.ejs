@@ -6,7 +6,7 @@
         <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
       </div>
       <section class="dashcontainer">
-        <%- include ("partials/sidebar.ejs") %>
+        <%- include ("partials/leagues_detail.ejs") %>
           <main class="main_display">
             <nav class="border-bottom">
                 <div class="">
@@ -42,7 +42,7 @@
                     <span>FIXTURES</span>
                       <i class="fa-solid fa-angle-right"></i>
                   </a>
-                  <fieldset class="league1_content">
+                  <fieldset class="main_content d-flex justify-content-between align-items-center">
                     <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
                     <div class="d-flex lign-items-center gap-4 ms-2">
                       <div class="d-flex align-items-center flex-column">
@@ -60,14 +60,15 @@
                         </div>
                       </div>
                     </div>
-                    <div class="contant me-2">
-                       <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                    </div>
+                    
                    </a>
+                   <div class="contant me-2">
+                    <button type="button" onclick="selsect_favorite">
+                   <i class="fa-regular fa-star fs-2 text_color"></i>
+                  </button>
+                 </div>
                 </fieldset>
-                <fieldset class="league1_content">
+                <fieldset class="main_content d-flex justify-content-between align-items-center">
                   <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
                   <div class="d-flex lign-items-center gap-4 ms-2">
                     <div class="d-flex align-items-center flex-column">
@@ -85,15 +86,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="contant me-2">
-                     <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                  </div>
+                  
                  </a>
+                 <div class="contant me-2">
+                  <button type="button" onclick="selsect_favorite">
+                 <i class="fa-regular fa-star fs-2 text_color"></i>
+                </button>
+               </div>
               </fieldset>
-              <fieldset class="league1_content">
-                <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+              <fieldset class="main_content d-flex justify-content-between align-items-center">
+                <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
                 <div class="d-flex lign-items-center gap-4 ms-2">
                   <div class="d-flex align-items-center flex-column">
                     <p>14 SEP</p>
@@ -110,15 +112,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="contant me-2">
-                   <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                </div>
+                
                </a>
+               <div class="contant me-2">
+                <button type="button" onclick="selsect_favorite">
+               <i class="fa-regular fa-star fs-2 text_color"></i>
+              </button>
+             </div>
             </fieldset>
-            <fieldset class="league1_content">
-              <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+            <fieldset class="main_content d-flex justify-content-between align-items-center">
+              <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
               <div class="d-flex lign-items-center gap-4 ms-2">
                 <div class="d-flex align-items-center flex-column">
                   <p>14 SEP</p>
@@ -135,12 +138,13 @@
                   </div>
                 </div>
               </div>
-              <div class="contant me-2">
-                 <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-              </div>
+              
              </a>
+             <div class="contant me-2">
+              <button type="button" onclick="selsect_favorite">
+             <i class="fa-regular fa-star fs-2 text_color"></i>
+            </button>
+           </div>
           </fieldset>
           </li>
           <li class="nav-item">
@@ -148,7 +152,7 @@
               <span>Results</span>
                 <i class="fa-solid fa-angle-right"></i>
             </a>
-            <fieldset class="league1_content">
+            <fieldset class="main_content d-flex justify-content-between align-items-center">
               <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
               <div class="d-flex lign-items-center gap-4 ms-2">
                 <div class="d-flex align-items-center flex-column">
@@ -166,20 +170,21 @@
                   </div>
                 </div>
               </div>
-              <div class="contant me-2 d-flex">
-                  <div class="">
-                   <p class="fw_blod">1</p>
-                  <p class="fw_blod">2</p>
-                  </div>
-                  <div>
-                    <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                  </div>
-              </div>
+             
              </a>
+             <div class="contant me-2 d-flex align-items-center text-light">
+              <div class="">
+               <p class="fw_blod">1</p>
+              <p class="fw_blod">2</p>
+              </div>
+              <div>
+                <button type="button" onclick="selsect_favorite">
+                  <i class="fa-regular fa-star fs-2 text_color"></i>
+                 </button>
+              </div>
+          </div>
           </fieldset>
-          <fieldset class="league1_content">
+          <fieldset class="main_content d-flex justify-content-between align-items-center">
             <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
             <div class="d-flex lign-items-center gap-4 ms-2">
               <div class="d-flex align-items-center flex-column">
@@ -197,38 +202,9 @@
                 </div>
               </div>
             </div>
-            <div class="contant me-2 d-flex">
-              <div class="">
-                <p class="fw_blod">1</p>
-                <p class="fw_blod">2</p>
-              </div>
-              <div>
-                <button type="button" onclick="selsect_favorite">
-                  <i class="fa-regular fa-star fs-2 text_color"></i>
-                 </button>
-              </div>
-          </div>
+           
            </a>
-        </fieldset>
-        <fieldset class="league1_content">
-          <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
-          <div class="d-flex lign-items-center gap-4 ms-2">
-            <div class="d-flex align-items-center flex-column">
-              <p class="">14 SEP</p>
-              <p class="">11:30</p>
-            </div>
-            <div class="main_content_teams">
-              <div class="d-flex gap-2">
-                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                <p>NPA Anchors</p>
-              </div>
-              <div class="d-flex gap-2">
-                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                <p>Watanga FC</p>
-              </div>
-            </div>
-          </div>
-          <div class="contant me-2 d-flex">
+           <div class="contant me-2 d-flex align-items-center text-light">
             <div class="">
              <p class="fw_blod">1</p>
             <p class="fw_blod">2</p>
@@ -238,40 +214,72 @@
                 <i class="fa-regular fa-star fs-2 text_color"></i>
                </button>
             </div>
-        </div>
-         </a>
-      </fieldset>
-      <fieldset class="league1_content">
-        <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
-        <div class="d-flex lign-items-center gap-4 ms-2">
-          <div class="d-flex align-items-center flex-column">
-            <p>14 SEP</p>
-            <p>11:30</p>
           </div>
-          <div class="main_content_teams">
-            <div class="d-flex gap-2">
-              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-              <p>NPA Anchors</p>
+          </fieldset>
+          <fieldset class="main_content d-flex justify-content-between align-items-center">
+            <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+            <div class="d-flex lign-items-center gap-4 ms-2">
+              <div class="d-flex align-items-center flex-column">
+                <p>14 SEP</p>
+                <p>11:30</p>
+              </div>
+              <div class="main_content_teams">
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <p>NPA Anchors</p>
+                </div>
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <p>Watanga FC</p>
+                </div>
+              </div>
             </div>
-            <div class="d-flex gap-2">
-              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-              <p>Watanga FC</p>
+           
+           </a>
+           <div class="contant me-2 d-flex align-items-center text-light">
+            <div class="">
+             <p class="fw_blod">1</p>
+            <p class="fw_blod">2</p>
+            </div>
+            <div>
+              <button type="button" onclick="selsect_favorite">
+                <i class="fa-regular fa-star fs-2 text_color"></i>
+               </button>
             </div>
           </div>
-        </div>
-        <div class="contant me-2 d-flex">
-          <div class="">
-           <p class="fw_blod">1</p>
-          <p class="fw_blod">2</p>
+          </fieldset>
+          <fieldset class="main_content d-flex justify-content-between align-items-center">
+            <a href="#" class="main_content_link text_color d-flex justify-content-between align-items-center text-decoration-none">
+            <div class="d-flex lign-items-center gap-4 ms-2">
+              <div class="d-flex align-items-center flex-column">
+                <p>14 SEP</p>
+                <p>11:30</p>
+              </div>
+              <div class="main_content_teams">
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <p>NPA Anchors</p>
+                </div>
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <p>Watanga FC</p>
+                </div>
+              </div>
+            </div>
+           
+           </a>
+           <div class="contant me-2 d-flex align-items-center text-light">
+            <div class="">
+             <p class="fw_blod">1</p>
+            <p class="fw_blod">2</p>
+            </div>
+            <div>
+              <button type="button" onclick="selsect_favorite">
+                <i class="fa-regular fa-star fs-2 text_color"></i>
+               </button>
+            </div>
           </div>
-          <div>
-            <button type="button" onclick="selsect_favorite">
-              <i class="fa-regular fa-star fs-2 text_color"></i>
-             </button>
-          </div>
-      </div>
-       </a>
-    </fieldset>
+          </fieldset>
         </li>
         </ul>
           </section>
@@ -379,7 +387,4 @@
       </section>
     </div>
   </div>
-</body>
-
-
-</html>
+  <%- include ("partials/footer.ejs") %>

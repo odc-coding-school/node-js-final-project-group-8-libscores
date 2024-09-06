@@ -8,20 +8,47 @@
     </form>  
     
     <div class="position-sticky">
-        <ul class="nav flex-column gap-2">
-            <li class="nav-item">
-                <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-                  <span>Leagues</span>
-                    <i class="fa-solid fa-angle-right"></i>
+        <ul id="detail_list" class="nav flex-column gap-2 d-none">
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="nav-item nav-link sidebar_headlings" href="/">
+                      <i class="fa-solid fa-angle-left fs-2 fw-2 text_color"></i>
                 </a>
-                 <a href="/league1_overview" class="text-decoration-none">
+                <span class="text_color fs-4 fw-4">County Meet</span>
+            </div>
+            <div class="">
+                <a href="/league1_overview" class="text-decoration-none">
                     <fieldset class="aside_content">
                         <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content">League 1</div>
+                            <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
+                            <div class="text_content">League Stage</div>
                         </div>
                     </fieldset>
                 </a>
+                <a href="/league1_qualification" class="text-decoration-none">
+                    <fieldset class="aside_content">
+                        <div class="contant">
+                            <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
+                            <div class="text_content">Qualification</div>
+                        </div>
+                    </fieldset>
+                </a>
+            </div>
+        </ul>
+        <ul class="nav flex-column gap-2" id="all_sidebar_l">
+            <li class="nav-item">
+                <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+                  <span >Leagues</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+                 <a href="#" class="text-decoration-none" id="lcounty_meet">
+                    <fieldset class="aside_content">
+                        <div class="contant">
+                            <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs">
+                            <div class="text_content">County Meet</div>
+                        </div>
+                    </fieldset>
+                </a>
+               
                  <a href="" class="text-decoration-none">
                     <fieldset class="aside_content">
                         <div class="contant">
@@ -53,7 +80,15 @@
                   <span>Teams</span>
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
-<<<<<<< HEAD
+                <a href="/team" class="text-decoration-none">
+                    <fieldset class="aside_content">
+                        <div class="contant">
+                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
+                            <div class="text_content"> Grand Bassa</div>
+                        </div>
+                    </fieldset>
+                </a>
+
                 <a href="" class="text-decoration-none">
                     <fieldset class="aside_content">
                         <div class="contant">
@@ -62,6 +97,7 @@
                         </div>
                     </fieldset>
                 </a> 
+
                 <a href="" class="text-decoration-none">
                     <fieldset class="aside_content">
                         <div class="contant">
@@ -70,6 +106,7 @@
                         </div>
                     </fieldset>
                 </a>
+
                 <a href="" class="text-decoration-none">
                     <fieldset class="aside_content">
                         <div class="contant">
@@ -78,43 +115,6 @@
                         </div>
                     </fieldset>
                 </a>
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-=======
-                <a href="/team"><fieldset class="aside-contant">
-                    <div class="contant">
-                        <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="">
-                        <div class="text-contant"> Grand Bassa</div>
-                    </div>
-                </fieldset></a> 
-
-                <a href=""><fieldset class="aside-contant">
-                    <div class="contant">
-                        <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="">
-                        <div class="text-contant"> Grand Bassa</div>
-                    </div>
-                </fieldset></a> 
-
-                <a href=""><fieldset class="aside-contant">
-                    <div class="contant">
-                        <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="">
-                        <div class="text-contant"> Grand Bassa</div>
-                    </div>
-                </fieldset></a> 
-
-                <a href=""><fieldset class="aside-contant">
-                    <div class="contant">
-                        <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="">
-                        <div class="text-contant"> Grand Bassa</div>
-                    </div>
-                </fieldset></a> 
->>>>>>> 9c17e2aba6b47c93bc4b5c55fbb2b169e719f1a8
             </li>
             <li class="nav-item">
                   <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">

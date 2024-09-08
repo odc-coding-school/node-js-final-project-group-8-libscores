@@ -221,7 +221,8 @@ a .contant .text_content{
   line-height: 0.6rem;
  }
  .qualification_img{
-  width: 50px;
+  width: 40px;
+  border-radius: 50%;
  }
  .qualification_group i {
   margin-right: 2rem;
@@ -231,14 +232,13 @@ a .contant .text_content{
   background-color: #2A2B45 ;
   margin: 0.5rem;
   border-radius: 10px;
-  padding-top: 2px;
 }
 
 .main_content:hover{
   background: #43456E;
 }
 
-.main_content a{
+.main_content a, .table_link a{
   color: var(--tableD_hoverc);
 }
 
@@ -250,14 +250,15 @@ a .contant .text_content{
 .main_content_teams{
   display: flex;
   flex-direction: column;
-  gap: .1rem;
   align-items: center;
   justify-content: center;
+  text-align: left;
 }
 
 .main_content_imgs{
   width: 25px;
-  height: 28px;
+  height: 25px;
+  border-radius: 50%;
 }
 
 .qualification_link a{
@@ -291,7 +292,8 @@ a .contant .text_content{
 
 /* Table styling */
 .table_leageu1 {
-  width: 90%;
+  width: 98%;
+  margin-left: 1%;
   color: var(--text_Dcolor);
   border: 1px solid #ffffff;
   border-collapse: collapse;

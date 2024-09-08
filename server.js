@@ -62,6 +62,12 @@ app.get("/team", (req, res) => {
 })
 
 
+// Team Page
+app.get("/team_table", (req, res) => {
+  res.render('team_table');
+})
+
+
 // Server listening
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

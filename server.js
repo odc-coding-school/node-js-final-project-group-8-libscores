@@ -82,7 +82,7 @@ db.serialize(() => {
     league_name TEXT NOT NULL,
     country TEXT,
     number_of_teams INTEGER,
-    founded_year INTEGER
+    founded_year INTEGERk
 
     )
   `);  

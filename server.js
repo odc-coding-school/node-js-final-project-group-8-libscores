@@ -174,14 +174,44 @@ app.get("/team_table_home", (req, res) => {
   res.render('team_table_home');
 })
 
-
 // Team Table Form
 app.get("/team_table_form", (req, res) => {
   res.render('team_table_form');
 })
 
+//  Form to insert data in the database
 app.get("/form" , (req, res) =>{
   res.render('form');
+})
+
+//  Player statics all view
+app.get("/player_stats_all" , (req, res) =>{
+  res.render('player_stats_all');
+})
+
+// Player statics assists
+app.get("/player_stats_ass" , (req, res) =>{
+  res.render('player_stats_ass');
+})
+
+//  Player statics all view
+app.get("/player_stats_sot" , (req, res) =>{
+  res.render('player_stats_sot');
+})
+
+//  Player statics goals
+app.get("/player_stats_goal" , (req, res) =>{
+  res.render('player_stats_goal');
+})
+
+//   Player statics all view
+app.get("/player_stats_yc" , (req, res) =>{
+  res.render('player_stats_yc');
+})
+
+//  Player statics all view
+app.get("/player_stats_rc" , (req, res) =>{
+  res.render('player_stats_rc');
 })
 
 app.post('/submit', (req, res) => {

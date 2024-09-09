@@ -16,6 +16,9 @@ const port = 5001;
 // Middleware to parse URL-encoded bodies (as sent by HTML forms)
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('views', path.join(__dirname, 'views'));
+
+
 const secretKey = crypto.randomBytes(32).toString('hex');
 
 app.use(session({
@@ -62,10 +65,17 @@ app.get("/team", (req, res) => {
 })
 
 
-// Team Page
+// Team Table
 app.get("/team_table", (req, res) => {
   res.render('team_table');
 })
+
+// Team Table
+app.get('/team_matches', (req, res) => {
+  res.render('team_matches');
+});
+
+
 
 
 // Server listening

@@ -104,15 +104,9 @@ db.serialize(() => {
     FOREIGN KEY(match_id) REFERENCES matches(match_id),
     FOREIGN KEY(team_id) REFERENCES teams(team_id)
 );
-
-
   `);  
-
-
   console.log("Database and tables initialized.");
 });
-
-db.close();
 
 // Middleware to parse URL-encoded bodies (as sent by HTML forms)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -165,13 +159,28 @@ app.get("/team", (req, res) => {
   res.render('team.ejs');
 })
 
-
 // Team Table
 app.get("/team_table", (req, res) => {
   res.render('team_table');
 })
 
-app.get("form" , (req, res) =>{
+// Team Table Away
+app.get("/team_table_away", (req, res) => {
+  res.render('team_table_away');
+})
+
+// Team Table Home
+app.get("/team_table_home", (req, res) => {
+  res.render('team_table_home');
+})
+
+
+// Team Table Form
+app.get("/team_table_form", (req, res) => {
+  res.render('team_table_form');
+})
+
+app.get("/form" , (req, res) =>{
   res.render('form');
 })
 
@@ -199,14 +208,10 @@ app.post('/submit', (req, res) => {
   });
 });
 
-
 // Team Table
-app.get('/team_matches', (req, res) => {
+app.get("/team_matches", (req, res) => {
   res.render('team_matches');
 });
-
-
-
 
 // Server listening
 app.listen(port, () => {

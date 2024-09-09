@@ -165,6 +165,10 @@ app.get("/team", (req, res) => {
   res.render('team.ejs');
 })
 
+// Team Table
+app.get('/team_matches', (req, res) => {
+  res.render('team_matches');
+});
 
 // Team Table
 app.get("/team_table", (req, res) => {
@@ -204,6 +208,7 @@ app.post('/submit', (req, res) => {
 app.get('/team_matches', (req, res) => {
   res.render('team_matches');
 });
+
 
 
 

@@ -98,6 +98,7 @@ a .selection_btn{
   color: var(--text_Dcolor);
   font-weight: 700;
  }
+
  
  .main-aside{
   border: 3px solid #769BF5;
@@ -464,4 +465,32 @@ a .qualification-btn{
   font-size: 1.5rem;
   margin-left: 1rem;
   color: var(--text_Dcolor);
+ }
+
+ /* team matches styles */
+ .select_matches_btn {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 0;
+  margin-left: 2rem;
+  
+}
+
+ .matches{
+  display: flex;
+  flex-direction: column;
+
+ }
+
+a .select_btn:focus{
+  background-color: var(--btnDefC);
+ border-radius: 2rem;
+ color: var(--focusTColo);
+}
+a .select_btn{
+  border: 1px solid var(--btnDefC) ;
+  border-radius: 2rem;
+  padding: .6rem 2.3rem;
+  color: var(--text_Dcolor);
+  font-weight: 700;
  }

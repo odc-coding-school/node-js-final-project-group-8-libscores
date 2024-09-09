@@ -159,20 +159,16 @@ app.get("/team", (req, res) => {
   res.render('team.ejs');
 })
 
-<<<<<<< HEAD
-=======
 // Team Table
 app.get('/team_matches', (req, res) => {
   res.render('team_matches');
 });
 
->>>>>>> 27af0df (working on the county meet fistures files)
 // Team Table
 app.get("/team_table", (req, res) => {
   res.render('team_table');
 })
 
-<<<<<<< HEAD
 // Team Table Away
 app.get("/team_table_away", (req, res) => {
   res.render('team_table_away');
@@ -216,9 +212,7 @@ app.post('/submit', (req, res) => {
       res.json({ message: "Team data inserted successfully", team_id: this.lastID });
   });
 });
-=======
 
->>>>>>> 27af0df (working on the county meet fistures files)
 
 // Team Table
 app.get("/team_matches", (req, res) => {

@@ -171,7 +171,6 @@ app.get("/team_table", (req, res) => {
   res.render('team_table');
 })
 
-<<<<<<< HEAD
 app.get("form" , (req, res) =>{
   res.render('form');
 })
@@ -201,7 +200,6 @@ app.post('/submit', (req, res) => {
 });
 
 
-=======
 // Team Table
 app.get('/team_matches', (req, res) => {
   res.render('team_matches');
@@ -209,7 +207,6 @@ app.get('/team_matches', (req, res) => {
 
 
 
->>>>>>> 052595efd3513eaa55d8f356e26598ca6c4fcce3
 
 // Server listening
 app.listen(port, () => {

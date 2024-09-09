@@ -117,6 +117,9 @@ db.close();
 // Middleware to parse URL-encoded bodies (as sent by HTML forms)
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('views', path.join(__dirname, 'views'));
+
+
 const secretKey = crypto.randomBytes(32).toString('hex');
 
 app.use(session({
@@ -163,11 +166,12 @@ app.get("/team", (req, res) => {
 })
 
 
-// Team Page
+// Team Table
 app.get("/team_table", (req, res) => {
   res.render('team_table');
 })
 
+<<<<<<< HEAD
 app.get("form" , (req, res) =>{
   res.render('form');
 })
@@ -197,6 +201,15 @@ app.post('/submit', (req, res) => {
 });
 
 
+=======
+// Team Table
+app.get('/team_matches', (req, res) => {
+  res.render('team_matches');
+});
+
+
+
+>>>>>>> 052595efd3513eaa55d8f356e26598ca6c4fcce3
 
 // Server listening
 app.listen(port, () => {

@@ -159,9 +159,14 @@ app.get("/team", (req, res) => {
   res.render('team.ejs');
 })
 
-// Team Table
+// Team Matches
 app.get('/team_matches', (req, res) => {
   res.render('team_matches');
+});
+
+// Team Matches reuult
+app.get('/team_matches_result', (req, res) => {
+  res.render('team_matches_result');
 });
 
 // Team Table

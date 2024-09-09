@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Scores Form</title>
+</head>
+<body>
+    <h1>Live Scores Data Form</h1>
+
+    <!-- Form for Teams -->
+    <h2>Teams Information</h2>
+    <form id="team-form">
+        <label for="team_name">Team Name:</label>
+        <input type="text" id="team_name" name="team_name" required><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city"><br>
+
+        <label for="logo_url">Logo URL:</label>
+        <input type="url" id="logo_url" name="logo_url"><br>
+
+        <label for="home_stadium">Home Stadium:</label>
+        <input type="text" id="home_stadium" name="home_stadium"><br>
+
+        <label for="founded_year">Founded Year:</label>
+        <input type="number" id="founded_year" name="founded_year"><br><br>
+
+        <!-- Form for Players -->
+        <h2>Player Information</h2>
+        <label for="player_name">Player Name:</label>
+        <input type="text" id="player_name" name="player_name" required><br>
+
+        <label for="team_id">Team ID:</label>
+        <input type="number" id="team_id" name="team_id" required><br>
+
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position"><br>
+
+        <label for="jersey_number">Jersey Number:</label>
+        <input type="number" id="jersey_number" name="jersey_number"><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br>
+
+        <label for="nationality">Nationality:</label>
+        <input type="text" id="nationality" name="nationality"><br><br>
+
+        <!-- Form for Matches -->
+        <h2>Match Information</h2>
+        <label for="home_team_id">Home Team ID:</label>
+        <input type="number" id="home_team_id" name="home_team_id" required><br>
+
+        <label for="away_team_id">Away Team ID:</label>
+        <input type="number" id="away_team_id" name="away_team_id" required><br>
+
+        <label for="match_date">Match Date:</label>
+        <input type="date" id="match_date" name="match_date" required><br>
+
+        <label for="venue">Venue:</label>
+        <input type="text" id="venue" name="venue" required><br>
+
+        <label for="status">Match Status:</label>
+        <input type="text" id="status" name="status"><br>
+
+        <label for="home_team_score">Home Team Score:</label>
+        <input type="number" id="home_team_score" name="home_team_score"><br>
+
+        <label for="away_team_score">Away Team Score:</label>
+        <input type="number" id="away_team_score" name="away_team_score"><br><br>
+
+        <!-- Form for Live Scores -->
+        <h2>Live Scores</h2>
+        <label for="match_id">Match ID:</label>
+        <input type="number" id="match_id" name="match_id" required><br>
+
+        <label for="event_time">Event Time:</label>
+        <input type="time" id="event_time" name="event_time"><br>
+
+        <label for="event_type">Event Type (Goal, Foul):</label>
+        <input type="text" id="event_type" name="event_type" required><br>
+
+        <label for="player_id">Player ID:</label>
+        <input type="number" id="player_id" name="player_id"><br>
+
+        <label for="score_description">Score Description:</label>
+        <input type="text" id="score_description" name="score_description"><br><br>
+
+        <!-- Form for Leagues -->
+        <h2>Leagues Information</h2>
+        <label for="league_name">League Name:</label>
+        <input type="text" id="league_name" name="league_name" required><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country"><br>
+
+        <label for="number_of_teams">Number of Teams:</label>
+        <input type="number" id="number_of_teams" name="number_of_teams"><br>
+
+        <label for="founded_year_league">Founded Year:</label>
+        <input type="number" id="founded_year_league" name="founded_year_league"><br><br>
+
+        <!-- Form for Match Statistics -->
+        <h2>Match Statistics</h2>
+        <label for="possession">Possession Percentage:</label>
+        <input type="number" step="0.1" id="possession" name="possession"><br>
+
+        <label for="shots_on_target">Shots on Target:</label>
+        <input type="number" id="shots_on_target" name="shots_on_target"><br>
+
+        <label for="corners">Corners:</label>
+        <input type="number" id="corners" name="corners"><br>
+
+        <label for="fouls">Fouls:</label>
+        <input type="number" id="fouls" name="fouls"><br>
+
+        <label for="yellow_cards">Yellow Cards:</label>
+        <input type="number" id="yellow_cards" name="yellow_cards"><br>
+
+        <label for="red_cards">Red Cards:</label>
+        <input type="number" id="red_cards" name="red_cards"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+
+</body>
+</html>

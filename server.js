@@ -171,7 +171,7 @@ app.get("/team_table", (req, res) => {
   res.render('team_table');
 })
 
-app.get("form" , (req, res) =>{
+app.get("/form" , (req, res) =>{
   res.render('form');
 })
 

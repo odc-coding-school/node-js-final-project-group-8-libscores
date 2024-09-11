@@ -1,0 +1,109 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    min-height: 80vh;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color:  #0056b3; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+}
+
+h2 {
+    color: #fff;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="date"],
+input[type="time"],
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #fff;
+    color: #0056b3;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #c5cbd2;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+input[type="submit"]:active {
+    background-color: #fff;
+}
+
+form input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+form input::-webkit-outer-spin-button,
+form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+}

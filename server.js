@@ -190,9 +190,19 @@ app.get("/team_table_form", (req, res) => {
   res.render('team_table_form');
 })
 
-app.get("/form" , (req, res) =>{
-  res.render('form');
-})
+app.get("/form", (req, res) => {
+  db.all('SELECT * FROM teams', (err, rows) => {
+      if (err) {
+          return res.status(500).send("Error fetching teams.");
+      }
+
+      console.log("Fetched teams:", rows); // Log the data to debug
+
+      res.render('form', { teamdata: rows });
+  });
+});
+
+
 
 app.post('/submit', (req, res) => {
   const data = req.body;

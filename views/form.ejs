@@ -11,13 +11,22 @@
     <!-- Form for Teams -->
     <h2>Teams Information</h2>
     <form id="live-score-form">
-        <label for="team_name">Team Name:</label>
-        <input type="text" id="team_name" name="team_name" required><br>
+        <label for="team_name">Team / County Name:</label>
+        <select name="team_id" class="team_id" required>
+            <% if (teamdata && teamdata.length > 0) { %>
+                <% teamdata.forEach(function(team) { %>
+                    <option value="<%= team.team_id %>"><%= team.team_name %></option>
+                <% }) %>
+            <% } else { %>
+                <option value="" disabled>No teams available</option>
+            <% } %>
+        </select>
+        
 
         <label for="city">City:</label>
         <input type="text" id="city" name="city"><br>
 
-        <label for="logo_url">Logo URL:</label>
+        <label for="logo_url">Logo:</label>
         <input type="url" id="logo_url" name="logo_url"><br>
 
         <label for="home_stadium">Home Stadium:</label>

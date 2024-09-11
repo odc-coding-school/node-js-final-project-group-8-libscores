@@ -61,8 +61,8 @@ function formDisplay() {
     let team_info = document.querySelector(".team-info");
     let player_info = document.querySelector(".player-info");
     let match_info = document.querySelector(".match-info");
-    let score_info = document.querySelector(".Score-info"); // Capitalization fixed
-    let league_info = document.querySelector(".league-info"); // Corrected selector
+    let score_info = document.querySelector(".score-info"); 
+    let league_info = document.querySelector(".league-info"); 
     let match_stat = document.querySelector(".match-stat");
     
     let btn1 = document.querySelector(".button1");

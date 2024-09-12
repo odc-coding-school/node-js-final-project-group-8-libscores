@@ -76,46 +76,25 @@
 
             </li>
             <li class="nav-item">
-                  <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+                <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
                   <span>Teams</span>
-                    <i class="fa-solid fa-angle-right"></i>
+                  <i class="fa-solid fa-angle-right"></i>
                 </a>
-                <a href="/team" class="text-decoration-none">
-                    <fieldset class="aside_content">
+                <% if (teamdata && teamdata.length > 0) { %>
+                  <% teamdata.forEach(teamData => { %>
+                    <a href="/team/<%= teamData.team_id %>" class="text-decoration-none">
+                      <fieldset class="aside_content">
                         <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
+                          <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
+                          <div class="text_content"><%= teamData.team_name %></div>
                         </div>
-                    </fieldset>
-                </a>
-
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a> 
-
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-            </li>
+                      </fieldset>
+                    </a>
+                  <% }) %>
+                <% } else { %>
+                  <p>No teams available.</p>
+                <% } %>
+              </li>
             <li class="nav-item">
                   <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
                   <span>County Meet</span>

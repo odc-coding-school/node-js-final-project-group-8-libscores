@@ -104,15 +104,9 @@ db.serialize(() => {
     FOREIGN KEY(match_id) REFERENCES matches(match_id),
     FOREIGN KEY(team_id) REFERENCES teams(team_id)
 );
-
-
   `);  
-
-
   console.log("Database and tables initialized.");
 });
-
-db.close();
 
 // Middleware to parse URL-encoded bodies (as sent by HTML forms)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -139,50 +133,102 @@ app.set('view engine', 'ejs');
 
 // Home Page
 app.get("/", (req, res) => {
-  res.render('dashboard');
-})
+  db.all("SELECT * FROM teams", (err, teamdata) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.status(500).send("Error retrieving team data");
+    }
+    
+    if (!teamdata || teamdata.length === 0) {
+      console.log("No teams found");
+      return res.status(404).send("No teams found");
+    }
 
-app.get("/league1_overview", (req, res) => {
-  res.render('league1_overview');
-})
+    console.log("Team data: ", teamdata);
+    res.render('dashboard', { teamdata });
+  });
+});
 
+
+app.get("/form" , (req, res) =>{
+  res.render('form');
+});
 
 app.get("/league1_matches", (req, res) => {
   res.render('league1_matches');
-})
+});
+
+app.get("/league1_overview", (req, res) => {
+  res.render('league1_overview');
+});
 
 app.get("/league1_table", (req, res) => {
   res.render('league1_table');
-})
+});
+
+// Team Table
+app.get('/player_stats_all', (req, res) => {
+  res.render('player_stats_all');
+});
+
+// Team Table
+app.get('/player_stats_ass', (req, res) => {
+  res.render('player_stats_ass');
+});
+
+// Team Table
+app.get('/player_stats_goal', (req, res) => {
+  res.render('player_stats_goal');
+});
+
+// Team Table
+app.get('/player_stats_rc', (req, res) => {
+  res.render('player_stats_rc');
+});
+
+// Team Table
+app.get('/player_stats_sot', (req, res) => {
+  res.render('player_stats_sot');
+});
+
+// Team Table
+app.get('/player_stats_', (req, res) => {
+  res.render('player_stats_yc');
+});
 
 //The qualification page
 app.get("/league1_qualification", (req, res) => {
   res.render('qualification');
 })
 
+// Team matches page
+app.get('/team_matches', (req, res) => {
+  res.render('team_matches');
+});
+
 // Team Page
-app.get("/team", (req, res) => {
-  res.render('team.ejs');
+app.get("/team_table_away", (req, res) => {
+  res.render('team_table_away');
 })
 
 // Team Table
-app.get('/team_matches', (req, res) => {
-  res.render('team_matches');
+app.get("/team_table_form", (req, res) => {
+  res.render('team_table_form');
 });
 
 // Team Table
 app.get("/team_table", (req, res) => {
   res.render('team_table');
-})
+});
 
-app.get("/form" , (req, res) =>{
-  res.render('form');
-})
+// Team Table
+app.get("/team", (req, res) => {
+  res.render('team');
+});
 
 app.post('/submit', (req, res) => {
   const data = req.body;
 
-  // Example of inserting into the "teams" table
   const insertTeam = `
       INSERT INTO teams (team_name, city, logo_url, home_stadium, founded_year)
       VALUES (?, ?, ?, ?, ?)`;
@@ -202,16 +248,6 @@ app.post('/submit', (req, res) => {
       res.json({ message: "Team data inserted successfully", team_id: this.lastID });
   });
 });
-
-
-// Team Table
-app.get('/team_matches', (req, res) => {
-  res.render('team_matches');
-});
-
-
-
-
 
 // Server listening
 app.listen(port, () => {

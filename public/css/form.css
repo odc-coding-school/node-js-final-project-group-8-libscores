@@ -29,6 +29,39 @@ form {
     margin: 20px;
 }
 
+
+
+button {
+    background-color: #f7fafa; 
+    border: none;
+    color: rgb(5, 5, 5);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 20px; 
+}
+
+
+button:hover {
+    background-color: #dddbdb;
+}
+
+.btn1p, .btn2p, .btn3p, .btn4p, .btn5p {
+    border-radius: 4px;
+}
+
+.button1, .button2, .button3, .button4, .button5 {
+    border-radius: 4px;
+}
+
+
+
+
+
 h2 {
     color: #fff;
     font-size: 1.5em;
@@ -83,9 +116,9 @@ input[type="submit"]:active {
     background-color: #fff;
 }
 
-/* form input[type="number"] {
+form input[type="number"] {
     -moz-appearance: textfield;
-} */
+}
 
 form input::-webkit-outer-spin-button,
 form input::-webkit-inner-spin-button {

@@ -6,36 +6,42 @@
         <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
       </div>
       <section class="dashcontainer">
-        <%- include('partials/sidebar', { teamdata: teamdata }) %>
+        <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata }) %>
           <main class="main_display">
             <nav class="border-bottom">
-                <div class="">
-                  <div class="qualification_group">
-                    <div class="qualification_link">
-                      <a href="" class="qualification">
-                        <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                        <div>
-                          <h5 class="text_color">League 1</h5>
-                          <p>Liberia</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="qualification_link">
-                     <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                    </div>
+              <div class="">
+                <div class="qualification_group">
+                  <div class="qualification_link">
+                    <a href="" class="qualification">
+                      <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                      <div>
+                        <h5 class="text_color">League 1</h5>
+                        <p>Liberia</p>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="qualification_link">
+                   <button type="button" onclick="selsect_favorite">
+                    <i class="fa-regular fa-star fs-2 text_color"></i>
+                   </button>
                   </div>
                 </div>
-                <div class="qualification-action-btn">
-                  <a href="/player_stats_all"><button type="button" class="qualification-btn">All</button></a>
-                  <a href="/player_stats_goal"><button type="button" class="qualification-btn">Goals</button></a>
-                  <a href="/player_stats_ass"><button type="button" class="qualification-btn">Assists</button></a>
-                  <a href="/player_stats_sot"><button type="button" class="qualification-btn">Shots On Target</button></a>
-                  <a href="/player_stats_yc"><button type="button" class="qualification-btn">Yellow Cards</button></a>
-                  <a href="/player_stats_rc"><button type="button" class="qualification-btn">Red Cards</button></a>
-                </div>
-            </nav>
+              </div>
+              <div class="qualification-action-btn">
+                <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
+                <a href="/team _matches"><button type="button" class="qualification-btn">Matches</button></a>
+                <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
+                <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
+              </div>
+              <div class="qualification-action-btn">
+                <a href="/player_stats_all"><button type="button" class="qualification-btn">All</button></a>
+                <a href="/player_stats_goal"><button type="button" class="qualification-btn">Goals</button></a>
+                <a href="/player_stats_ass"><button type="button" class="qualification-btn">Assists</button></a>
+                <a href="/player_stats_sot"><button type="button" class="qualification-btn">Shots On Target</button></a>
+                <a href="/player_stats_yc"><button type="button" class="qualification-btn">Yellow Cards</button></a>
+                <a href="/player_stats_rc"><button type="button" class="qualification-btn">Red Cards</button></a>
+              </div>
+          </nav>
           <section class="main_content-sec">
             <div class="nav flex-column gap-2 table_link">
                 <h5>Red Cards</h5>

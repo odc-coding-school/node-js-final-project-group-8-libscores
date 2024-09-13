@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function formDisplay() {
     let team_info = document.querySelector(".team-info");
+    let county_info = document.querySelector(".county-info");
     let player_info = document.querySelector(".player-info");
     let match_info = document.querySelector(".match-info");
     let score_info = document.querySelector(".score-info"); 
@@ -70,32 +71,39 @@ function formDisplay() {
     let btn3 = document.querySelector(".button3");
     let btn4 = document.querySelector(".button4");
     let btn5 = document.querySelector(".button5");
+    let btn6 = document.querySelector(".button6");
 
     btn1.addEventListener("click", (e) => {
         e.preventDefault();
         team_info.classList.add("d-none");
-        player_info.classList.remove("d-none");
+        county_info.classList.remove("d-none");
     });
 
     btn2.addEventListener("click", (e) => {
+        e.preventDefault();
+        county_info.classList.add("d-none");
+        player_info.classList.remove("d-none");
+    });
+
+    btn3.addEventListener("click", (e) => {
         e.preventDefault();
         player_info.classList.add("d-none");
         match_info.classList.remove("d-none");
     });
 
-    btn3.addEventListener("click", (e) => {
+    btn4.addEventListener("click", (e) => {
         e.preventDefault();
         match_info.classList.add("d-none");
         score_info.classList.remove("d-none");
     });
 
-    btn4.addEventListener("click", (e) => {
+    btn5.addEventListener("click", (e) => {
         e.preventDefault();
         score_info.classList.add("d-none");
         league_info.classList.remove("d-none");
     });
 
-    btn5.addEventListener("click", (e) => {
+    btn6.addEventListener("click", (e) => {
         e.preventDefault();
         league_info.classList.add("d-none");
         match_stat.classList.remove("d-none");

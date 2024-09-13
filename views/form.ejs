@@ -12,18 +12,18 @@
     <h1>Live Scores Data Form</h1>
 
     
-<form id="team-form"> 
+<form id="team-form" method="POST" action="/submit" enctype="multipart/form-data"> 
     <div class="team-info">
             <!-- Form for Teams -->
         <h2>Teams Information</h2>
         <label for="team_name">Team Name:</label>
-        <input type="text" id="team_name" name="team_name" required><br>
+        <input type="text" id="team_name" name="team_name"><br>
 
         <label for="city">City:</label>
         <input type="text" id="city" name="city"><br>
 
-        <label for="logo_url">Logo URL:</label>
-        <input type="url" id="logo_url" name="logo_url"><br>
+        <label for="team_logo">Team Logo:</label>
+        <input type="file" id="logo_url" name="team_logo"><br>
 
         <label for="home_stadium">Home Stadium:</label>
         <input type="text" id="home_stadium" name="home_stadium"><br>
@@ -32,15 +32,36 @@
         <input type="number" id="founded_year" name="founded_year"><br><br>
          <button class="button1">Next</button>
     </div>
+
+    <div class="county-info d-none">
+            <!-- Form for Teams -->
+        <h2>Counties Information</h2>
+        <label for="team_name">County Name:</label>
+        <input type="text" id="team_name" name="county_name"><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city"><br>
+
+        <label for="county_logo">County Logo:</label>
+        <input type="file" id="logo_url" name="county_logo"><br>
+
+        <label for="home_stadium">Home Stadium:</label>
+        <input type="text" id="home_stadium" name="home_stadium"><br>
+
+        <label for="founded_year">Founded Year:</label>
+        <input type="number" id="founded_year" name="founded_year"><br><br>
+        <button class="btn1p">Previous</button>
+        <button class="button2">Next</button>
+    </div>
         
     <div class="player-info d-none">
         <!-- Form for Players -->
         <h2>Player Information</h2>
         <label for="player_name">Player Name:</label>
-        <input type="text" id="player_name" name="player_name" required><br>
+        <input type="text" id="player_name" name="player_name"><br>
 
         <label for="team_id">Team ID:</label>
-        <input type="number" id="team_id" name="team_id" required><br>
+        <input type="number" id="team_id" name="team_id"><br>
 
         <label for="position">Position:</label>
         <input type="text" id="position" name="position"><br>
@@ -53,7 +74,7 @@
 
         <label for="nationality">Nationality:</label>
         <input type="text" id="nationality" name="nationality"><br><br>
-        <button class="button2">Next</button>
+        <button class="button3">Next</button>
         <button class="btn2p">Previous</button>
     </div>
 
@@ -61,16 +82,16 @@
         <!-- Form for Matches -->
         <h2>Match Information</h2>
         <label for="home_team_id">Home Team ID:</label>
-        <input type="number" id="home_team_id" name="home_team_id" required><br>
+        <input type="number" id="home_team_id" name="home><br>
 
         <label for="away_team_id">Away Team ID:</label>
-        <input type="number" id="away_team_id" name="away_team_id" required><br>
+        <input type="number" id="away_team_id" name="away><br>
 
         <label for="match_date">Match Date:</label>
-        <input type="date" id="match_date" name="match_date" required><br>
+        <input type="date" id="match_date" name="ma><br>
 
         <label for="venue">Venue:</label>
-        <input type="text" id="venue" name="venue" required><br>
+        <input type="text" id="venue" nam><br>
 
         <label for="status">Match Status:</label>
         <input type="text" id="status" name="status"><br>
@@ -80,7 +101,7 @@
 
         <label for="away_team_score">Away Team Score:</label>
         <input type="number" id="away_team_score" name="away_team_score"><br><br>
-        <button class="button3">Next</button>
+        <button class="button4">Next</button>
         <button class="btn3p">Previous</button>
     </div>
 
@@ -88,20 +109,20 @@
         <!-- Form for Live Scores -->
         <h2>Live Scores</h2>
         <label for="match_id">Match ID:</label>
-        <input type="number" id="match_id" name="match_id" required><br>
+        <input type="number" id="match_id" name="match_id"><br>
 
         <label for="event_time">Event Time:</label>
         <input type="time" id="event_time" name="event_time"><br>
 
         <label for="event_type">Event Type (Goal, Foul):</label>
-        <input type="text" id="event_type" name="event_type" required><br>
+        <input type="text" id="event_type" name="event_type"><br>
 
         <label for="player_id">Player ID:</label>
         <input type="number" id="player_id" name="player_id"><br>
 
         <label for="score_description">Score Description:</label>
         <input type="text" id="score_description" name="score_description"><br><br>
-        <button class="button4">Next</button>
+        <button class="button5">Next</button>
         <button class="btn4p">Previous</button>
     </div>
 
@@ -109,7 +130,10 @@
         <!-- Form for Leagues -->
         <h2>Leagues Information</h2>
         <label for="league_name">League Name:</label>
-        <input type="text" id="league_name" name="league_name" required><br>
+        <input type="text" id="league_name" name="league_name"><br>
+
+        <label for="leagues_logo">County Logo:</label>
+        <input type="file" id="logo_url" name="leagues_logo"><br>
 
         <label for="country">Country:</label>
         <input type="text" id="country" name="country"><br>
@@ -119,7 +143,7 @@
 
         <label for="founded_year_league">Founded Year:</label>
         <input type="number" id="founded_year_league" name="founded_year_league"><br><br>
-        <button class="button5">Next</button>
+        <button class="button6">Next</button>
         <button class="btn5p">Previous</button>
     </div>
 

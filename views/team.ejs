@@ -6,7 +6,7 @@
         <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
       </div>
       <section class="dashcontainer">
-        <%- include('partials/sidebar', { teamdata: teamdata }) %>
+        <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata }) %>
           <main class="main_display">
 
                 <nav class="qualification_main_nav">
@@ -22,9 +22,9 @@
                       </div>
                       <div class="qualification-action-btn">
                         <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
-                        <a href="#"><button type="button" class="qualification-btn">Matches</button></a>
-                        <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
-                        <a href="#"><button type="button" class="qualification-btn">Play-Stats</button></a>
+                        <a href="/team _matches"><button type="button" class="qualification-btn">Matches</button></a>
+                        <a href="/team_table/"><button type="button" class="qualification-btn">Table</button></a>
+                        <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
                       </div>
                     </div>
                 </nav>

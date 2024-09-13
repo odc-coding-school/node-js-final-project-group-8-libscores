@@ -73,10 +73,23 @@ function formDisplay() {
     let btn5 = document.querySelector(".button5");
     let btn6 = document.querySelector(".button6");
 
+    let btn1p = document.querySelector(".btn1p");
+    let btn2p = document.querySelector(".btn2p");
+    let btn3p = document.querySelector(".btn3p");
+    let btn4p = document.querySelector(".btn4p");
+    let btn5p = document.querySelector(".btn5p");
+    let btn6p = document.querySelector(".btn6p");
+
     btn1.addEventListener("click", (e) => {
         e.preventDefault();
         team_info.classList.add("d-none");
         county_info.classList.remove("d-none");
+    });
+
+    btn1p.addEventListener("click", (e) => {
+        e.preventDefault();
+        team_info.classList.remove("d-none");
+        county_info.classList.add("d-none");
     });
 
     btn2.addEventListener("click", (e) => {
@@ -85,10 +98,22 @@ function formDisplay() {
         player_info.classList.remove("d-none");
     });
 
+    btn2p.addEventListener("click", (e) => {
+        e.preventDefault();
+        county_info.classList.remove("d-none");
+        player_info.classList.add("d-none");
+    });
+
     btn3.addEventListener("click", (e) => {
         e.preventDefault();
         player_info.classList.add("d-none");
         match_info.classList.remove("d-none");
+    });
+
+    btn3p.addEventListener("click", (e) => {
+        e.preventDefault();
+        player_info.classList.remove("d-none");
+        match_info.classList.add("d-none");
     });
 
     btn4.addEventListener("click", (e) => {
@@ -97,16 +122,36 @@ function formDisplay() {
         score_info.classList.remove("d-none");
     });
 
+    btn4p.addEventListener("click", (e) => {
+        e.preventDefault();
+        match_info.classList.remove("d-none");
+        score_info.classList.add("d-none");
+    });
+
+
     btn5.addEventListener("click", (e) => {
         e.preventDefault();
         score_info.classList.add("d-none");
         league_info.classList.remove("d-none");
     });
 
+    btn5p.addEventListener("click", (e) => {
+        e.preventDefault();
+        score_info.classList.remove("d-none");
+        league_info.classList.add("d-none");
+    });
+
+
     btn6.addEventListener("click", (e) => {
         e.preventDefault();
         league_info.classList.add("d-none");
         match_stat.classList.remove("d-none");
+    });
+
+    btn6p.addEventListener("click", (e) => {
+        e.preventDefault();
+        league_info.classList.remove("d-none");
+        match_stat.classList.add("d-none");
     });
 }
 

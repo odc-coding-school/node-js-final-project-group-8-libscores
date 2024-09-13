@@ -190,15 +190,22 @@ app.get("/", (req, res) => {
 app.get("/form", (req, res) => {
   db.all('SELECT * FROM teams', (err, rows) => {
       if (err) {
+          console.error("Error fetching teams:", err);
           return res.status(500).send("Error fetching teams.");
       }
 
-      console.log("Fetched teams:", rows); // Log the data to debug
+      if (!rows || rows.length === 0) {
+          console.warn("No teams found in the database.");
+      } else {
+          console.log("Fetched teams:", rows);
+      }
 
-      // Ensure data is passed to the view
-      res.render('form', { teamdata: rows });
+      res.render('form', { teamid: rows });
   });
 });
+
+
+
 
 
 app.get("/league1_matches", (req, res) => {
@@ -470,6 +477,7 @@ app.get("/league1_qualification", (req, res) => {
 
 // Team matches page
 app.get('/team_matches', (req, res) => {
+  console.log("Route /team_matches hit");
   db.all("SELECT * FROM teams", (err, teamdata) => {
     if (err) {
       console.log("Error: ", err);

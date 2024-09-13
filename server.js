@@ -187,9 +187,19 @@ app.get("/team", (req, res) => {
 });
 
 
-app.get("/form" , (req, res) =>{
-  res.render('form');
+app.get("/form", (req, res) => {
+  db.all('SELECT * FROM teams', (err, rows) => {
+      if (err) {
+          return res.status(500).send("Error fetching teams.");
+      }
+
+      console.log("Fetched teams:", rows); // Log the data to debug
+
+      // Ensure data is passed to the view
+      res.render('form', { teamdata: rows });
+  });
 });
+
 
 app.get("/league1_matches", (req, res) => {
   res.render('league1_matches');

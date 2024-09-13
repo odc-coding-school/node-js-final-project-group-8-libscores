@@ -212,8 +212,22 @@ app.get("/league1_matches", (req, res) => {
   res.render('league1_matches');
 });
 
-app.get("/league1_overview", (req, res) => {
-  res.render('league1_overview');
+app.get("/league1_overview/:league_id", (req, res) => {
+  const leagueId = req.params.league_id;
+
+  // Fetch the league details based on league_id
+  db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
+    if (err) {
+      return res.status(500).send("Error retrieving league data");
+    }
+    
+    if (!league) {
+      return res.status(404).send("League not found");
+    }
+
+    // Render a view for the league overview page
+    res.render("league1_overview", { league });
+  });
 });
 
 app.get("/league1_table", (req, res) => {

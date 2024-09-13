@@ -35,26 +35,26 @@
             </div>
         </ul>
         <ul class="nav flex-column gap-2" id="all_sidebar_l">
-            <li class="nav-item">
-                <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-                  <span>Leagues</span>
-                  <i class="fa-solid fa-angle-right"></i>
+          <li class="nav-item">
+            <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+              <span>Leagues</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+            <% if (leaguedata && leaguedata.length > 0) { %>
+              <% leaguedata.forEach(league => { %> 
+                <a href="/league1_overview/<%= league.league_id %>" class="text-decoration-none">
+                  <fieldset class="aside_content">
+                    <div class="contant">
+                      <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
+                      <div class="text_content"><%= league.league_name %></div>
+                    </div>
+                  </fieldset>
                 </a>
-                <% if (leaguedata && leaguedata.length > 0) { %>
-                  <% leaguedata.forEach(leaguedata => { %>
-                    <a href="/league1_overwiew/<%= leaguedata.league_id %>" class="text-decoration-none">
-                      <fieldset class="aside_content">
-                        <div class="contant">
-                          <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                          <div class="text_content"><%= leaguedata.league_name %></div>
-                        </div>
-                      </fieldset>
-                    </a>
-                  <% }) %>
-                <% } else { %>
-                  <p>No leagues available.</p>
-                <% } %>
-            </li>
+              <% }) %>
+            <% } else { %>
+              <p>No leagues available.</p>
+            <% } %>
+          </li>
             <li class="nav-item">
                 <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
                   <span>Teams</span>

@@ -145,7 +145,7 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 // Home Page
-app.get("/team", (req, res) => {
+app.get("/", (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
     if (err) {
       console.log("Error: ", err);

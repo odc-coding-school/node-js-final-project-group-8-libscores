@@ -24,6 +24,37 @@ db.serialize(() => {
       founded_year INTEGER
     )
   `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS laf_second_division_league (
+      team_id INTEGER PRIMARY KEY,
+      team_name TEXT NOT NULL,
+      city TEXT,
+      team_logo BLOB,
+      home_stadium TEXT,
+      founded_year INTEGER
+    )
+  `);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS laf_third_division_league (
+      team_id INTEGER PRIMARY KEY,
+      team_name TEXT NOT NULL,
+      city TEXT,
+      team_logo BLOB,
+      home_stadium TEXT,
+      founded_year INTEGER
+    )
+  `);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS county_meet (
+      team_id INTEGER PRIMARY KEY,
+      team_name TEXT NOT NULL,
+      city TEXT,
+      team_logo BLOB,
+      home_stadium TEXT,
+      founded_year INTEGER
+    )
+  `);
      // this is the teams table
   db.run(`
     CREATE TABLE IF NOT EXISTS county (
@@ -84,16 +115,7 @@ db.serialize(() => {
     
   `);
   // this is the leagues table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS leagues (
-    league_id INTEGER PRIMARY KEY,
-    league_name TEXT NOT NULL,
-    country TEXT,
-    number_of_teams INTEGER NOT NULL,
-    founded_year INTEGER,
-    league_logo BLOB
-    )
-  `);  
+
 
   db.run(`
    CREATE TABLE IF NOT EXISTS match_statistics (
@@ -188,19 +210,19 @@ app.get("/", (req, res) => {
 
 
 app.get("/form", (req, res) => {
-  db.all('SELECT * FROM teams', (err, rows) => {
+  db.all('SELECT * FROM leagues', (err, rows) => {
       if (err) {
-          console.error("Error fetching teams:", err);
-          return res.status(500).send("Error fetching teams.");
+          console.error("Error fetching leauses:", err);
+          return res.status(500).send("Error fetching leagues.");
       }
 
       if (!rows || rows.length === 0) {
-          console.warn("No teams found in the database.");
+          console.warn("No league found in the database.");
       } else {
-          console.log("Fetched teams:", rows);
+          console.log("Fetched league:", rows);
       }
 
-      res.render('form', { teamid: rows });
+      res.render('form', { leagueid: rows });
   });
 });
 

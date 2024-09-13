@@ -53,46 +53,30 @@
         <button class="btn1p">Previous</button>
         <button class="button2">Next</button>
     </div>
-        
+      
     <div class="player-info d-none">
         <!-- Form for Players -->
         <h2>Player Information</h2>
         <label for="player_name">Player Name:</label>
         <input type="text" id="player_name" name="player_name"><br>
 
-        <select name="team_id" class="team_id" required>
-            
-            <optgroup>
-                <option value="" disabled>League 1</option>
-                <% if (teamid && teamid.length > 0) { %>
-                    <% teamid.forEach(function(team) { %>
-                        <option value="<%= team.team_id %>"><%= team.team_name %></option>
-                    <% }) %>
-                <% } else { %>
-                    <option value="">No teams available</option>
-                <% } %>
-            </optgroup>
-            <optgroup>
-                <option value="" disabled>League 2</option>
-                <% if (teamid && teamid.length > 0) { %>
-                    <% teamid.forEach(function(team) { %>
-                        <option value="<%= team.team_id %>"><%= team.team_name %></option>
-                    <% }) %>
-                <% } else { %>
-                    <option value="">No teams available</option>
-                <% } %>
-            </optgroup>
-            <optgroup>
-                <option value="" disabled>League 3</option>
-                <% if (teamid && teamid.length > 0) { %>
-                    <% teamid.forEach(function(team) { %>
-                        <option value="<%= team.team_id %>"><%= team.team_name %></option>
-                    <% }) %>
-                <% } else { %>
-                    <option value="">No teams available</option>
-                <% } %>
-            </optgroup>
-        </select>
+        <label for="position">Select Team:</label> <br>
+<select name="team_id" class="team_id" id="team_id" required>
+    <% if (leagueid && leagueid.length > 0) { %>
+        <% leagueid.forEach(function(league) { %>
+            <option value="<%= league.league_id %>"><%= league.league_name %></option>
+        <% }) %>
+    <% } else { %>
+        <option value="">No teams available</option>
+    <% } %>
+</select> <br>
+
+<div id="division_container" style="display: none;">
+    <label for="division">Select Team:</label> <br>
+    <select name="division_id" class="division_id" id="division_id" required>
+        <option value="">Please select a team first</option>
+    </select> <br>
+</div>
         
         
 

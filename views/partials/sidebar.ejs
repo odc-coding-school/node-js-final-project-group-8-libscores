@@ -45,7 +45,11 @@
                 <a href="/league1_overview/<%= league.league_id %>" class="text-decoration-none">
                   <fieldset class="aside_content">
                     <div class="contant">
-                      <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
+                      <% if (league.league_logo) { %> <!-- Checking if the BLOB exists -->
+                        <img src="data:image/png;base64,<%= league.league_logo.toString('base64') %>" alt="<%= league.league_name %> Logo" class="sidebar_imgs">
+                      <% } else { %>
+                        <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                      <% } %>
                       <div class="text_content"><%= league.league_name %></div>
                     </div>
                   </fieldset>
@@ -66,7 +70,11 @@
                     <a href="/team/<%= teamData.team_id %>" class="text-decoration-none">
                       <fieldset class="aside_content">
                         <div class="contant">
-                          <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
+                          <% if (teamData.team_logo) { %> <!-- Checking if the BLOB exists -->
+                            <img src="data:image/png;base64,<%= teamData.team_logo.toString('base64') %>" alt="<%= teamData.team_name %> Logo" class="sidebar_imgs">
+                          <% } else { %>
+                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                          <% } %>
                           <div class="text_content"><%= teamData.team_name %></div>
                         </div>
                       </fieldset>
@@ -76,26 +84,31 @@
                   <p>No teams available.</p>
                 <% } %>
             </li>
-            <li class="nav-item"></li>
-                <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-                  <span>County Meet</span>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <% if (countydata && countydata.length > 0) { %>
-                  <% countydata.forEach(countydata => { %>
-                    <a href="/team/<%= countydata.county_id %>" class="text-decoration-none">
-                      <fieldset class="aside_content">
-                        <div class="contant">
-                          <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                          <div class="text_content"><%= countydata.county_name %></div>
-                        </div>
-                      </fieldset>
-                    </a>
-                  <% }) %>
-                <% } else { %>
-                  <p>No counties available.</p>
-                <% } %>
+            <li class="nav-item">
+              <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+                <span>Counties</span>
+                <i class="fa-solid fa-angle-right"></i>
+              </a>
+              <% if (countydata && countydata.length > 0) { %>
+                <% countydata.forEach(county => { %> <!-- Changed from 'countydata' to 'county' for clarity -->
+                  <a href="/team/<%= county.county_id %>" class="text-decoration-none">
+                    <fieldset class="aside_content">
+                      <div class="contant">
+                        <% if (county.county_logo) { %> <!-- Checking if the BLOB exists -->
+                          <img src="data:image/png;base64,<%= county.county_logo.toString('base64') %>" alt="<%= county.county_name %> Logo" class="sidebar_imgs">
+                        <% } else { %>
+                          <p>No logo available for this county.</p>
+                        <% } %>
+                        <div class="text_content"><%= county.county_name %></div>
+                      </div>
+                    </fieldset>
+                  </a>
+                <% }) %>
+              <% } else { %>
+                <p>No counties available.</p>
+              <% } %>
             </li>
+            
 <!--            
             <li class="nav-item">
                   <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">

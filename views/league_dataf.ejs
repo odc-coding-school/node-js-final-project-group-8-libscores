@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lib Livescore Form</title>
+    <link rel="stylesheet" href="../css/form.css">
+      <!-- bootstrap link place below -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <h1>League Registration Form</h1>
+
+    
+<!-- Form for Leagues -->
+<form id="league-form" method="POST" action="/submit_league" enctype="multipart/form-data">
+    <h2>League Information</h2>
+    <label for="league_name">League Name:</label>
+    <input type="text" id="league_name" name="league_name" required><br>
+  
+    <label for="leagues_logo">League Logo:</label>
+    <input type="file" id="leagues_logo" name="leagues_logo"><br>
+  
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" required><br>
+  
+    <label for="number_of_teams">Number of Teams:</label>
+    <input type="number" id="number_of_teams" name="number_of_teams" required><br>
+  
+    <label for="founded_year_league">Founded Year:</label>
+    <input type="number" id="founded_year_league" name="founded_year_league" required><br><br>
+  
+    <button type="submit">Submit League</button>
+  </form>
+ <!-- Internal Javascript link -->
+<script src="js/main.js"></script>
+</body>
+</html>

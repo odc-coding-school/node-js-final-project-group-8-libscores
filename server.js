@@ -139,9 +139,22 @@ db.serialize(() => {
 });
 
 
-// Set up Multer for file uploads
-const storage = multer.memoryStorage(); // Store files in memory as Buffer
-const upload = multer({ storage: storage });
+// Set up multer for file uploads using memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 8 * 1024 * 1024 }, // Limit file size to 8MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb(new Error('Only images are allowed!'));
+  }
+});
+
 
 // Middleware to parse URL-encoded bodies (as sent by HTML forms)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -201,7 +214,6 @@ app.get("/", (req, res) => {
           return res.status(404).send("No counties found");
         }
 
-        console.log("Team data:", teamdata);
         res.render('dashboard', { teamdata, leaguedata, countydata });
       });
     });
@@ -227,7 +239,17 @@ app.get("/form", (req, res) => {
 });
 
 
+app.get("/league_form", (req, res) => { 
+  res.render('league_dataf');
+});
 
+app.get("/team_form", (req, res) => { 
+  res.render('team_dataf');
+});
+
+app.get("/county_form", (req, res) => { 
+  res.render('county_dataf');
+});
 
 
 app.get("/league1_matches", (req, res) => {
@@ -252,8 +274,22 @@ app.get("/league1_overview/:league_id", (req, res) => {
   });
 });
 
-app.get("/league1_table", (req, res) => {
-  res.render('league1_table');
+app.get("/league1_table/:league_id", (req, res) => {
+    const leagueId = req.params.league_id;
+  
+    // Fetch the league  table details based on league_id
+    db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
+      if (err) {
+        return res.status(500).send("Error retrieving league data");
+      }
+      
+      if (!league) {
+        return res.status(404).send("League not found");
+      }
+  
+  // Render a view for the league overview Table page    
+  res.render('league1_table', { league });
+ });
 });
 
 // Team Table
@@ -721,23 +757,19 @@ app.get("/team", (req, res) => {
 });
 
 
-app.post('/submit', upload.fields([{ name: 'team_logo' }, { name: 'county_logo' }, { name: 'leagues_logo' }]), (req, res) => {
+// POST route for teams
+app.post('/submit_team', upload.single('team_logo'), (req, res) => {
   const data = req.body;
+  const teamLogo = req.file ? req.file.buffer : null;
 
-  // Extract the logos from the uploaded files
-  const teamLogo = req.files['team_logo'][0].buffer; // This is the team logo as a Buffer
-  const countyLogo = req.files['county_logo'][0].buffer; // This is the county logo as a Buffer
-  const leagueLogo = req.files['leagues_logo'][0].buffer; // This is the league logo as a Buffer
-
-  // Insert team data into the teams table
   const insertTeam = `
-      INSERT INTO teams (team_name, city, team_logo, home_stadium, founded_year)
-      VALUES (?, ?, ?, ?, ?)`;
+    INSERT INTO teams (team_name, city, team_logo, home_stadium, founded_year)
+    VALUES (?, ?, ?, ?, ?)`;
 
   db.run(insertTeam, [
     data.team_name,
     data.city,
-    teamLogo, // Insert the binary data (BLOB) for the team logo
+    teamLogo,
     data.home_stadium,
     data.founded_year
   ], function(err) {
@@ -745,44 +777,35 @@ app.post('/submit', upload.fields([{ name: 'team_logo' }, { name: 'county_logo' 
       return res.status(500).json({ error: err.message });
     }
 
-    // After successfully inserting into the teams table, insert into the county table
-    const insertCounty = `
-      INSERT INTO county (county_name, city, county_logo, home_stadium, founded_year)
-      VALUES (?, ?, ?, ?, ?)`;
+    res.json({ message: "Team data inserted successfully", team_id: this.lastID });
+  });
+});
 
-    db.run(insertCounty, [
-      data.county_name,
-      data.city,
-      countyLogo, // Insert the binary data (BLOB) for the county logo
-      data.home_stadium,
-      data.founded_year
-    ], function(err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
+// POST route for counties
+app.post('/submit_county', upload.single('county_logo'), (req, res) => {
+  const data = req.body;
+  const countyLogo = req.file ? req.file.buffer : null; // Store the image as a BLOB
 
-       // After successfully inserting into the teams table, insert into the county table
-    const insertLeague = `
-    INSERT INTO county (league_name, leagues_logo, country, number_of_teams, founded_year_league)
+  const insertCounty = `
+    INSERT INTO county (county_name, city, county_logo, home_stadium, founded_year)
     VALUES (?, ?, ?, ?, ?)`;
 
-  db.run(insertLeague, [
-    data.league_name,
-    data.country,
-    leagueLogo, // Insert the binary data (BLOB) for the county logo
-    data.number_of_teams,
-    data.founded_year_league
+  db.run(insertCounty, [
+    data.county_name,
+    data.city,
+    countyLogo, // Insert image as BLOB
+    data.home_stadium,
+    data.founded_year
   ], function(err) {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
 
-      // Respond with success message
-      res.json({ message: "Data inserted successfully", team_id: this.lastID });
-    });
+    res.json({ message: "County data inserted successfully", county_id: this.lastID });
   });
 });
-});
+
+
 // Server listening
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

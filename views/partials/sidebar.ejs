@@ -8,32 +8,40 @@
     </form>  
     
     <div class="position-sticky">
-        <ul id="detail_list" class="nav flex-column gap-2 d-none">
-            <div class="d-flex justify-content-between align-items-center">
-                <a class="nav-item nav-link sidebar_headlings" href="/">
-                      <i class="fa-solid fa-angle-left fs-2 fw-2 text_color"></i>
-                </a>
-                <span class="text_color fs-4 fw-4">County Meet</span>
-            </div>
-            <div class="">
-                <a href="/league1_overview" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
-                            <div class="text_content">League Stage</div>
-                        </div>
-                    </fieldset>
-                </a>
-                <a href="/league1_qualification" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
-                            <div class="text_content">Qualification</div>
-                        </div>
-                    </fieldset>
-                </a>
-            </div>
-        </ul>
+      <ul id="detail_list" class="nav flex-column gap-2 d-none">
+        <div class="d-flex justify-content-between align-items-center">
+          <a class="nav-item nav-link sidebar_headlings" href="/">
+            <i class="fa-solid fa-angle-left fs-2 fw-2 text_color"></i>
+          </a>
+          <span class="text_color fs-4 fw-4">County Meet</span>
+        </div>
+      
+        <div class="">
+          <% if (leaguedata && leaguedata.length > 0) { %> <!-- Ensure leaguedata exists and has items -->
+            <% leaguedata.forEach(league => { %> <!-- Loop through leaguedata -->
+              <a href="/league1_overview/<%= league.league_id %>" class="text-decoration-none">
+                <fieldset class="aside_content">
+                  <div class="contant">
+                    <img src="./images/county_meet_log.jpg" alt="<%= league.league_name %> Logo" class="sidebar_imgs rounded-circle">
+                    <div class="text_content"><%= league.league_name %> - League Stage</div>
+                  </div>
+                </fieldset>
+              </a>
+              <a href="/league1_qualification/<%= league.league_id %>" class="text-decoration-none">
+                <fieldset class="aside_content">
+                  <div class="contant">
+                    <img src="./images/county_meet_log.jpg" alt="<%= league.league_name %> Logo" class="sidebar_imgs rounded-circle">
+                    <div class="text_content"><%= league.league_name %> - Qualification</div>
+                  </div>
+                </fieldset>
+              </a>
+            <% }) %>
+          <% } else { %>
+            <p>No leagues available.</p>
+          <% } %>
+        </div>
+      </ul>
+      
         <ul class="nav flex-column gap-2" id="all_sidebar_l">
           <li class="nav-item">
             <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
@@ -108,54 +116,6 @@
                 <p>No counties available.</p>
               <% } %>
             </li>
-            
-<!--            
-            <li class="nav-item">
-                  <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-                  <span>Competition</span>
-                    <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a> 
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-                <a href="" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                        <div class="contant">
-                            <img src="./images/Flag_of_Grand_Bassa_County.svg.png" alt="" class="sidebar_imgs">
-                            <div class="text_content"> Grand Bassa</div>
-                        </div>
-                    </fieldset>
-                </a>
-            </li> -->
         </ul>
     </div>
 </aside>

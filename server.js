@@ -835,6 +835,30 @@ app.post('/submit_county', upload.single('county_logo'), (req, res) => {
   });
 });
 
+app.post('/submit_league', upload.single('leagues_logo'), (req, res) => {
+  const data = req.body;
+  const leagueLogo = req.file ? req.file.buffer : null; // Store image as BLOB
+
+  const insertLeague = `
+    INSERT INTO county (league_name, leagues_logo, country, number_of_teams, founded_year)
+    VALUES (?, ?, ?, ?, ?)`;
+
+  db.run(insertLeague, [
+    data.league_name,
+    leagueLogo, // Insert image as BLOB
+    data.country,
+    data.number_of_teams,
+    data.founded_year_league  // fixed the founded year field
+  ], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json({ message: "League data inserted successfully", league_id: this.lastID });
+  });
+});
+
+
 // Matches_fixture page
 
 app.get("/fixture", (req, res) => {

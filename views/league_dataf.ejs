@@ -13,7 +13,7 @@
 
     
 <!-- Form for Leagues -->
-<form id="league-form" method="POST" action="/submit_league" enctype="multipart/form-data">
+<form id="league_form" method="POST" action="/submit_league" enctype="multipart/form-data">
     <h2>League Information</h2>
     <label for="league_name">League Name:</label>
     <input type="text" id="league_name" name="league_name" required><br>
@@ -22,13 +22,13 @@
     <input type="file" id="leagues_logo" name="leagues_logo"><br>
   
     <label for="country">Country:</label>
-    <input type="text" id="country" name="country" required><br>
+    <input type="text" id="country" name="country" ><br>
   
     <label for="number_of_teams">Number of Teams:</label>
-    <input type="number" id="number_of_teams" name="number_of_teams" required><br>
+    <input type="number" id="number_of_teams" name="number_of_teams" ><br>
   
     <label for="founded_year_league">Founded Year:</label>
-    <input type="number" id="founded_year_league" name="founded_year_league" required><br><br>
+    <input type="number" id="founded_year_league" name="founded_year_league" ><br>
   
     <button type="submit">Submit League</button>
   </form>

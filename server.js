@@ -785,6 +785,8 @@ app.get("/team", (req, res) => {
 });
 
 
+
+
 // POST route for teams
 app.post('/submit_team', upload.single('team_logo'), (req, res) => {
   const data = req.body;
@@ -830,6 +832,48 @@ app.post('/submit_county', upload.single('county_logo'), (req, res) => {
     }
 
     res.json({ message: "County data inserted successfully", county_id: this.lastID });
+  });
+});
+
+// Matches_fixture page
+
+app.get("/fixture", (req, res) => {
+  db.all("SELECT * FROM teams", (err, teamdata) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.status(500).send("Error retrieving team data");
+    }
+    
+    if (!teamdata || teamdata.length === 0) {
+      console.log("No teams found");
+      return res.status(404).send("No teams found");
+    }
+
+    db.all("SELECT * FROM leagues", (err, leaguedata) => {
+      if (err) {
+        console.log("Error: ", err);
+        return res.status(500).send("Error retrieving league data");
+      }
+      
+      if (!leaguedata || leaguedata.length === 0) {
+        console.log("No leagues found");
+        return res.status(404).send("No leagues found");
+      }
+
+      db.all("SELECT * FROM county", (err, countydata) => {
+        if (err) {
+          console.log("Error: ", err);
+          return res.status(500).send("Error retrieving county data");
+        }
+        
+        if (!countydata || countydata.length === 0) {
+          console.log("No counties found");
+          return res.status(404).send("No counties found");
+        }
+
+        res.render('fixture', { teamdata, leaguedata, countydata });
+      });
+    });
   });
 });
 

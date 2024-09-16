@@ -65,6 +65,8 @@ header{
   color: var(--lhover_color);
 }
 
+
+
 .home_body {
   background: var(--bg_color);
 }
@@ -456,7 +458,7 @@ a .qualification-btn{
  .next-match-img{
   width: 40%;
  }
- .main_content-sec h3{
+ .main_content-sec h5{
   font-size: 1.5rem;
   margin-left: 1rem;
   color: var(--text_Dcolor);

@@ -91,7 +91,7 @@
               </a>
               <% if (countydata && countydata.length > 0) { %>
                 <% countydata.forEach(county => { %> <!-- Changed from 'countydata' to 'county' for clarity -->
-                  <a href="/team/<%= county.county_id %>" class="text-decoration-none">
+                <a href="/team_matches/<%= county.county_id %>" class="text-decoration-none">
                     <fieldset class="aside_content">
                       <div class="contant">
                         <% if (county.county_logo) { %> <!-- Checking if the BLOB exists -->

@@ -19,12 +19,15 @@ db.serialize(() => {
       team_id INTEGER PRIMARY KEY,
       team_name TEXT NOT NULL,
       city TEXT,
+      league_id INTEGER, 
       team_logo BLOB,
       home_stadium TEXT,
-      founded_year INTEGER
+      founded_year INTEGER,
+      FOREIGN KEY(league_id) REFERENCES leagues(league_id)
     )
   `);
 
+  // LAF second division league
   db.run(`
     CREATE TABLE IF NOT EXISTS laf_second_division_league (
       team_id INTEGER PRIMARY KEY,
@@ -35,27 +38,33 @@ db.serialize(() => {
       founded_year INTEGER
     )
   `);
-  db.run(`
-    CREATE TABLE IF NOT EXISTS laf_third_division_league (
-      team_id INTEGER PRIMARY KEY,
-      team_name TEXT NOT NULL,
-      city TEXT,
-      team_logo BLOB,
-      home_stadium TEXT,
-      founded_year INTEGER
-    )
-  `);
-  db.run(`
-    CREATE TABLE IF NOT EXISTS county_meet (
-      team_id INTEGER PRIMARY KEY,
-      team_name TEXT NOT NULL,
-      city TEXT,
-      team_logo BLOB,
-      home_stadium TEXT,
-      founded_year INTEGER
-    )
-  `);
-     // this is the teams table
+
+ // LAF third division league
+ db.run(`
+  CREATE TABLE IF NOT EXISTS laf_third_division_league (
+    team_id INTEGER PRIMARY KEY,
+    team_name TEXT NOT NULL,
+    city TEXT,
+    team_logo BLOB,
+    home_stadium TEXT,
+    founded_year INTEGER
+  )
+`);
+
+ // County meet table
+ db.run(`
+  CREATE TABLE IF NOT EXISTS county_meet (
+    team_id INTEGER PRIMARY KEY,
+    team_name TEXT NOT NULL,
+    city TEXT,
+    league_id INTEGER,
+    team_logo BLOB,
+    home_stadium TEXT,
+    founded_year INTEGER,
+    FOREIGN KEY(league_id) REFERENCES leagues(league_id)
+  )
+`);
+  // County table
   db.run(`
     CREATE TABLE IF NOT EXISTS county (
       county_id INTEGER PRIMARY KEY,
@@ -77,64 +86,63 @@ db.serialize(() => {
       status TEXT,
       home_team_score INTEGER,
       away_team_score INTEGER,
-      FOREIGN KEY(home_team_id) REFERENCES teams(team_id),
-      FOREIGN KEY(away_team_id) REFERENCES teams(team_id)
+      FOREIGN KEY (home_team_id) REFERENCES teams(team_id),
+      FOREIGN KEY (away_team_id) REFERENCES teams(team_id)
     )
   `); 
-  // this is the players table
+ 
+  // Players table
   db.run(`
-   CREATE TABLE IF NOT EXISTS players (
-    player_id INTEGER PRIMARY KEY,
-    team_id INTEGER,
-    player_name TEXT NOT NULL,
-    position TEXT,
-    jersey_number INTEGER,
-    age INTEGER,
-    nationality TEXT,
-    goals_scored INTEGER DEFAULT 0,
-    assists INTEGER DEFAULT 0,
-    matches_played INTEGER DEFAULT 0,
-    FOREIGN KEY(team_id) REFERENCES teams(team_id)
+    CREATE TABLE IF NOT EXISTS players (
+      player_id INTEGER PRIMARY KEY,
+      team_id INTEGER,
+      player_name TEXT NOT NULL,
+      position TEXT,
+      jersey_number INTEGER,
+      age INTEGER,
+      nationality TEXT,
+      goals_scored INTEGER DEFAULT 0,
+      assists INTEGER DEFAULT 0,
+      matches_played INTEGER DEFAULT 0,
+      FOREIGN KEY(team_id) REFERENCES teams(team_id)
     )
   `);
   // this is the live_scores table
   db.run(`
     CREATE TABLE IF NOT EXISTS live_scores (
-    score_id INTEGER PRIMARY KEY,
-    match_id INTEGER,
-    event_time TEXT,
-    event_type TEXT,  -- e.g., 'goal', 'foul', 'yellow_card', etc.
-    team_id INTEGER,
-    player_id INTEGER,
-    score_description TEXT,  
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY(match_id) REFERENCES matches(match_id),
-    FOREIGN KEY(team_id) REFERENCES teams(team_id),
-    FOREIGN KEY(player_id) REFERENCES players(player_id)
+      score_id INTEGER PRIMARY KEY,
+      match_id INTEGER,
+      event_time TEXT,
+      event_type TEXT,
+      team_id INTEGER,
+      player_id INTEGER,
+      score_description TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY(match_id) REFERENCES matches(match_id),
+      FOREIGN KEY(team_id) REFERENCES teams(team_id),
+      FOREIGN KEY(player_id) REFERENCES players(player_id)
     )
-    
   `);
-  // this is the leagues table
 
-
+  // Match statistics table
   db.run(`
-   CREATE TABLE IF NOT EXISTS match_statistics (
-    stat_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    match_id INTEGER NOT NULL,
-    team_id INTEGER NOT NULL,
-    possession_percentage REAL,
-    shots INTEGER,
-    shots_on_target INTEGER,
-    fouls INTEGER,
-    yellow_cards INTEGER,
-    red_cards INTEGER,
-    corners INTEGER,
-    offsides INTEGER,
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY(match_id) REFERENCES matches(match_id),
-    FOREIGN KEY(team_id) REFERENCES teams(team_id)
-);
-  `);  
+    CREATE TABLE IF NOT EXISTS match_statistics (
+      stat_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      match_id INTEGER NOT NULL,
+      team_id INTEGER NOT NULL,
+      possession_percentage REAL,
+      shots INTEGER,
+      shots_on_target INTEGER,
+      fouls INTEGER,
+      yellow_cards INTEGER,
+      red_cards INTEGER,
+      corners INTEGER,
+      offsides INTEGER,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY(match_id) REFERENCES matches(match_id),
+      FOREIGN KEY(team_id) REFERENCES teams(team_id)
+    )
+  `); 
   console.log("Database and tables initialized.");
 });
 
@@ -155,6 +163,7 @@ const upload = multer({
   }
 });
 
+db.run("PRAGMA foreign_keys = ON;");
 
 // Middleware to parse URL-encoded bodies (as sent by HTML forms)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -213,12 +222,36 @@ app.get("/", (req, res) => {
           console.log("No counties found");
           return res.status(404).send("No counties found");
         }
+       
+        // Fetch matches data and join with teams and leagues
+        db.all(`
+          SELECT matches.match_id,
+                 matches.status,
+                 matches.home_team_score,
+                 matches.away_team_score,
+                 home_team.team_name AS home_team_name,
+                 away_team.team_name AS away_team_name,
+                 home_team.team_logo AS home_team_logo,
+                 away_team.team_logo AS away_team_logo,
+                 leagues.league_name,
+                 leagues.league_logo
+          FROM matches
+          INNER JOIN teams AS home_team ON matches.home_team_id = home_team.team_id
+          INNER JOIN teams AS away_team ON matches.away_team_id = away_team.team_id
+          INNER JOIN leagues ON home_team.league_id = leagues.league_id
+        `, (err, matchdata) => {
+          if (err) {
+            console.log("Error: ", err);
+            return res.status(500).send("Error retrieving match data");
+          }
 
-        res.render('dashboard', { teamdata, leaguedata, countydata });
+          res.render('dashboard', { teamdata, leaguedata, countydata, matchdata });
+        });
       });
     });
   });
 });
+
 
 
 app.get("/form", (req, res) => {
@@ -249,6 +282,10 @@ app.get("/team_form", (req, res) => {
 
 app.get("/county_form", (req, res) => { 
   res.render('county_dataf');
+});
+
+app.get("/match_form", (req, res) => { 
+  res.render('match_info_form');
 });
 
 
@@ -855,6 +892,30 @@ app.post('/submit_league', upload.single('leagues_logo'), (req, res) => {
     }
 
     res.json({ message: "League data inserted successfully", league_id: this.lastID });
+  });
+});
+
+app.post('/submit_match', (req, res) => {
+  const data = req.body;
+
+  const matchData = `
+    INSERT INTO matches (home_team_id, away_team_id, match_date, venue, status, home_team_score, away_team_score)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+  db.run(matchData, [
+    data.home_team_id,
+    data.away_team_id, 
+    data.match_date,
+    data.venue,
+    data.status,
+    data.home_team_score,
+    data.away_team_score
+  ], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json({ message: "Match data inserted successfully", match_id: this.lastID });
   });
 });
 

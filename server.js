@@ -239,14 +239,15 @@ app.get("/", (req, res) => {
           INNER JOIN teams AS home_team ON matches.home_team_id = home_team.team_id
           INNER JOIN teams AS away_team ON matches.away_team_id = away_team.team_id
           INNER JOIN leagues ON home_team.league_id = leagues.league_id
-        `, (err, matchdata) => {
+        `, (err, matchData) => {
           if (err) {
             console.log("Error: ", err);
             return res.status(500).send("Error retrieving match data");
           }
-
-          res.render('dashboard', { teamdata, leaguedata, countydata, matchdata });
+        
+          res.render('dashboard', { teamdata, leaguedata, countydata, matchData });
         });
+        
       });
     });
   });

@@ -82,6 +82,7 @@ db.serialize(() => {
       home_team_id INTEGER,
       away_team_id INTEGER,
       match_date TEXT,
+      match_time TEXT,
       venue TEXT,
       status TEXT,
       home_team_score INTEGER,
@@ -286,7 +287,7 @@ app.get("/county_form", (req, res) => {
 });
 
 app.get("/match_form", (req, res) => { 
-  res.render('match_info_form');
+  res.render('match_infor_form');
 });
 
 

@@ -289,20 +289,19 @@ app.get("/league_form", (req, res) => {
 });
 
 app.get("/team_form", (req, res) => { 
-  db.all("SELECT * FROM leagues", (err, leaguestype) => {
+  db.all("SELECT * FROM leagues", (err, leagueType) => {
     if (err) {
-      return res.status(500).send("Error retrieving league data");
+      console.log("Error: ", err);
+      return res.status(500).send("Error retrieving leagues data");
     }
-
-    // Check if data is returned
-    if (!leaguestype || leaguestype.length === 0) {
+    
+    if (!leagueType || leagueType.length === 0) {
+      console.log("No leagues found");
       return res.status(404).send("No leagues found");
     }
-
-    console.log(leaguestype); 
-
-    // Render the template, passing the data
-    res.render('team_dataf', { leaguestype });
+    
+    // Render the view with the leagueType data
+    res.render('team_dataf', { leagueType });
   });
 });
 

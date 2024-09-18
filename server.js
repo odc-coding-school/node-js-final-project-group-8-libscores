@@ -293,8 +293,22 @@ app.get("/team_form", (req, res) => {
 });
 
 app.get("/county_form", (req, res) => { 
-  res.render('county_dataf');
+  db.all("SELECT * FROM leagues", (err, leagueType) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.status(500).send("Error retrieving leagues data");
+    }
+    
+    if (!leagueType || leagueType.length === 0) {
+      console.log("No leagues found");
+      return res.status(404).send("No leagues found");
+    }
+    
+    // Render the view with the leagueType data
+    res.render('county_dataf', { leagueType });
+  });
 });
+
 
 app.get("/match_form", (req, res) => { 
   res.render('match_infor_form');

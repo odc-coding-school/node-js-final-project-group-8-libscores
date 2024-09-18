@@ -19,37 +19,20 @@
                     <a href="#" class="main_link"><i class="fa-regular fa-calendar-days"></i></a>
                 </div>
             </nav>
-            <section class="main_content-sec">
-              <% matchData.forEach(match => { %>
-                  <fieldset class="main_content">
-                      <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                          <div class="d-flex align-items-center gap-4 ms-2">
-                              <div class="main_content_teams">
-                                  <div class="d-flex gap-2">
-                                      <img class="main_content_imgs" src="<%= match.home_team_logo %>" alt="">
-                                      <p><%= match.home_team %></p>
-                                  </div>
-                                  <div class="d-flex gap-2">
-                                      <img class="main_content_imgs" src="<%= match.away_team_logo %>" alt="">
-                                      <p><%= match.away_team %></p>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="contant me-2">
-                              <p><%= match.match_date %> at <%= match.venue %></p>
-                          </div>
-                      </a>
-                  </fieldset>
-              <% }) %>
-          </section>
-          <section class="main_content-sec d-none">
+          <section class="main_content-sec">
+            
+            <% matches.forEach(match => { %>
             <div class="qualification_group">
               <div class="qualification_link">
                 <a href="" class="qualification">
-                  <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                  <% if (match.league_logo) { %>
+                    <img src="data:image/png;base64,<%= match.league_logo.toString('base64') %>" alt="League Logo" class="sidebar_imgs">
+                  <% } else { %>
+                    <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
                   <div>
-                    <h5 class="text_color">Qualification: Group A</h5>
-                    <p>Africa Cup of Nations Qualification</p>
+                    <h5 class="text_color"><%= match.league_stage %></h5>
+                    <p><%= match.league_name %></p>
                   </div>
                 </a>
               </div>
@@ -64,16 +47,24 @@
               <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
               <div class="d-flex lign-items-center gap-4 ms-2">
                 <div class="d-flex align-items-center">
-                  <p>HT</p>
+                  <p><%= match.match_status %></p>
                 </div>
                 <div class="main_content_teams">
                   <div class="d-flex gap-2">
-                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                    <p>NPA Anchors</p>
+                    <% if (match.home_team_logo) { %>
+                      <img src="data:image/png;base64,<%= match.home_team_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
+                    <% } else { %>
+                      <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                    <% } %>
+                    <p><%= match.home_team_name %></p>
                   </div>
                   <div class="d-flex gap-2">
-                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                    <p>Watanga FC</p>
+                    <% if (match.away_team_logo) { %>
+                      <img src="data:image/png;base64,<%= match.away_team_logo.toString('base64') %>" alt="Away Team Logo" class="sidebar_imgs">
+                    <% } else { %>
+                      <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                    <% } %>
+                    <p><%= match.away_team_name %></p>
                   </div>
                 </div>
               </div>
@@ -82,240 +73,7 @@
               </div>
              </a>
           </fieldset>
-          <div class="qualification_group">
-            <div class="qualification_link">
-              <a href="" class="qualification">
-                <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                <div>
-                  <h5 class="text_color">Qualification: Group A</h5>
-                  <p>Africa Cup of Nations Qualification</p>
-                </div>
-              </a>
-            </div>
-            <div class="qualification_link">
-              <a href="">
-                <i class="fa-solid fa-angle-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <fieldset class="main_content">
-            <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-            <div class="d-flex lign-items-center gap-4 ms-2">
-              <div class="d-flex align-items-center">
-                <p>HT</p>
-              </div>
-              <div class="main_content_teams">
-                <div class="d-flex gap-2">
-                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                  <p>NPA Anchors</p>
-                </div>
-                <div class="d-flex gap-2">
-                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                  <p>Watanga FC</p>
-                </div>
-              </div>
-            </div>
-            <div class="contant me-2">
-              <i class="fa-regular fa-star fs-2"></i>
-            </div>
-           </a>
-        </fieldset>
-        <div class="qualification_group">
-          <div class="qualification_link">
-            <a href="" class="qualification">
-              <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-              <div>
-                <h5 class="text_color">Qualification: Group A</h5>
-                <p>Africa Cup of Nations Qualification</p>
-              </div>
-            </a>
-          </div>
-          <div class="qualification_link">
-            <a href="">
-              <i class="fa-solid fa-angle-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <fieldset class="main_content">
-          <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-          <div class="d-flex lign-items-center gap-4 ms-2">
-            <div class="d-flex align-items-center">
-              <p>HT</p>
-            </div>
-            <div class="main_content_teams">
-              <div class="d-flex gap-2">
-                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                <p>NPA Anchors</p>
-              </div>
-              <div class="d-flex gap-2">
-                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                <p>Watanga FC</p>
-              </div>
-            </div>
-          </div>
-          <div class="contant me-2">
-            <i class="fa-regular fa-star fs-2"></i>
-          </div>
-         </a>
-      </fieldset>
-      <div class="qualification_group">
-        <div class="qualification_link">
-          <a href="" class="qualification">
-            <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-            <div>
-              <h5 class="text_color">Qualification: Group A</h5>
-              <p>Africa Cup of Nations Qualification</p>
-            </div>
-          </a>
-        </div>
-        <div class="qualification_link">
-          <a href="">
-            <i class="fa-solid fa-angle-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <fieldset class="main_content">
-        <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-        <div class="d-flex lign-items-center gap-4 ms-2">
-          <div class="d-flex align-items-center">
-            <p>HT</p>
-          </div>
-          <div class="main_content_teams">
-            <div class="d-flex gap-2">
-              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-              <p>NPA Anchors</p>
-            </div>
-            <div class="d-flex gap-2">
-              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-              <p>Watanga FC</p>
-            </div>
-          </div>
-        </div>
-        <div class="contant me-2">
-          <i class="fa-regular fa-star fs-2"></i>
-        </div>
-       </a>
-    </fieldset>
-    <div class="qualification_group">
-      <div class="qualification_link">
-        <a href="" class="qualification">
-          <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-          <div>
-            <h5 class="text_color">Qualification: Group A</h5>
-            <p>Africa Cup of Nations Qualification</p>
-          </div>
-        </a>
-      </div>
-      <div class="qualification_link">
-        <a href="">
-          <i class="fa-solid fa-angle-right"></i>
-        </a>
-      </div>
-    </div>
-
-    <fieldset class="main_content">
-      <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-      <div class="d-flex lign-items-center gap-4 ms-2">
-        <div class="d-flex align-items-center">
-          <p>HT</p>
-        </div>
-        <div class="main_content_teams">
-          <div class="d-flex gap-2">
-            <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-            <p>NPA Anchors</p>
-          </div>
-          <div class="d-flex gap-2">
-            <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-            <p>Watanga FC</p>
-          </div>
-        </div>
-      </div>
-      <div class="contant me-2">
-        <i class="fa-regular fa-star fs-2"></i>
-      </div>
-     </a>
-  </fieldset>
-  <div class="qualification_group">
-    <div class="qualification_link">
-      <a href="" class="qualification">
-        <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-        <div>
-          <h5 class="text_color">Qualification: Group A</h5>
-          <p>Africa Cup of Nations Qualification</p>
-        </div>
-      </a>
-    </div>
-    <div class="qualification_link">
-      <a href="">
-        <i class="fa-solid fa-angle-right"></i>
-      </a>
-    </div>
-  </div>
-
-  <fieldset class="main_content">
-    <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-    <div class="d-flex lign-items-center gap-4 ms-2">
-      <div class="d-flex align-items-center">
-        <p>HT</p>
-      </div>
-      <div class="main_content_teams">
-        <div class="d-flex gap-2">
-          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-          <p>NPA Anchors</p>
-        </div>
-        <div class="d-flex gap-2">
-          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-          <p>Watanga FC</p>
-        </div>
-      </div>
-    </div>
-    <div class="contant me-2">
-      <i class="fa-regular fa-star fs-2"></i>
-    </div>
-   </a>
-</fieldset>
-<div class="qualification_group">
-  <div class="qualification_link">
-    <a href="" class="qualification">
-      <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-      <div>
-        <h5 class="text_color">Qualification: Group A</h5>
-        <p>Africa Cup of Nations Qualification</p>
-      </div>
-    </a>
-  </div>
-  <div class="qualification_link">
-    <a href="">
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-  </div>
-</div>
-
-<fieldset class="main_content">
-  <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-  <div class="d-flex lign-items-center gap-4 ms-2">
-    <div class="d-flex align-items-center">
-      <p>HT</p>
-    </div>
-    <div class="main_content_teams">
-      <div class="d-flex gap-2">
-        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-        <p>NPA Anchors</p>
-      </div>
-      <div class="d-flex gap-2">
-        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-        <p>Watanga FC</p>
-      </div>
-    </div>
-  </div>
-  <div class="contant me-2">
-    <i class="fa-regular fa-star fs-2"></i>
-  </div>
- </a>
-</fieldset>
+<% }) %>
           </section>
           </main>
       </section>

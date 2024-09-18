@@ -27,6 +27,14 @@ db.serialize(() => {
     )
   `);
 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS leagues (
+      league_id INTEGER PRIMARY KEY,
+      league_name TEXT NOT NULL,
+      league_logo BLOB
+    )
+  `);
+
   // LAF second division league
   db.run(`
     CREATE TABLE IF NOT EXISTS laf_second_division_league (
@@ -196,7 +204,7 @@ app.get("/", (req, res) => {
       console.log("Error: ", err);
       return res.status(500).send("Error retrieving team data");
     }
-    
+
     if (!teamdata || teamdata.length === 0) {
       console.log("No teams found");
       return res.status(404).send("No teams found");
@@ -207,7 +215,7 @@ app.get("/", (req, res) => {
         console.log("Error: ", err);
         return res.status(500).send("Error retrieving league data");
       }
-      
+
       if (!leaguedata || leaguedata.length === 0) {
         console.log("No leagues found");
         return res.status(404).send("No leagues found");
@@ -218,41 +226,43 @@ app.get("/", (req, res) => {
           console.log("Error: ", err);
           return res.status(500).send("Error retrieving county data");
         }
-        
+
         if (!countydata || countydata.length === 0) {
           console.log("No counties found");
           return res.status(404).send("No counties found");
         }
-       
-        // Fetch matches data and join with teams and leagues
+
+        // Updated matches query to join with teams and leagues
         db.all(`
-          SELECT matches.match_id,
-                 matches.status,
-                 matches.home_team_score,
-                 matches.away_team_score,
-                 home_team.team_name AS home_team_name,
-                 away_team.team_name AS away_team_name,
-                 home_team.team_logo AS home_team_logo,
-                 away_team.team_logo AS away_team_logo,
-                 leagues.league_name,
-                 leagues.league_logo
-          FROM matches
-          INNER JOIN teams AS home_team ON matches.home_team_id = home_team.team_id
-          INNER JOIN teams AS away_team ON matches.away_team_id = away_team.team_id
-          INNER JOIN leagues ON home_team.league_id = leagues.league_id
-        `, (err, matchData) => {
+          SELECT 
+            l.league_logo, 
+            l.league_name, 
+            'qualification' AS league_stage,  -- Assuming static value for stage
+            away_team.team_name AS away_team_name,
+            away_team.team_logo AS away_team_logo,
+            home_team.team_name AS home_team_name,
+            home_team.team_logo AS home_team_logo,
+            m.status AS match_status,
+            m.home_team_score,
+            m.away_team_score
+          FROM matches m
+          INNER JOIN teams AS home_team ON m.home_team_id = home_team.team_id
+          INNER JOIN teams AS away_team ON m.away_team_id = away_team.team_id
+          INNER JOIN leagues l ON home_team.league_id = l.league_id
+        `, (err, matches) => {
           if (err) {
             console.log("Error: ", err);
             return res.status(500).send("Error retrieving match data");
           }
-        
-          res.render('dashboard', { teamdata, leaguedata, countydata, matchData });
+
+          // Render dashboard with all data
+          res.render('dashboard', { teamdata, leaguedata, countydata, matches});
         });
-        
       });
     });
   });
 });
+
 
 
 

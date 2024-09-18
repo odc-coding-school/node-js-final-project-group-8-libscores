@@ -28,7 +28,13 @@
   
     <label for="founded_year">Founded Year:</label>
     <input type="number" id="founded_year" name="founded_year" required><br><br>
-  
+    
+    <label for="founded_year">Select Leauge:</label>
+    <select name="leauges" class="league" required>
+        <% leaguestype.forEach( function (league) { %>
+          <option value="<%= league.league_id %>"><%= league.league_name %></option>
+        <% }) %>
+      </select>
     <button type="submit">Submit Team</button>
 </form>
  <!-- Internal Javascript link -->

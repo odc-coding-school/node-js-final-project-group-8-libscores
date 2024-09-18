@@ -289,8 +289,24 @@ app.get("/league_form", (req, res) => {
 });
 
 app.get("/team_form", (req, res) => { 
-  res.render('team_dataf');
+  db.all("SELECT * FROM leagues", (err, leaguestype) => {
+    if (err) {
+      return res.status(500).send("Error retrieving league data");
+    }
+
+    // Check if data is returned
+    if (!leaguestype || leaguestype.length === 0) {
+      return res.status(404).send("No leagues found");
+    }
+
+    console.log(leaguestype); 
+
+    // Render the template, passing the data
+    res.render('team_dataf', { leaguestype });
+  });
 });
+
+
 
 app.get("/county_form", (req, res) => { 
   db.all("SELECT * FROM leagues", (err, leagueType) => {

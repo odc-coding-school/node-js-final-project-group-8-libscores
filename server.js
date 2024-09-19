@@ -31,47 +31,13 @@ db.serialize(() => {
     CREATE TABLE IF NOT EXISTS leagues (
       league_id INTEGER PRIMARY KEY,
       league_name TEXT NOT NULL,
-      league_logo BLOB
+      league_logo BLOB,
+      country TEXT,
+      founded_year INTEGER,
+      number_of_teams INTEGER
     )
   `);
 
-  // LAF second division league
-  db.run(`
-    CREATE TABLE IF NOT EXISTS laf_second_division_league (
-      team_id INTEGER PRIMARY KEY,
-      team_name TEXT NOT NULL,
-      city TEXT,
-      team_logo BLOB,
-      home_stadium TEXT,
-      founded_year INTEGER
-    )
-  `);
-
- // LAF third division league
- db.run(`
-  CREATE TABLE IF NOT EXISTS laf_third_division_league (
-    team_id INTEGER PRIMARY KEY,
-    team_name TEXT NOT NULL,
-    city TEXT,
-    team_logo BLOB,
-    home_stadium TEXT,
-    founded_year INTEGER
-  )
-`);
-
- // County meet table
- db.run(`
-  CREATE TABLE IF NOT EXISTS county_meet (
-    team_id INTEGER PRIMARY KEY,
-    team_name TEXT NOT NULL,
-    city TEXT,
-    league_id INTEGER,
-    team_logo BLOB,
-    home_stadium TEXT,
-    founded_year INTEGER,
-    FOREIGN KEY(league_id) REFERENCES leagues(league_id)
-  )
-`);
   // County table
   db.run(`
     CREATE TABLE IF NOT EXISTS county (
@@ -308,7 +274,7 @@ app.get("/team_form", (req, res) => {
 
 
 app.get("/county_form", (req, res) => { 
-  db.all("SELECT * FROM leagues", (err, leagueType) => {
+  db.all(`SELECT * FROM leagues  WHERE league_id = 4`, (err, leagueType) => {
     if (err) {
       console.log("Error: ", err);
       return res.status(500).send("Error retrieving leagues data");
@@ -918,15 +884,12 @@ app.post('/submit_league', upload.single('leagues_logo'), (req, res) => {
   const leagueLogo = req.file ? req.file.buffer : null; // Store image as BLOB
 
   const insertLeague = `
-    INSERT INTO county (league_name, leagues_logo, country, number_of_teams, founded_year)
-    VALUES (?, ?, ?, ?, ?)`;
+    INSERT INTO leagues (league_name, leagues_logo)
+    VALUES (?, ?)`;
 
   db.run(insertLeague, [
     data.league_name,
-    leagueLogo, // Insert image as BLOB
-    data.country,
-    data.number_of_teams,
-    data.founded_year_league  // fixed the founded year field
+    leagueLogo  
   ], function(err) {
     if (err) {
       return res.status(500).json({ error: err.message });

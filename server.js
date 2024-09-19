@@ -145,6 +145,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('views', path.join(__dirname, 'views'));
 
+
 const secretKey = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 
 app.use(session({

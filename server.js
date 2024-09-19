@@ -46,7 +46,9 @@ db.serialize(() => {
       city TEXT,
       county_logo BLOB,
       home_stadium TEXT,
-      founded_year INTEGER
+      founded_year INTEGER,
+      league_id INTEGER,  
+      FOREIGN KEY(league_id) REFERENCES leagues(league_id)
     )
   `);
   // this is the matches table
@@ -65,6 +67,23 @@ db.serialize(() => {
       FOREIGN KEY (away_team_id) REFERENCES teams(team_id)
     )
   `); 
+
+    // this is the county matches table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS county_matches (
+        county_match_id INTEGER PRIMARY KEY,
+        home_county_id INTEGER,
+        away_county_id INTEGER,
+        match_date TEXT,
+        match_time TEXT,
+        venue TEXT,
+        status TEXT,
+        home_county_score INTEGER,
+        away_county_score INTEGER,
+        FOREIGN KEY (home_county_id) REFERENCES county(county_id),
+        FOREIGN KEY (away_county_id) REFERENCES county(county_id)
+      )
+    `);    
  
   // Players table
   db.run(`
@@ -120,7 +139,6 @@ db.serialize(() => {
   `); 
   console.log("Database and tables initialized.");
 });
-
 
 // Set up multer for file uploads using memory storage
 const storage = multer.memoryStorage();
@@ -222,16 +240,43 @@ app.get("/", (req, res) => {
             return res.status(500).send("Error retrieving match data");
           }
 
-          // Render dashboard with all data
-          res.render('dashboard', { teamdata, leaguedata, countydata, matches});
-        });
+              // Updated matches query to join with county and leagues
+              db.all(`
+                SELECT 
+                  l.league_logo, 
+                  l.league_name, 
+                  'qualification' AS league_stage,  
+                  away_county.county_name AS away_county_name,
+                  away_county.county_logo AS away_county_logo,
+                  home_county.county_name AS home_county_name,
+                  home_county.county_logo AS home_county_logo,
+                  m.status AS match_status,
+                  m.home_county_score,
+                  m.away_county_score
+                FROM county_matches m
+                INNER JOIN county AS home_county ON m.home_county_id = home_county.county_id
+                INNER JOIN county AS away_county ON m.away_county_id = away_county.county_id
+                INNER JOIN leagues l ON home_county.league_id = l.league_id
+                WHERE 
+                  m.home_county_score IS NOT NULL AND 
+                  m.away_county_score IS NOT NULL AND 
+                  home_county.county_name IS NOT NULL AND
+                  away_county.county_name IS NOT NULL
+              `, (err, countymatches) => {
+                if (err) {
+                  console.log("Error: ", err);
+                  return res.status(500).send("Error retrieving county match data");
+                }
+      
+                // Render dashboard with all data
+                res.render('dashboard', { teamdata, leaguedata, countydata, matches, countymatches});
+         
+              });
+         });
       });
     });
   });
 });
-
-
-
 
 app.get("/form", (req, res) => {
   db.all('SELECT * FROM leagues', (err, rows) => {
@@ -249,7 +294,6 @@ app.get("/form", (req, res) => {
       res.render('form', { leagueid: rows });
   });
 });
-
 
 app.get("/league_form", (req, res) => { 
   res.render('league_dataf');
@@ -272,9 +316,6 @@ app.get("/team_form", (req, res) => {
   });
 });
 
-
-
-
 app.get("/county_form", (req, res) => { 
   db.all(`SELECT * FROM leagues  WHERE league_id = 4`, (err, leagueType) => {
     if (err) {
@@ -292,11 +333,13 @@ app.get("/county_form", (req, res) => {
   });
 });
 
-
 app.get("/match_form", (req, res) => { 
-  res.render('match_infor_form');
+  res.render('match_info_form');
 });
 
+app.get("/match_county_form", (req, res) => { 
+  res.render('match_county_form');
+});
 
 app.get("/league1_matches/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
@@ -393,7 +436,6 @@ app.get('/player_stats_all', (req, res) => {
   });
 });
  
-
 // Team Table
 app.get('/player_stats_ass', (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -518,7 +560,6 @@ app.get('/player_stats_rc', (req, res) => {
     });
   });
   
-
 // Team Table
 app.get('/player_stats_sot', (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -559,7 +600,6 @@ app.get('/player_stats_sot', (req, res) => {
     });
   });
 });
-
 
 // Team Table
 app.get('/player_stats_yc', (req, res) => {
@@ -704,7 +744,6 @@ app.get("/team_table_away", (req, res) => {
   });
 });
 
-
 // Team Table Form
 app.get("/team_table_form", (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -745,7 +784,6 @@ app.get("/team_table_form", (req, res) => {
     });
   });
 });
-
 
 // Team Table
 app.get("/team_table", (req, res) => {
@@ -830,9 +868,6 @@ app.get("/team", (req, res) => {
   });
 });
 
-
-
-
 // POST route for teams
 app.post('/submit_team', upload.single('team_logo'), (req, res) => {
   const data = req.body;
@@ -863,23 +898,42 @@ app.post('/submit_county', upload.single('county_logo'), (req, res) => {
   const data = req.body;
   const countyLogo = req.file ? req.file.buffer : null; // Store the image as a BLOB
 
-  const insertCounty = `
-    INSERT INTO county (county_name, city, county_logo, home_stadium, founded_year, league_id)
-    VALUES (?, ?, ?, ?, ?)`;
+  // Log the incoming data for debugging
+  console.log('Received data:', data);
 
-  db.run(insertCounty, [
-    data.county_name,
-    data.city,
-    countyLogo, // Insert image as BLOB
-    data.home_stadium,
-    data.founded_year,
-    data.league_id
-  ], function(err) {
-    if (err) {
-      return res.status(500).json({ error: err.message });
+  // Enable foreign key constraints
+  db.run('PRAGMA foreign_keys = ON');
+
+  // Check if league_id is valid
+  db.get("SELECT league_id FROM leagues WHERE league_id = ?", [data.league_id], (err, row) => {
+    if (err || !row) {
+      // If the league_id is invalid, return an error
+      console.log('Invalid league_id:', data.league_id);
+      return res.status(400).send("Invalid league_id. Please select a valid league.");
     }
 
-    res.json({ message: "County data inserted successfully", county_id: this.lastID });
+    // Proceed with insertion if league_id is valid
+    const insertCounty = `
+      INSERT INTO county (county_name, city, county_logo, home_stadium, founded_year, league_id)
+      VALUES (?, ?, ?, ?, ?, ?)`;
+
+    db.run(insertCounty, [
+      data.county_name,
+      data.city,
+      countyLogo, // Insert image as BLOB
+      data.home_stadium,
+      data.founded_year,
+      data.league_id
+    ], function(err) {
+      if (err) {
+        // Log the error for debugging
+        console.log('Insert Error:', err.message);
+        return res.status(500).send("Error inserting county data");
+      }
+
+      // Successfully inserted county data
+      res.send("County data inserted successfully");
+    });
   });
 });
 
@@ -927,6 +981,30 @@ app.post('/submit_match', (req, res) => {
   });
 });
 
+app.post('/submit_county_match', (req, res) => {
+  const data = req.body;
+
+  const countyMatchData = `
+    INSERT INTO county_matches (home_county_id, away_county_id, match_date, venue, status, home_county_score, away_county_score)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+  db.run(countyMatchData, [
+    data.home_county_id,
+    data.away_county_id,
+    data.match_date,
+    data.venue,
+    data.status,
+    data.home_county_score,
+    data.away_county_score
+  ], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json({ message: "County Match data inserted successfully", county_match_id: this.lastID });
+  });
+});
+
 
 // Matches_fixture page
 
@@ -969,7 +1047,6 @@ app.get("/fixture", (req, res) => {
     });
   });
 });
-
 
 // Server listening
 app.listen(port, () => {

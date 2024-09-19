@@ -838,15 +838,16 @@ app.post('/submit_team', upload.single('team_logo'), (req, res) => {
   const teamLogo = req.file ? req.file.buffer : null;
 
   const insertTeam = `
-    INSERT INTO teams (team_name, city, team_logo, home_stadium, founded_year)
-    VALUES (?, ?, ?, ?, ?)`;
+    INSERT INTO teams (team_name, city, team_logo, home_stadium, founded_year, league_id)
+    VALUES (?, ?, ?, ?, ?, ?)`;
 
   db.run(insertTeam, [
     data.team_name,
     data.city,
     teamLogo,
     data.home_stadium,
-    data.founded_year
+    data.founded_year,
+    data.league_id
   ], function(err) {
     if (err) {
       return res.status(500).json({ error: err.message });
@@ -862,7 +863,7 @@ app.post('/submit_county', upload.single('county_logo'), (req, res) => {
   const countyLogo = req.file ? req.file.buffer : null; // Store the image as a BLOB
 
   const insertCounty = `
-    INSERT INTO county (county_name, city, county_logo, home_stadium, founded_year)
+    INSERT INTO county (county_name, city, county_logo, home_stadium, founded_year, league_id)
     VALUES (?, ?, ?, ?, ?)`;
 
   db.run(insertCounty, [
@@ -870,7 +871,8 @@ app.post('/submit_county', upload.single('county_logo'), (req, res) => {
     data.city,
     countyLogo, // Insert image as BLOB
     data.home_stadium,
-    data.founded_year
+    data.founded_year,
+    data.league_id
   ], function(err) {
     if (err) {
       return res.status(500).json({ error: err.message });

@@ -31,6 +31,7 @@ input, button{
 
 .text_color {
   color: var(--text_Dcolor);
+  margin-left: 0;
 }
 
 /* The home page styleing starts here */
@@ -152,6 +153,13 @@ a.aside_content:focus{
   height: 30px;
   border-radius: 50px;
 }
+.team-p{
+  margin-top: 5px;
+}
+.main_content_teams{
+  margin-top: 10px;
+}
+
 .text_content{
   text-decoration: none;
   color: var(--text_Dcolor);

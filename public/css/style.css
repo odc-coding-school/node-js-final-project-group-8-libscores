@@ -148,6 +148,15 @@ a.aside_content:focus{
   display: flex;
   gap: 1rem;
 }
+
+.back_to_default_btn{
+  color: var(--text_Dcolor);
+  border: 1px solid var(--border_color);
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 1rem;
+
+}
 .sidebar_imgs{
   width: 30px;
   height: 30px;

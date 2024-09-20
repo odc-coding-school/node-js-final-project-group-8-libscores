@@ -13,13 +13,17 @@
           <a class="nav-item nav-link sidebar_headlings" href="/">
             <i class="fa-solid fa-angle-left fs-2 fw-2 text_color"></i>
           </a>
-          <span class="text_color fs-4 fw-4">County Meet</span>
+          <% if (selectedLeague) { %> <!-- Check if a selected league is available -->
+            <span class="text_color fs-4 fw-4"><%= selectedLeague.league_name %></span> <!-- Display the selected league name -->
+          <% } else { %>
+            <p>No league selected.</p>
+          <% } %>
         </div>
       
         <div class="">
           <% if (leaguedata && leaguedata.length > 0) { %> <!-- Ensure leaguedata exists and has items -->
             <% leaguedata.forEach(league => { %> <!-- Loop through leaguedata -->
-              <a href="/league1_overview/<%= league.league_id %>" class="text-decoration-none">
+              <a href="/<%= league.league_id %>" class="text-decoration-none"> <!-- Link to dynamically change the selected league -->
                 <fieldset class="aside_content">
                   <div class="contant">
                     <img src="./images/county_meet_log.jpg" alt="<%= league.league_name %> Logo" class="sidebar_imgs rounded-circle">
@@ -27,7 +31,7 @@
                   </div>
                 </fieldset>
               </a>
-              <a href="/league1_qualification/<%= league.league_id %>" class="text-decoration-none">
+              <a href="/<%= league.league_id %>" class="text-decoration-none">
                 <fieldset class="aside_content">
                   <div class="contant">
                     <img src="./images/county_meet_log.jpg" alt="<%= league.league_name %> Logo" class="sidebar_imgs rounded-circle">
@@ -41,6 +45,8 @@
           <% } %>
         </div>
       </ul>
+      
+      
       
         <ul class="nav flex-column gap-2" id="all_sidebar_l">
           <li class="nav-item">

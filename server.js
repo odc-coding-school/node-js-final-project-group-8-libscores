@@ -364,7 +364,7 @@ app.get("/league_form", (req, res) => {
 });
 
 app.get("/team_form", (req, res) => { 
-  db.all(`SELECT * FROM leagues WHERE league_id IN (1, 2, 3)`, (err, leagueType) => {
+ db.all("SELECT * FROM leagues WHERE league_id IN (1, 2, 3)", (err, leagueType) => {
     if (err) {
       console.log("Error: ", err);
       return res.status(500).send("Error retrieving leagues data");

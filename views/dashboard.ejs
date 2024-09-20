@@ -98,7 +98,7 @@
   </div>
 
   <fieldset class="main_content">
-    <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
+    <a href="/<%= countymatches.home_county_name %>vs/<%= countymatches.away_county_name %>" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
     <div class="d-flex lign-items-center gap-4 ms-2">
       <div class="d-flex align-items-center">
         <p><%= countymatches.match_status %></p>
@@ -113,7 +113,7 @@
           <p class="team-p"><%= countymatches.home_county_name %></p>
         </div>
         <div class="d-flex gap-2">
-          <% if (countymatches.away_team_logo) { %>
+          <% if (countymatches.away_county_logo) { %>
             <img src="data:image/png;base64,<%= countymatches.away_county_logo.toString('base64') %>" alt="Away Team Logo" class="sidebar_imgs">
           <% } else { %>
             <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">

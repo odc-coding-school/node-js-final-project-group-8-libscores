@@ -183,7 +183,7 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 // Home Page with optional league_id
-app.get("/:league_id?", (req, res) => {
+app.get("/", (req, res) => {
   const leagueId = req.params.league_id;
 
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -1059,7 +1059,6 @@ app.post('/submit_county_match', (req, res) => {
 });
 
 // Matches_fixture page
-
 app.get("/fixture", (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
     if (err) {

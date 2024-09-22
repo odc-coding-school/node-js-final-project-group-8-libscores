@@ -910,13 +910,19 @@ app.get("/team_table", (req, res) => {
 });
 
 // Team page
-app.get("/team", (req, res) => {
+app.get("/team/:team_id", (req, res) => {
+  const teamId = req.params.team_id;
+
+  const leagueId = req.query.league_id || null; // Get leagueId from query params or set to null if not provided
+
+
+  // Getting the data to show in the sidebar
   db.all("SELECT * FROM teams", (err, teamdata) => {
     if (err) {
       console.log("Error: ", err);
       return res.status(500).send("Error retrieving team data");
     }
-    
+
     if (!teamdata || teamdata.length === 0) {
       console.log("No teams found");
       return res.status(404).send("No teams found");
@@ -927,7 +933,7 @@ app.get("/team", (req, res) => {
         console.log("Error: ", err);
         return res.status(500).send("Error retrieving league data");
       }
-      
+
       if (!leaguedata || leaguedata.length === 0) {
         console.log("No leagues found");
         return res.status(404).send("No leagues found");
@@ -938,14 +944,71 @@ app.get("/team", (req, res) => {
           console.log("Error: ", err);
           return res.status(500).send("Error retrieving county data");
         }
-        
+
         if (!countydata || countydata.length === 0) {
           console.log("No counties found");
           return res.status(404).send("No counties found");
         }
 
-        console.log("Team data:", teamdata);
-        res.render('team', { teamdata, leaguedata, countydata });
+        // Find the selected league by ID or use the first one by default
+      const selectedLeague = leaguedata.find(league => league.league_id == leagueId) || leaguedata[0];
+
+        // Fetch players associated with the team
+        db.all("SELECT * FROM players WHERE team_id = ?", [teamId], (err, players) => {
+          if (err) {
+            console.log("Error retrieving players data: ", err);
+            return res.status(500).send("Error retrieving players data");
+          }
+
+          // Fetch matches associated with the team
+          db.all(`
+            SELECT 
+              m.match_id,
+              m.match_date,
+              m.venue,
+              m.status,
+              m.home_team_score,
+              m.away_team_score,
+              ht.team_name AS home_team_name,
+              ht.team_logo AS home_team_logo,
+              at.team_name AS away_team_name,
+              at.team_logo AS away_team_logo,
+              htp.player_name AS home_team_player_name,
+              htp.position AS home_team_player_position,
+              htp.jersey_number AS home_team_player_jerseyn,
+              htp.goals_scored AS home_team_player_goals,
+              htp.assists AS home_team_player_assists,
+              htp.matches_played AS home_team_player_matchp,
+              atp.player_name AS away_team_player_name,
+              atp.position AS away_team_player_position,
+              atp.jersey_number AS away_team_player_jerseyn,
+              atp.goals_scored AS away_team_player_goals,
+              atp.assists AS away_team_player_assists,
+              atp.matches_played AS away_team_player_matchp
+            FROM matches m
+            INNER JOIN teams ht ON m.home_team_id = ht.team_id
+            INNER JOIN teams at ON m.away_team_id = at.team_id
+            LEFT JOIN players htp ON ht.team_id = htp.team_id
+            LEFT JOIN players atp ON at.team_id = atp.team_id
+            WHERE ht.team_id = ? OR at.team_id = ?
+          `, [teamId, teamId], (err, teamFullData) => {
+            if (err) {
+              console.log("Error retrieving match data: ", err);
+              return res.status(500).send("Error retrieving match data");
+            }
+
+            // Render the page with the fetched data
+            res.render("team", {
+              teamId,
+              players,
+              teamdata,
+              selectedLeague,
+              teamFullData,
+              leaguedata,
+              countydata
+            });
+          });
+        });
       });
     });
   });

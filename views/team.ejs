@@ -1,148 +1,82 @@
-<%- include ("partials/header.ejs") %>
-    <div class="">
-      <div class="selection_link">
-        <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
-        <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
-        <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
-      </div>
-      <section class="dashcontainer">
-        <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata }) %>
-          <main class="main_display">
 
-                <nav class="qualification_main_nav">
-                    <div class="qualificationmain_nav_lc">
-                      <div class="qualification_link">
-                        <a href="" class="qualification">
-                          <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                          <div class="qualification_heading">
-                            <h5 class="text-light">Qualification: Group A</h5>
-                            <p>Africa Cup of Nations Qualification</p>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="qualification-action-btn">
-                        <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
-                        <a href="/fixture"><button type="button" class="qualification-btn">Matches</button></a>
-                        <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
-                        <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
-                      </div>
-                    </div>
-                </nav>
-                <div class="next-match">
-                  <h3>NEXT MATCH</h3>
-                  <div class="next-match-info">
-                    <div class="team1">
-                      <img class="next-match-img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"  alt="">
-                      <h5>Grand Cape Mount</h5>
-                    </div>
-
-                    <div class="game-time">
-                      <h3>11:30</h3>
-                      <p>14 Sep</p>
-                    </div>
-
-                    <div class="team2">
-                      <img class="next-match-img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"  alt="">
-                      <h5>Grand Cape Mount</h5>
-                    </div>
-                  </div>
-                </div>
-              <section class="main_content-sec">
-               <h3>FORM</h3>
-              <fieldset class="main_content">
-                <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                <div class="d-flex lign-items-center gap-4 ms-2">
-                  <div class="d-flex align-items-center">
-                    <p>HT</p>
-                  </div>
-                  <div class="main_content_teams">
-                    <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>NPA Anchors</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>Watanga FC</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="contant me-2">
-                  <i class="fa-regular fa-star fs-2"></i>
-                </div>
-              </a>
-                  </fieldset>
-                
-                  <fieldset class="main_content">
-                    <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                    <div class="d-flex lign-items-center gap-4 ms-2">
-                      <div class="d-flex align-items-center">
-                        <p>HT</p>
-                      </div>
-                      <div class="main_content_teams">
-                        <div class="d-flex gap-2">
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                          <p>NPA Anchors</p>
-                        </div>
-                        <div class="d-flex gap-2">
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                          <p>Watanga FC</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="contant me-2">
-                      <i class="fa-regular fa-star fs-2"></i>
-                    </div>
-                  </a>
-                </fieldset>
-          
-                <fieldset class="main_content">
-                  <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                  <div class="d-flex lign-items-center gap-4 ms-2">
-                    <div class="d-flex align-items-center">
-                      <p>HT</p>
-                    </div>
-                    <div class="main_content_teams">
-                      <div class="d-flex gap-2">
-                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                        <p>NPA Anchors</p>
-                      </div>
-                      <div class="d-flex gap-2">
-                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                        <p>Watanga FC</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="contant me-2">
-                    <i class="fa-regular fa-star fs-2"></i>
-                  </div>
-                </a>
-              </fieldset>
-            
-              <fieldset class="main_content">
-                <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                <div class="d-flex lign-items-center gap-4 ms-2">
-                  <div class="d-flex align-items-center">
-                    <p>HT</p>
-                  </div>
-                  <div class="main_content_teams">
-                    <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>NPA Anchors</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>Watanga FC</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="contant me-2">
-                  <i class="fa-regular fa-star fs-2"></i>
-                </div>
-              </a>
-              </fieldset>
-           </section>
-        </main>
-      </section>
-    </div>
+  <%- include ("partials/header.ejs") %>
+<div class="">
+  <div class="selection_link">
+    <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
+    <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
+    <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
   </div>
-  <%- include ("partials/footer.ejs") %>
+  <section class="dashcontainer">
+    <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata }) %>
+    <main class="main_display">
+      <nav class="qualification_main_nav">
+        <div class="qualificationmain_nav_lc">
+          <div class="qualification_link">
+            <a href="" class="qualification">
+              <img class="qualification_img" src="<%= teamdata.team_logo %>" alt="<%= teamdata.team_name %> logo">
+              <div class="qualification_heading">
+                <h5 class="text-light">Qualification: Group A</h5>
+                <p><%= leaguedata ? leaguedata.league_name : 'League Name Unavailable' %></p>
+              </div>
+            </a>
+          </div>
+          <div class="qualification-action-btn">
+            <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
+            <a href="/fixture"><button type="button" class="qualification-btn">Matches</button></a>
+            <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
+            <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Next Match Section -->
+      <div class="next-match">
+        <h3>NEXT MATCH</h3>
+        <div class="next-match-info">
+          <div class="team1">
+            <img class="next-match-img" src="data:image/png;base64,<%= teamFullData[0].home_team_logo.toString('base64')  %>" alt="<%= teamFullData[0].home_team_name %> logo" class="sidebar_imgs">
+            <h5><%= teamFullData[0].home_team_name %></h5>
+          </div>
+          <div class="game-time">
+            <h3><%= teamFullData[0].match_date %></h3>
+            <p><%= teamFullData[0].status %></p>
+          </div>
+          <div class="team2">
+            <img class="next-match-img" src="data:image/png;base64,<%= teamFullData[0].away_team_logo.toString('base64') %>" alt="<%= teamFullData[0].away_team_name %> logo">
+            <h5><%= teamFullData[0].away_team_name %></h5>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Form and Recent Matches -->
+      <section class="main_content-sec">
+        <h3>FORM</h3>
+        <% teamFullData.forEach(match => { %>
+        <fieldset class="main_content">
+          <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
+            <div class="d-flex align-items-center gap-4 ms-2">
+              <div class="d-flex align-items-center">
+                <p><%= match.match_date %></p>
+              </div>
+              <div class="main_content_teams">
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="data:image/png;base64,<%= match.home_team_logo.toString('base64') %>" alt="<%= match.home_team_name %> logo">
+                  <p><%= match.home_team_name %></p>
+                </div>
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="data:image/png;base64,<%= match.away_team_logo.toString('base64') %>" alt="<%= match.away_team_name %> logo">
+                  <p><%= match.away_team_name %></p>
+                </div>
+              </div>
+            </div>
+            <div class="contant me-2">
+              <i class="fa-regular fa-star fs-2"></i>
+            </div>
+          </a>
+        </fieldset>
+        <% }) %>
+      </section>
+    </main>
+  </section>
+</div>
+<%- include ("partials/footer.ejs") %>

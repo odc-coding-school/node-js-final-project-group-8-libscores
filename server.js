@@ -183,8 +183,9 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 // Home Page with optional league_id
+// Home Page with optional league_id
 app.get("/", (req, res) => {
-  const leagueId = req.params.league_id;
+  const leagueId = req.params.league_id; // You might need to adjust this if you're not using route parameters.
 
   db.all("SELECT * FROM teams", (err, teamdata) => {
     if (err) {
@@ -222,7 +223,7 @@ app.get("/", (req, res) => {
           return res.status(404).send("No counties found");
         }
 
-        // Updated matches query to join with teams and leagues
+        // Fetch matches data
         db.all(`
           SELECT 
             l.league_logo, 
@@ -245,7 +246,7 @@ app.get("/", (req, res) => {
             return res.status(500).send("Error retrieving match data");
           }
 
-          // Updated matches query to join with county and leagues
+          // Fetch county matches data
           db.all(`
             SELECT 
               l.league_logo, 
@@ -288,6 +289,7 @@ app.get("/", (req, res) => {
     });
   });
 });
+
 
 app.get("/league1_overview/:league_id", (req, res) => {
   const leagueId = req.params.league_id;

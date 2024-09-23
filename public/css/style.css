@@ -10,6 +10,7 @@
   text-decoration: none;
 }
 
+
 /* Setting the colors and font family in the root */
 :root{
   --bg_color: #020035;
@@ -46,6 +47,7 @@ header{
 .navbar-nav{
   display: flex;
   gap: 16rem;
+
 }
 
 .logo {
@@ -85,7 +87,7 @@ header{
   padding: 2rem 0;
 }
 
-a .selection_btn:focus{
+a .selection_btn:active{
  background: var(--text_Dcolor); 
  outline: none;
  border-radius: 2rem;
@@ -108,16 +110,20 @@ a .selection_btn{
   height: max-content;
   min-height: 100vh;
  }
-
+form{
+  display: flex;
+}
  .search-bar{
-  height: 50px;
+  height: 40px;
   border-bottom: 3px solid #769BF5;
  }
  .search-btn i{
   color: var(--text_Dcolor);
-  font-size: large;
-  margin: 1rem 0 0 1rem;
+  margin: 10px 10px 0 10px;
  }
+ .search-bar input{
+  color: var(--text_Dcolor);
+}
 
 .aside_content{
  background-color: #2A2B45 ;
@@ -139,11 +145,7 @@ a.aside_content:focus{
   border-radius: 2rem;
   color: var(--focusTColo);
  }
- 
-.search-bar input{
-  font-size: large;
 
-}
 .contant{
   display: flex;
   gap: 1rem;

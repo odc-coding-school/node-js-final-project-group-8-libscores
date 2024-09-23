@@ -1,12 +1,15 @@
 
 <aside class="main-aside">
-  <form action="" class="search-bar">
+  <form action="javascript:void(0);" class="search-bar"> <!-- Prevent form submission -->
     <button type="button" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     <input type="text" id="searchInput" placeholder="Search">
   </form>
 
+   <!-- Search results container -->
+   <div id="detail_list" class="d-none"></div> <!-- Hidden by default -->
+   
   <div class="position-sticky">
-    <ul id="all_sidebar_l" class="nav flex-column gap-2">
+    <ul id="all_sidebar_l" class="nav flex-column gap-2" >
       <!-- Leagues Section -->
       <li class="nav-item">
         <a id="show-leagues" class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
@@ -84,110 +87,112 @@
 
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-  const leaguesList = document.getElementById('leagues-list');
-  const teamsList = document.getElementById('teams-list');
-  const countiesList = document.getElementById('counties-list');
-
-  const showLeaguesLink = document.getElementById('show-leagues');
-  const showTeamsLink = document.getElementById('show-teams');
-  const showCountiesLink = document.getElementById('show-counties');
-
-  // Initially show leagues, hide teams and counties
-  leaguesList.classList.remove('d-none');
-  teamsList.classList.add('d-none');
-  countiesList.classList.add('d-none');
-
-  showLeaguesLink.addEventListener('click', function () {
-    // Show leagues, hide others
+  document.addEventListener("DOMContentLoaded", function () {
+    const leaguesList = document.getElementById('leagues-list');
+    const teamsList = document.getElementById('teams-list');
+    const countiesList = document.getElementById('counties-list');
+    const resultsContainer = document.getElementById('detail_list');
+  
+    const showLeaguesLink = document.getElementById('show-leagues');
+    const showTeamsLink = document.getElementById('show-teams');
+    const showCountiesLink = document.getElementById('show-counties');
+  
+    // Initially show leagues, hide teams and counties
     leaguesList.classList.remove('d-none');
     teamsList.classList.add('d-none');
     countiesList.classList.add('d-none');
+  
+    showLeaguesLink.addEventListener('click', function () {
+      leaguesList.classList.remove('d-none');
+      teamsList.classList.add('d-none');
+      countiesList.classList.add('d-none');
+    });
+  
+    showTeamsLink.addEventListener('click', function () {
+      teamsList.classList.remove('d-none');
+      leaguesList.classList.add('d-none');
+      countiesList.classList.add('d-none');
+    });
+  
+    showCountiesLink.addEventListener('click', function () {
+      countiesList.classList.remove('d-none');
+      leaguesList.classList.add('d-none');
+      teamsList.classList.add('d-none');
+    });
+  
+    const leaguedata = <%- JSON.stringify(leaguedata) %>;
+    const teamdata = <%- JSON.stringify(teamdata) %>;
+    const countydata = <%- JSON.stringify(countydata) %>;
+  
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', handleSearch);
+  
+    function handleSearch(event) {
+      const query = event.target.value.toLowerCase();
+      
+      if (query === "") {
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.add('d-none'); // Hide results if search is cleared
+        return;
+      }
+  
+      const filteredLeagues = leaguedata.filter(league => league.league_name.toLowerCase().includes(query));
+      const filteredTeams = teamdata.filter(team => team.team_name.toLowerCase().includes(query));
+      const filteredCounties = countydata.filter(county => county.county_name.toLowerCase().includes(query));
+  
+      displayResults(filteredLeagues, filteredTeams, filteredCounties);
+    }
+  
+    function displayResults(leagues, teams, counties) {
+      resultsContainer.innerHTML = ''; // Clear previous results
+  
+      if (leagues.length > 0) {
+        leagues.forEach(league => {
+          resultsContainer.innerHTML += `
+            <a href="/league1_overview/${league.league_id}" class="text-decoration-none">
+              <fieldset class="aside_content">
+                <div class="contant">
+                  <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${league.league_name} Logo" class="sidebar_imgs rounded-circle">
+                  <div class="text_content">${league.league_name}</div>
+                </div>
+              </fieldset>
+            </a>`;
+        });
+      }
+  
+      if (teams.length > 0) {
+        teams.forEach(team => {
+          resultsContainer.innerHTML += `
+            <a href="/team/${team.team_id}" class="text-decoration-none">
+              <fieldset class="aside_content">
+                <div class="contant">
+                  <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${team.team_name} Logo" class="sidebar_imgs">
+                  <div class="text_content">${team.team_name}</div>
+                </div>
+              </fieldset>
+            </a>`;
+        });
+      }
+  
+      if (counties.length > 0) {
+        counties.forEach(county => {
+          resultsContainer.innerHTML += `
+            <a href="/county/${county.county_id}" class="text-decoration-none">
+              <fieldset class="aside_content">
+                <div class="contant">
+                  <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${county.county_name} Logo" class="sidebar_imgs">
+                  <div class="text_content">${county.county_name}</div>
+                </div>
+              </fieldset>
+            </a>`;
+        });
+      }
+  
+      if (leagues.length === 0 && teams.length === 0 && counties.length === 0) {
+        resultsContainer.innerHTML = '<p>No results found.</p>';
+      }
+  
+      resultsContainer.classList.remove('d-none'); // Show results
+    }
   });
-
-  showTeamsLink.addEventListener('click', function () {
-    // Show teams, hide others
-    teamsList.classList.remove('d-none');
-    leaguesList.classList.add('d-none');
-    countiesList.classList.add('d-none');
-  });
-
-  showCountiesLink.addEventListener('click', function () {
-    // Show counties, hide others
-    countiesList.classList.remove('d-none');
-    leaguesList.classList.add('d-none');
-    teamsList.classList.add('d-none');
-  });
-});
-
-  // Assuming leaguedata, teamdata, and countydata are rendered globally using EJS
-  const leaguedata = <%- JSON.stringify(leaguedata) %>;
-  const teamdata = <%- JSON.stringify(teamdata) %>
-  const countydata = <%- JSON.stringify(countydata) %>;
-
-  function handleSearch(event) {
-    const query = event.target.value.toLowerCase();
-
-    const filteredLeagues = leaguedata.filter(league => league.league_name.toLowerCase().includes(query));
-    const filteredTeams = teamdata.filter(team => team.team_name.toLowerCase().includes(query));
-    const filteredCounties = countydata.filter(county => county.county_name.toLowerCase().includes(query));
-
-    displayResults(filteredLeagues, filteredTeams, filteredCounties);
-  }
-
-  function displayResults(leagues, teams, counties) {
-    const resultsContainer = document.getElementById('detail_list');
-    resultsContainer.innerHTML = '';
-
-    if (leagues.length > 0) {
-      leagues.forEach(league => {
-        resultsContainer.innerHTML += `
-          <a href="/${league.league_id}" class="text-decoration-none">
-            <fieldset class="aside_content">
-              <div class="contant">
-                <img src="./images/county_meet_log.jpg" alt="${league.league_name} Logo" class="sidebar_imgs rounded-circle">
-                <div class="text_content">${league.league_name} - League Stage</div>
-              </div>
-            </fieldset>
-          </a>`;
-      });
-    }
-
-    if (teams.length > 0) {
-      teams.forEach(team => {
-        resultsContainer.innerHTML += `
-          <a href="/team/${team.team_id}" class="text-decoration-none">
-            <fieldset class="aside_content">
-              <div class="contant">
-                <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${team.team_name} Logo" class="sidebar_imgs">
-                <div class="text_content">${team.team_name}</div>
-              </div>
-            </fieldset>
-          </a>`;
-      });
-    }
-
-    if (counties.length > 0) {
-      counties.forEach(county => {
-        resultsContainer.innerHTML += `
-          <a href="/team/${county.county_id}" class="text-decoration-none">
-            <fieldset class="aside_content">
-              <div class="contant">
-                <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${county.county_name} Logo" class="sidebar_imgs">
-                <div class="text_content">${county.county_name}</div>
-              </div>
-            </fieldset>
-          </a>`;
-      });
-    }
-
-    if (leagues.length === 0 && teams.length === 0 && counties.length === 0) {
-      resultsContainer.innerHTML = '<p>No results found.</p>';
-    }
-
-    resultsContainer.classList.remove('d-none');
-  }
-
-  document.getElementById('searchInput').addEventListener('input', handleSearch);
-</script>
+  </script>

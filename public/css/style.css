@@ -65,7 +65,7 @@ header{
 
 .link_color i:hover, .link_color span:hover,
 .link_color i:focus, .link_color span:focus {
-  color: var(--lhover_color);
+  color: var(--text_Dcolor);
 }
 
 

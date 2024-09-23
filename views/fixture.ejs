@@ -36,6 +36,11 @@
 
               <section class="main_content-sec">
                <h5>All Leagues</h5>
+               <select name="league" id="league" required>
+                <% leaguedata.forEach(function(league){ %>
+                  <option value="<%= league.league_id %>"><%= league.league_name %></option>
+                <% }); %>
+              </select><br><br>
               <fieldset class="main_content">
                 <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
                 <div class="d-flex lign-items-center gap-4 ms-2">

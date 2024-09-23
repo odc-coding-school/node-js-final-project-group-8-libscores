@@ -10,6 +10,7 @@
   text-decoration: none;
 }
 
+
 /* Setting the colors and font family in the root */
 :root{
   --bg_color: #020035;
@@ -46,6 +47,7 @@ header{
 .navbar-nav{
   display: flex;
   gap: 16rem;
+
 }
 
 .logo {
@@ -141,7 +143,9 @@ a.aside_content:focus{
  }
  
 .search-bar input{
-  font-size: large;
+  font-size: small;
+  color: var(--text_Dcolor);
+  margin-left: 1rem;
 
 }
 .contant{

@@ -1,127 +1,193 @@
 
- <aside class="main-aside">
+<aside class="main-aside">
+  <form action="" class="search-bar">
+    <button type="button" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <input type="text" id="searchInput" placeholder="Search">
+  </form>
 
-  
-    <form action="" class="search-bar"> 
-        <button type="button" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>            
-        <input type="text" placeholder="Search">
-    </form>  
-    
-    <div class="position-sticky">
-      <ul id="detail_list" class="nav flex-column gap-2 d-none">
-        <div class="d-flex justify-content-between align-items-center">
-          <a class="nav-item nav-link sidebar_headlings" href="/">
-            <i class="fa-solid fa-angle-left fs-2 fw-2 text_color"></i>
-          </a>
-          <% if (selectedLeague) { %> <!-- Check if a selected league is available -->
-            <span class="text_color fs-4 fw-4"><%= selectedLeague.league_name %></span> <!-- Display the selected league name -->
-          <% } else { %>
-            <p>No league selected.</p>
-          <% } %>
-        </div>
-      
-        <div class="">
-          <% if (leaguedata && leaguedata.length > 0) { %> <!-- Ensure leaguedata exists and has items -->
-            <% leaguedata.forEach(league => { %> <!-- Loop through leaguedata -->
-              <a href="/<%= league.league_id %>" class="text-decoration-none"> <!-- Link to dynamically change the selected league -->
-                <fieldset class="aside_content">
-                  <div class="contant">
-                    <img src="./images/county_meet_log.jpg" alt="<%= league.league_name %> Logo" class="sidebar_imgs rounded-circle">
-                    <div class="text_content"><%= league.league_name %> - League Stage</div>
-                  </div>
-                </fieldset>
-              </a>
-              <a href="/<%= league.league_id %>" class="text-decoration-none">
-                <fieldset class="aside_content">
-                  <div class="contant">
-                    <img src="./images/county_meet_log.jpg" alt="<%= league.league_name %> Logo" class="sidebar_imgs rounded-circle">
-                    <div class="text_content"><%= league.league_name %> - Qualification</div>
-                  </div>
-                </fieldset>
-              </a>
-            <% }) %>
-          <% } else { %>
-            <p>No leagues available.</p>
-          <% } %>
-        </div>
-      </ul>
-      
-      
-      
-        <ul class="nav flex-column gap-2" id="all_sidebar_l">
-          <li class="nav-item">
-            <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-              <span>Leagues</span>
-              <i class="fa-solid fa-angle-right"></i>
+  <div class="position-sticky">
+    <ul id="all_sidebar_l" class="nav flex-column gap-2">
+      <!-- Leagues Section -->
+      <li class="nav-item">
+        <a id="show-leagues" class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+          <span>Leagues</span>
+          <i class="fa-solid fa-angle-right"></i>
+        </a>
+        <div id="leagues-list">
+          <% leaguedata.forEach(league => { %>
+            <a href="/league1_overview/<%= league.league_id %>" class="text-decoration-none">
+              <fieldset class="aside_content">
+                <div class="contant">
+                  <% if (league.league_logo) { %>
+                    <img src="data:image/png;base64,<%= league.league_logo.toString('base64') %>" alt="<%= league.league_name %> Logo" class="sidebar_imgs">
+                  <% } else { %>
+                    <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
+                  <div class="text_content"><%= league.league_name %></div>
+                </div>
+              </fieldset>
             </a>
-            <% if (leaguedata && leaguedata.length > 0) { %>
-              <% leaguedata.forEach(league => { %> 
-                <a href="/league1_overview/<%= league.league_id %>" class="text-decoration-none">
-                  <fieldset class="aside_content">
-                    <div class="contant">
-                      <% if (league.league_logo) { %> <!-- Checking if the BLOB exists -->
-                        <img src="data:image/png;base64,<%= league.league_logo.toString('base64') %>" alt="<%= league.league_name %> Logo" class="sidebar_imgs">
-                      <% } else { %>
-                        <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                      <% } %>
-                      <div class="text_content"><%= league.league_name %></div>
-                    </div>
-                  </fieldset>
-                </a>
-              <% }) %>
-            <% } else { %>
-              <p>No leagues available.</p>
-            <% } %>
-          </li>
-            <li class="nav-item">
-                <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-                  <span>Teams</span>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                
-                <% if (teamdata && teamdata.length > 0) { %>
-                  <% teamdata.forEach(teamData => { %>
-                    <a href="/team/<%= teamData.team_id %>" class="text-decoration-none">
-                      <fieldset class="aside_content">
-                        <div class="contant">
-                          <% if (teamData.team_logo) { %> <!-- Checking if the BLOB exists -->
-                            <img src="data:image/png;base64,<%= teamData.team_logo.toString('base64') %>" alt="<%= teamData.team_name %> Logo" class="sidebar_imgs">
-                          <% } else { %>
-                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                          <% } %>
-                          <div class="text_content"><%= teamData.team_name %></div>
-                        </div>
-                      </fieldset>
-                    </a>
-                  <% }) %>
-                <% } else { %>
-                  <p>No teams available.</p>
-                <% } %>
-            </li>
-            <li class="nav-item">
-              <a class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
-                <span>Counties</span>
-                <i class="fa-solid fa-angle-right"></i>
-              </a>
-              <% if (countydata && countydata.length > 0) { %>
-                <% countydata.forEach(county => { %> <!-- Changed from 'countydata' to 'county' for clarity -->
-                <a href="/team/<%= county.county_id %>" class="text-decoration-none">
-                    <fieldset class="aside_content">
-                      <div class="contant">
-                        <% if (county.county_logo) { %> <!-- Checking if the BLOB exists -->
-                          <img src="data:image/png;base64,<%= county.county_logo.toString('base64') %>" alt="<%= county.county_name %> Logo" class="sidebar_imgs">
-                        <% } else { %>
-                          <p>No logo available for this county.</p>
-                        <% } %>
-                        <div class="text_content"><%= county.county_name %></div>
-                      </div>
-                    </fieldset>
-                  </a>
-                <% }) %>
-              <% } else { %>
-                <p>No counties available.</p>
-              <% } %>
-            </li>
-        </ul>
-    </div>
+          <% }) %>
+        </div>
+      </li>
+
+      <!-- Teams Section -->
+      <li class="nav-item">
+        <a id="show-teams" class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+          <span>Teams</span>
+          <i class="fa-solid fa-angle-right"></i>
+        </a>
+        <div id="teams-list" class="d-none">
+          <% teamdata.forEach(team => { %>
+            <a href="/team/<%= team.team_id %>" class="text-decoration-none">
+              <fieldset class="aside_content">
+                <div class="contant">
+                  <% if (team.team_logo) { %>
+                    <img src="data:image/png;base64,<%= team.team_logo.toString('base64') %>" alt="<%= team.team_name %> Logo" class="sidebar_imgs">
+                  <% } else { %>
+                    <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
+                  <div class="text_content"><%= team.team_name %></div>
+                </div>
+              </fieldset>
+            </a>
+          <% }) %>
+        </div>
+      </li>
+
+      <!-- Counties Section -->
+      <li class="nav-item">
+        <a id="show-counties" class="nav-item nav-link sidebar_headlings d-flex justify-content-between align-items-center" href="#">
+          <span>Counties</span>
+          <i class="fa-solid fa-angle-right"></i>
+        </a>
+        <div id="counties-list" class="d-none">
+          <% countydata.forEach(county => { %>
+            <a href="/county/<%= county.county_id %>" class="text-decoration-none">
+              <fieldset class="aside_content">
+                <div class="contant">
+                  <% if (county.county_logo) { %>
+                    <img src="data:image/png;base64,<%= county.county_logo.toString('base64') %>" alt="<%= county.county_name %> Logo" class="sidebar_imgs">
+                  <% } else { %>
+                    <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
+                  <div class="text_content"><%= county.county_name %></div>
+                </div>
+              </fieldset>
+            </a>
+          <% }) %>
+        </div>
+      </li>
+    </ul>
+  </div>
 </aside>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const leaguesList = document.getElementById('leagues-list');
+  const teamsList = document.getElementById('teams-list');
+  const countiesList = document.getElementById('counties-list');
+
+  const showLeaguesLink = document.getElementById('show-leagues');
+  const showTeamsLink = document.getElementById('show-teams');
+  const showCountiesLink = document.getElementById('show-counties');
+
+  // Initially show leagues, hide teams and counties
+  leaguesList.classList.remove('d-none');
+  teamsList.classList.add('d-none');
+  countiesList.classList.add('d-none');
+
+  showLeaguesLink.addEventListener('click', function () {
+    // Show leagues, hide others
+    leaguesList.classList.remove('d-none');
+    teamsList.classList.add('d-none');
+    countiesList.classList.add('d-none');
+  });
+
+  showTeamsLink.addEventListener('click', function () {
+    // Show teams, hide others
+    teamsList.classList.remove('d-none');
+    leaguesList.classList.add('d-none');
+    countiesList.classList.add('d-none');
+  });
+
+  showCountiesLink.addEventListener('click', function () {
+    // Show counties, hide others
+    countiesList.classList.remove('d-none');
+    leaguesList.classList.add('d-none');
+    teamsList.classList.add('d-none');
+  });
+});
+
+  // Assuming leaguedata, teamdata, and countydata are rendered globally using EJS
+  const leaguedata = <%- JSON.stringify(leaguedata) %>;
+  const teamdata = <%- JSON.stringify(teamdata) %>
+  const countydata = <%- JSON.stringify(countydata) %>;
+
+  function handleSearch(event) {
+    const query = event.target.value.toLowerCase();
+
+    const filteredLeagues = leaguedata.filter(league => league.league_name.toLowerCase().includes(query));
+    const filteredTeams = teamdata.filter(team => team.team_name.toLowerCase().includes(query));
+    const filteredCounties = countydata.filter(county => county.county_name.toLowerCase().includes(query));
+
+    displayResults(filteredLeagues, filteredTeams, filteredCounties);
+  }
+
+  function displayResults(leagues, teams, counties) {
+    const resultsContainer = document.getElementById('detail_list');
+    resultsContainer.innerHTML = '';
+
+    if (leagues.length > 0) {
+      leagues.forEach(league => {
+        resultsContainer.innerHTML += `
+          <a href="/${league.league_id}" class="text-decoration-none">
+            <fieldset class="aside_content">
+              <div class="contant">
+                <img src="./images/county_meet_log.jpg" alt="${league.league_name} Logo" class="sidebar_imgs rounded-circle">
+                <div class="text_content">${league.league_name} - League Stage</div>
+              </div>
+            </fieldset>
+          </a>`;
+      });
+    }
+
+    if (teams.length > 0) {
+      teams.forEach(team => {
+        resultsContainer.innerHTML += `
+          <a href="/team/${team.team_id}" class="text-decoration-none">
+            <fieldset class="aside_content">
+              <div class="contant">
+                <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${team.team_name} Logo" class="sidebar_imgs">
+                <div class="text_content">${team.team_name}</div>
+              </div>
+            </fieldset>
+          </a>`;
+      });
+    }
+
+    if (counties.length > 0) {
+      counties.forEach(county => {
+        resultsContainer.innerHTML += `
+          <a href="/team/${county.county_id}" class="text-decoration-none">
+            <fieldset class="aside_content">
+              <div class="contant">
+                <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="${county.county_name} Logo" class="sidebar_imgs">
+                <div class="text_content">${county.county_name}</div>
+              </div>
+            </fieldset>
+          </a>`;
+      });
+    }
+
+    if (leagues.length === 0 && teams.length === 0 && counties.length === 0) {
+      resultsContainer.innerHTML = '<p>No results found.</p>';
+    }
+
+    resultsContainer.classList.remove('d-none');
+  }
+
+  document.getElementById('searchInput').addEventListener('input', handleSearch);
+</script>

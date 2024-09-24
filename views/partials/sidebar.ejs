@@ -120,7 +120,10 @@
       teamsList.classList.add('d-none');
     });
   
-   
+    const leaguedata = <%- JSON.stringify(leaguedata) %>;
+    const teamdata = <%- JSON.stringify(teamdata) %>;
+    const countydata = <%- JSON.stringify(countydata) %>;
+  
     // Search functionality
     document.getElementById('searchInput').addEventListener('input', handleSearch);
   

@@ -24,7 +24,7 @@
             <% matches.forEach(match => { %>
             <div class="qualification_group">
               <div class="qualification_link">
-                <a href="" class="qualification">
+                <a href="/team/<%= match.home_team_id %>" class="qualification">
                   <% if (match.league_logo) { %>
                     <img src="data:image/png;base64,<%= match.league_logo.toString('base64') %>" alt="League Logo" class="sidebar_imgs">
                   <% } else { %>

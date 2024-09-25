@@ -180,3 +180,11 @@ function formDisplay() {
 formDisplay();
 
 
+<<<<<<< HEAD
+=======
+
+
+
+// aside bar search input
+
+>>>>>>> 6cb2919 (intial commit)

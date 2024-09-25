@@ -1448,6 +1448,71 @@ app.post('/submit_county_match', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+// Matches_fixture page
+app.get("/fixture/:league_id", (req, res) => {
+  const leagueId = req.params.league_id;
+
+  // Fetch the teams associated with a particular league
+  db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teamdata) => {
+    if (err) {
+      console.log("Error retrieving team data: ", err);
+      return res.status(500).send("Error retrieving team data");
+    }
+    
+    if (!teamdata || teamdata.length === 0) {
+      console.log("No teams found");
+      return res.status(404).send("No teams found");
+    }
+
+    // Fetch the specific league by league_id
+    db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
+      if (err) {
+        console.log("Error retrieving league data: ", err);
+        return res.status(500).send("Error retrieving league data");
+      }
+
+      if (!league) {
+        console.log("League not found");
+        return res.status(404).send("League not found");
+      }
+
+      // Fetch the matches associated with the teams in the league
+      db.all(`
+        SELECT 
+          m.match_id,
+          m.home_team_id,
+          m.away_team_id,
+          m.match_date,
+          m.venue,
+          m.status,
+          m.home_team_score,
+          m.away_team_score,
+          ht.team_name AS home_team_name,
+          ht.team_logo AS home_team_logo,
+          at.team_name AS away_team_name,
+          at.team_logo AS away_team_logo
+        FROM matches m
+        INNER JOIN teams ht ON m.home_team_id = ht.team_id
+        INNER JOIN teams at ON m.away_team_id = at.team_id
+        WHERE ht.league_id = ? OR at.league_id = ?
+      `, [leagueId, leagueId], (err, matchdata) => {
+        if (err) {
+          console.log("Error retrieving matches data: ", err);
+          return res.status(500).send("Error retrieving matches data");
+        }
+
+          // Render the fixture page with the team, match, league, and county data
+          res.render('fixture', { teamdata, league, matchdata, countydata });
+        });
+      });
+    });
+  });
+
+
+
+>>>>>>> 6cb2919 (intial commit)
 // Server listening
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

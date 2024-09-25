@@ -1,5 +1,5 @@
 
-  <%- include ("partials/header.ejs") %>
+  <%- include ("partials/header", { title: title }) %>
 <div class="">
   <div class="selection_link">
     <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
@@ -7,45 +7,53 @@
     <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
   </div>
   <section class="dashcontainer">
-    <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata }) %>
+    <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata, title:title }) %>
     <main class="main_display">
       <nav class="qualification_main_nav">
         <div class="qualificationmain_nav_lc">
           <div class="qualification_link">
+            <% if (teamFullData && teamFullData.length > 0) { %>
             <a href="" class="qualification">
-              <img class="qualification_img" src="<%= teamdata.team_logo %>" alt="<%= teamdata.team_name %> logo">
+              <img src="data:image/png;base64,<%= teamFullData[0].home_team_logo.toString('base64') %>" alt="<%= teamFullData[0].home_team_name %> logo" class="sidebar_imgs">
               <div class="qualification_heading">
-                <h5 class="text-light">Qualification: Group A</h5>
+                <h5 class="text-light"><%= teamFullData[0].home_team_name %></h5>
                 <p><%= leaguedata ? leaguedata.league_name : 'League Name Unavailable' %></p>
               </div>
             </a>
+            <% } else { %>
+              <p class="d-flex justify-content-center pt-1">No match data available for this team  </p>
+            <% } %>
           </div>
           <div class="qualification-action-btn">
-            <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
-            <a href="/fixture"><button type="button" class="qualification-btn">Matches</button></a>
-            <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
-            <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
+            <a href="/team/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">Overview</button></a>
+            <a href="/team_matches/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">Matches</button></a>
+            <a href="/team_table/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">Table</button></a>
+            <a href="/player_stats_all/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">Play-Stats</button></a>
           </div>
         </div>
       </nav>
 
-      <!-- Next Match Section -->
+          <!-- Next Match Section -->
       <div class="next-match">
         <h3>NEXT MATCH</h3>
-        <div class="next-match-info">
-          <div class="team1">
-            <img class="next-match-img" src="data:image/png;base64,<%= teamFullData[0].home_team_logo.toString('base64')  %>" alt="<%= teamFullData[0].home_team_name %> logo" class="sidebar_imgs">
-            <h5><%= teamFullData[0].home_team_name %></h5>
+        <% if (teamFullData && teamFullData.length > 0) { %> <!-- Check if teamFullData exists and has at least one match -->
+          <div class="next-match-info">
+            <div class="team1">
+              <img class="next-match-img" src="data:image/png;base64,<%= teamFullData[0].home_team_logo.toString('base64') %>" alt="<%= teamFullData[0].home_team_name %> logo" class="sidebar_imgs">
+              <h5><%= teamFullData[0].home_team_name %></h5>
+            </div>
+            <div class="game-time">
+              <h3><%= teamFullData[0].match_date %></h3>
+              <p><%= teamFullData[0].status %></p>
+            </div>
+            <div class="team2">
+              <img class="next-match-img" src="data:image/png;base64,<%= teamFullData[0].away_team_logo.toString('base64') %>" alt="<%= teamFullData[0].away_team_name %> logo" class="sidebar_imgs">
+              <h5><%= teamFullData[0].away_team_name %></h5>
+            </div>
           </div>
-          <div class="game-time">
-            <h3><%= teamFullData[0].match_date %></h3>
-            <p><%= teamFullData[0].status %></p>
-          </div>
-          <div class="team2">
-            <img class="next-match-img" src="data:image/png;base64,<%= teamFullData[0].away_team_logo.toString('base64') %>" alt="<%= teamFullData[0].away_team_name %> logo">
-            <h5><%= teamFullData[0].away_team_name %></h5>
-          </div>
-        </div>
+        <% } else { %>
+          <p class="d-flex justify-content-center">No upcoming matches available.</p>
+        <% } %>
       </div>
 
       <!-- Team Form and Recent Matches -->
@@ -78,7 +86,7 @@
         </fieldset>
         <% }) %>
         <% } else { %>
-          <p>No matches found for this team.</p>
+          <p class="d-flex justify-content-center">No matches found for this team.</p>
         <% } %>
       </section>
     </main>

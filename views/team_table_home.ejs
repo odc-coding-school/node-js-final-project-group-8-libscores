@@ -1,4 +1,4 @@
-<%- include ("partials/header.ejs") %>
+<%- include ("partials/header", { title: title }) %>
     <div class="">
       <div class="selection_link">
         <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
@@ -24,7 +24,7 @@
                         <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
                         <a href="/fixture"><button type="button" class="qualification-btn">Matches</button></a>
                         <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
-                        <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
+                        <a href="/player_stats_all/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">Play-Stats</button></a>
                       </div>
                     </div>
                 </nav>
@@ -57,280 +57,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% standings.forEach((team, index) => { %>
                         <tr>
-                            <td>1</td>
+                            <td><%= index + 1 %></td>
                             <td>
-                              <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                               <a href="">Manchester City</a>
+                                <img class="main_content_imgs" src="<%= team.logo_url %>" alt="">
+                                <a href="#"><%= team.team_name %></a>
                             </td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>9</td>
-                            <td>2</td>
-                            <td>7</td>
-                            <td>9</td>
+                            <td><%= team.played %></td>
+                            <td><%= team.won %></td>
+                            <td><%= team.drawn %></td>
+                            <td><%= team.lost %></td>
+                            <td><%= team.goals_for %></td>
+                            <td><%= team.goals_against %></td>
+                            <td><%= team.goal_difference %></td>
+                            <td><%= team.points %></td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                             <a href="">Manchester City</a>
-                          </td>
-                          <td>3</td>
-                          <td>3</td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>9</td>
-                          <td>2</td>
-                          <td>7</td>
-                          <td>9</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                          <a href="">Manchester City</a>
-                        </td>
-                        <td>3</td>
-                        <td>3</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>9</td>
-                        <td>2</td>
-                        <td>7</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>
-                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                         <a href="">Manchester City</a>
-                      </td>
-                      <td>3</td>
-                      <td>3</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>9</td>
-                      <td>2</td>
-                      <td>7</td>
-                      <td>9</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                           <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                   <tr>
-                    <td>5</td>
-                        <td>
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                          <a href="">Manchester City</a>
-                       </td>
-                       <td>3</td>
-                       <td>3</td>
-                       <td>0</td>
-                       <td>0</td>
-                       <td>9</td>
-                       <td>2</td>
-                       <td>7</td>
-                       <td>9</td>
-                   </tr>  
-                  
+                        <% }); %>
                     </tbody>
-                </table>
-                
+                </table> 
                 </section> 
         </main>
       </section>

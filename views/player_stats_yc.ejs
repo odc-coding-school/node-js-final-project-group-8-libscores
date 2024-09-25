@@ -1,4 +1,4 @@
-<%- include ("partials/header.ejs") %>
+<%- include ("partials/header", { title: title }) %>
     <div class="">
       <div class="selection_link">
         <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
@@ -31,10 +31,10 @@
                 <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
                 <a href="/team _matches"><button type="button" class="qualification-btn">Matches</button></a>
                 <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
-                <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
+                <a href="/player_stats_all/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">Play-Stats</button></a>
               </div>
               <div class="qualification-action-btn">
-                <a href="/player_stats_all"><button type="button" class="qualification-btn">All</button></a>
+                <a href="/player_stats_all/<%= teamdata.team_id %>"><button type="button" class="qualification-btn">All</button></a>
                 <a href="/player_stats_goal"><button type="button" class="qualification-btn">Goals</button></a>
                 <a href="/player_stats_ass"><button type="button" class="qualification-btn">Assists</button></a>
                 <a href="/player_stats_sot"><button type="button" class="qualification-btn">Shots On Target</button></a>

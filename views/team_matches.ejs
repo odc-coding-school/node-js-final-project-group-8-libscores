@@ -12,45 +12,51 @@
                 <nav class="qualification_main_nav">
                     <div class="qualificationmain_nav_lc">
                       <div class="qualification_link">
+                        <% if (matches && matches.length > 0) { %>
                         <a href="" class="qualification">
-                          <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                          <img src="data:image/png;base64,<%= matches.home_team_logo.toString('base64') %>" alt="<%= matches.home_team_name %> logo" class="sidebar_imgs">
                           <div class="qualification_heading">
-                            <h5 class="text-light">Grand Bassa</h5>
+                            <h5 class="text-light"><%= matches.home_team_name %></h5>
                             <p>Liberia</p>
                           </div>
                         </a>
+                        <% } else { %>
+                          <p class="d-flex justify-content-center pt-1">No match data available for this team  </p>
+                        <% } %>
                       </div>
                       <div class="qualification-action-btn">
-                        <a href="/team"><button type="button" class="qualification-btn">Overview</button></a>
-                        <a href="/fixture"><button type="button" class="qualification-btn">Matches</button></a>
-                        <a href="/team_table"><button type="button" class="qualification-btn">Table</button></a>
-                        <a href="/player_stats_all"><button type="button" class="qualification-btn">Play-Stats</button></a>
+                        <a href="/team/<%= teamdata.team_id %>" data-title="<%= teamdata.team_name %>/Overview"><button type="button" class="qualification-btn">Overview</button></a>
+                        <a href="/team_matches/<%= teamdata.team_id %>" data-title="<%= teamdata.team_name %>/Matches"><button type="button" class="qualification-btn">Matches</button></a>
+                        <a href="/team_table/<%= teamdata.team_id %>" data-title="<%= teamdata.team_name %>/Table"><button type="button" class="qualification-btn">Table</button></a>
+                        <a href="/player_stats_all/<%= teamdata.team_id %>" data-title="<%= teamdata.team_name %> Player Stats"><button type="button" class="qualification-btn">Play-Stats</button></a>
                       </div>
                     </div>
                 </nav>
                
                     <div class="select_matches_btn">
-                        <a href="#"><button type="button" class="select_btn">FIXTURES</button></a>
+                        <a href="/fixture"><button type="button" class="select_btn">FIXTURES</button></a>
                         <a href="#"><button type="button" class="select_btn">RESULTS</button></a>
                     </div>
 
                 
               <section class="main_content-sec">
-               <h3>FORM</h3>
+               <h3>Fixtures</h3>
+            <% if (teamFullData && teamFullData.length > 0) { %>
+              <% teamFullData.forEach(match => { %>
               <fieldset class="main_content">
                 <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
                 <div class="d-flex lign-items-center gap-4 ms-2">
                   <div class="d-flex align-items-center">
-                    <p>HT</p>
+                    <p><%= match.match_date %></p>
                   </div>
                   <div class="main_content_teams">
                     <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>NPA Anchors</p>
+                      <img class="main_content_imgs" src="<%= match.home_team_logo %>" alt="<%= match.home_team_name %>">
+                      <h5><%= match.home_team_name %></h5>
                     </div>
                     <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>Watanga FC</p>
+                      <img class="main_content_imgs" src="<%= match.away_team_logo %>" alt="<%= match.away_team_name %>">
+                      <h5><%= match.home_away_name %></h5>
                     </div>
                   </div>
                 </div>
@@ -59,75 +65,12 @@
                 </div>
               </a>
                   </fieldset>
-                
-                  <fieldset class="main_content">
-                    <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                    <div class="d-flex lign-items-center gap-4 ms-2">
-                      <div class="d-flex align-items-center">
-                        <p>HT</p>
-                      </div>
-                      <div class="main_content_teams">
-                        <div class="d-flex gap-2">
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                          <p>NPA Anchors</p>
-                        </div>
-                        <div class="d-flex gap-2">
-                          <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                          <p>Watanga FC</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="contant me-2">
-                      <i class="fa-regular fa-star fs-2"></i>
-                    </div>
-                  </a>
-                </fieldset>
-          
-                <fieldset class="main_content">
-                  <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                  <div class="d-flex lign-items-center gap-4 ms-2">
-                    <div class="d-flex align-items-center">
-                      <p>HT</p>
-                    </div>
-                    <div class="main_content_teams">
-                      <div class="d-flex gap-2">
-                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                        <p>NPA Anchors</p>
-                      </div>
-                      <div class="d-flex gap-2">
-                        <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                        <p>Watanga FC</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="contant me-2">
-                    <i class="fa-regular fa-star fs-2"></i>
-                  </div>
-                </a>
-              </fieldset>
-            
-              <fieldset class="main_content">
-                <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                <div class="d-flex lign-items-center gap-4 ms-2">
-                  <div class="d-flex align-items-center">
-                    <p>HT</p>
-                  </div>
-                  <div class="main_content_teams">
-                    <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>NPA Anchors</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png"" alt="">
-                      <p>Watanga FC</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="contant me-2">
-                  <i class="fa-regular fa-star fs-2"></i>
-                </div>
-              </a>
-              </fieldset>
+                  <% }); %>
+                </ul>
+              <% } else { %>
+                <p>No matches found.</p>
+              <% } %>
+
            </section>
         </main>
       </section>

@@ -56,6 +56,28 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+function updateTitleOnClick() {
+    // Select all the links with the data-title attribute
+    const links = document.querySelectorAll('a[data-title]');
+  
+    // Add click event listener to each link
+    links.forEach(link => {
+      link.addEventListener('click', (event) => {
+        // Prevent default link behavior if necessary
+        // event.preventDefault();
+  
+        // Get the title from data-title attribute
+        const newTitle = link.getAttribute('data-title');
+  
+        // Update the page title dynamically
+        document.title = newTitle;
+      });
+    });
+  }
+  
+  // Call the function when the document is fully loaded
+  document.addEventListener('DOMContentLoaded', updateTitleOnClick);
+  
 
 function formDisplay() {
     let team_info = document.querySelector(".team-info");
@@ -157,40 +179,4 @@ function formDisplay() {
 
 formDisplay();
 
-
-// var divisions = {
-//     1: ["Division 1-A", "Division 1-B", "Division 1-C"],  // LFA First Division
-//     2: ["Division 2-A", "Division 2-B", "Division 2-C"],  // LFA Second Division
-//     3: ["Division 3-A", "Division 3-B", "Division 3-C"],  // LFA Third Division
-//     4: ["County Meet 1", "County Meet 2", "County Meet 3"] // County Meet
-// };
-
-// document.getElementById('team_id').addEventListener('change', function() {
-//     var teamId = this.value;
-//     var divisionDropdown = document.getElementById('division_id');
-//     var divisionContainer = document.getElementById('division_container');
-
-//     // Clear previous options
-//     divisionDropdown.innerHTML = '';
-
-//     if (divisions[teamId]) {
-//         // Show the division dropdown
-//         divisionContainer.style.display = 'block';
-        
-//         // Populate division dropdown based on the selected team
-//         divisions[teamId].forEach(function(division) {
-//             var option = document.createElement('option');
-//             option.value = division;
-//             option.textContent = division;
-//             divisionDropdown.appendChild(option);
-//         });
-//     } else {
-//         // Hide the division dropdown if no divisions are available
-//         divisionContainer.style.display = 'none';
-//     }
-// });
-
-
-
-// aside bar search input
 

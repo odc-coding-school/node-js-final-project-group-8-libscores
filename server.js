@@ -404,7 +404,7 @@ app.get("/league_overview/:league_id", (req, res) => {
             }
 
         // Render the league overview page with the fetched league, teams, and matches data
-        res.render("league_overview", { leagueId, league, teams, matches, countymatches, leagueStand,  title: `LibScore |${league.league_name}` });
+        res.render("league_overview", { leagueId, league, teams, matches, countymatches,  title: `LibScore |${league.league_name}` });
       });
     });
     });

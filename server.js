@@ -368,6 +368,13 @@ app.get("/league_overview/:league_id", (req, res) => {
           return res.status(500).send("Error retrieving matches data");
         }
 
+          db.all("SELECT * FROM league_standings WHERE league_id = ?", [leagueId], (err, leagueStand) => {
+            if(err) {
+              console.log("Error retrieving league standing: ", err);
+              return res.status(500).send("Error retrieving league standing data")
+            }
+        
+
           // Updated matches query to join with county and leagues
           db.all(`
             SELECT 
@@ -397,13 +404,13 @@ app.get("/league_overview/:league_id", (req, res) => {
             }
 
         // Render the league overview page with the fetched league, teams, and matches data
-        res.render("league_overview", { leagueId, league, teams, matches, countymatches,  title: `LibScore |${league.league_name}` });
+        res.render("league_overview", { leagueId, league, teams, matches, countymatches, leagueStand,  title: `LibScore |${league.league_name}` });
       });
     });
     });
   });
 });
-
+})
 
 app.get("/league_stage/", (req, res) => {
   const leagueId = req.params.league_id;

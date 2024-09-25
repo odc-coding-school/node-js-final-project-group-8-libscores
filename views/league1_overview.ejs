@@ -124,104 +124,49 @@
           </div>
           <table class="table_leageu1">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Team</th>
-                    <th>P</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>F</th>
-                    <th>A</th>
-                    <th>GD</th>
-                    <th>PTS</th>
-                </tr>
+              <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>P</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>F</th>
+                <th>A</th>
+                <th>GD</th>
+                <th>PTS</th>
+              </tr>
             </thead>
             <tbody>
+              <% leagueStand.forEach((standing, index) => { %>
                 <tr>
-                    <td>1</td>
-                    <td>
-                      <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                      <span>Manchester City</span>
-                    </td>
-                    <td>3</td>
-                    <td>3</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>9</td>
-                    <td>2</td>
-                    <td>7</td>
-                    <td>9</td>
-                </tr>
-                <tr>
-                  <td>2</td>
+                  <td><%= index + 1 %></td>
                   <td>
-                    <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                    <span>Manchester City</span>
+                    <% if (standing.logo_url) { %>
+                      <img src="data:image/png;base64,<%= standing.logo_url.toString('base64') %>" alt="Team Logo" class="sidebar_imgs">
+                    <% } else { %>
+                      <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                    <% } %>
+                    <span><%= standing.team_name %></span>
                   </td>
-                  <td>3</td>
-                  <td>3</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>9</td>
-                  <td>2</td>
-                  <td>7</td>
-                  <td>9</td>
-              </tr>
+                  <td><%= standing.played %></td>
+                  <td><%= standing.won %></td>
+                  <td><%= standing.drawn %></td>
+                  <td><%= standing.lost %></td>
+                  <td><%= standing.goals_for %></td>
+                  <td><%= standing.goals_against %></td>
+                  <td><%= standing.goal_difference %></td>
+                  <td><%= standing.points %></td>
+                </tr>
+              <% }) %>
               <tr>
-                <td>3</td>
-                <td>
-                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                  <span>Manchester City</span>
+                <td rowspan="4" colspan="10">
+                  <a href="/full_table">See Full table</a>
                 </td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-                <td>0</td>
-                <td>9</td>
-                <td>2</td>
-                <td>7</td>
-                <td>9</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>
-                <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                <span>Manchester City</span>
-              </td>
-              <td>3</td>
-              <td>3</td>
-              <td>0</td>
-              <td>0</td>
-              <td>9</td>
-              <td>2</td>
-              <td>7</td>
-              <td>9</td>
-          </tr>
-          <tr>
-            <td>5</td>
-                <td>
-                  <img class="main_content_imgs" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                  <span>Manchester City</span>
-               </td>
-               <td>3</td>
-               <td>3</td>
-               <td>0</td>
-               <td>0</td>
-               <td>9</td>
-               <td>2</td>
-               <td>7</td>
-               <td>9</td>
-           </tr>  
-           <tr>
-            <td rowspan="4" colspan="10">
-              <a href="/full_table">See Full table</a>
-            </td>
-           </tr>                 
+              </tr>                 
             </tbody>
-        </table>
-        
-        
+          </table>
+          
           </main>
       </section>
     </div>

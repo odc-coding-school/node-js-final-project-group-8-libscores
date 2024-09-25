@@ -19,7 +19,16 @@
 
         <label for="team_id">Team ID:</label>
         <input type="number" id="team_id" name="team_id" required><br>
-    
+        
+        <label for="league_id">League ID:</label>
+        <select name="league_id" id="league_id" class="form-control" required>
+            <option value="">Select League</option>
+            <% leagueInfo.forEach(function(leagueInfo){ %>
+              <option value="<%= leagueInfo.league_id %>"><%= leagueInfo.league_name %></option>
+            <% }); %>
+          </select>
+        
+
         <label for="logo_url">Team Logo (IMG):</label>
         <input type="file" id="logo_url" name="logo_url" required><br>
     

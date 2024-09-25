@@ -1448,8 +1448,6 @@ app.post('/submit_county_match', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-=======
 // Matches_fixture page
 app.get("/fixture/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
@@ -1512,7 +1510,6 @@ app.get("/fixture/:league_id", (req, res) => {
 
 
 
->>>>>>> 6cb2919 (intial commit)
 // Server listening
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

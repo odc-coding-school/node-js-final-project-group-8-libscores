@@ -322,7 +322,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/league1_overview/:league_id", (req, res) => {
+app.get("/league_overview/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
 
   // Fetch league-specific data for overview
@@ -404,7 +404,7 @@ app.get("/league1_overview/:league_id", (req, res) => {
             }
 
             // Render the league overview page with the fetched data
-            res.render("league1_overview", { 
+            res.render("league_overview", { 
               leagueId, 
               league, 
               teams, 
@@ -566,7 +566,7 @@ app.get("/match_county_form", (req, res) => {
   res.render('match_county_form');
 });
 
-app.get("/league1_matches/:league_id", (req, res) => {
+app.get("/league_matches/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
 
   // Fetch the league details based on league_id
@@ -586,12 +586,12 @@ app.get("/league1_matches/:league_id", (req, res) => {
       }
 
       // Render a view for the league matches page
-      res.render("league1_matches", { league, matches });
+      res.render("league_matches", { league, matches });
     });
   });
 });
 
-app.get("/league1_table/:league_id", (req, res) => {
+app.get("/league_table/:league_id", (req, res) => {
     const leagueId = req.params.league_id;
   
     // Fetch the league  table details based on league_id
@@ -603,10 +603,22 @@ app.get("/league1_table/:league_id", (req, res) => {
       if (!league) {
         return res.status(404).send("League not found");
       }
+
+      db.all("SELECT * FROM league_standings", (err, leagueStand) => {
+        if (err) {
+          console.log("Error: ", err);
+          return res.status(500).send("Error retrieving county data");
+        }
+        
+        if (!leagueStand || leagueStand.length === 0) {
+          console.log("No league standing found");
+          return res.status(404).send("No league standing found");
+        }
   
   // Render a view for the league overview Table page    
-  res.render('league1_table', { league });
+  res.render('league_table', { league, leagueStand , title: `${league.league_name}League Table`});
  });
+});
 });
 
 // Players stsats all
@@ -891,7 +903,7 @@ app.get('/player_stats_yc/:team_id', (req, res) => {
 });
 
 //The qualification page
-app.get("/league1_qualification/:league_id", (req, res) => {
+app.get("/league_qualification/:league_id", (req, res) => {
     const leagueId = req.params.league_id;
   
     // Fetch the league  table details based on league_id
@@ -1304,7 +1316,7 @@ app.post('/league_standing',  upload.single('logo_url'), (req, res) => {
         if (err) {
             return res.status(500).send("Error adding team: " + err.message);
         }
-        res.redirect('/league1_overview/:league_id'); // Redirect back to the league page to view the updated standings
+        res.redirect('/league_overview/:league_id'); // Redirect back to the league page to view the updated standings
     });
 });
 

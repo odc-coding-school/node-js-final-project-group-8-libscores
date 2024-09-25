@@ -29,9 +29,9 @@
                 </div>
                 <div class="" id="navbarCollapse">
                   <div class="d-flex">
-                    <a href="/league1_overview/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Overview</a>
-                    <a href="/league1_matches/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Matches</a>
-                    <a href="/league1_table/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
+                    <a href="/league_overview/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Overview</a>
+                    <a href="/league_matches/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Matches</a>
+                    <a href="/league_table/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
                 </div>
               </div>
             </nav>
@@ -44,7 +44,7 @@
                   </a>
                   
                     <% matches.forEach(match => { %>
-                      <fieldset class="league1_content">
+                      <fieldset class="league_content">
                         <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
                           <div class="d-flex lign-items-center gap-4 ms-2">
                             <div class="d-flex align-items-center flex-column">

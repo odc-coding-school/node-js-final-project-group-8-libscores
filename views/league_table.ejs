@@ -1,0 +1,85 @@
+<%- include ("partials/header", { title: title }) %>
+    <div class="">
+      <div class="selection_link">
+        <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
+        <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
+        <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
+      </div>
+      <section class="dashcontainer">
+        <%- include ("partials/leagues_detail.ejs") %>
+          <main class="main_display">
+            <nav class="border-bottom">
+                <div class="">
+                  <div class="qualification_group">
+                    <div class="qualification_link">
+                      <a href="" class="qualification">
+                        <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                        <div>
+                          <h5 class="text_color"><%= league.league_name %></h5>
+                          <p>Liberia</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="qualification_link">
+                     <button type="button" onclick="selsect_favorite">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                     </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="" id="navbarCollapse">
+                  <div class="d-flex">
+                    <a href="/league1_overview" class="nav-item nav-link  link_colorh d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Overview</a>
+                    <a href="/league1_matches" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Matches</a>
+                    <a href="/league1_table" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Table</a>
+                </div>
+              </div>
+            </nav>
+          <section class="table_content_sec">
+            <table class="table_leageu1">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Team</th>
+                      <th>P</th>
+                      <th>W</th>
+                      <th>D</th>
+                      <th>L</th>
+                      <th>F</th>
+                      <th>A</th>
+                      <th>GD</th>
+                      <th>PTS</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <% leagueStand.forEach((standing, index) => { %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td>
+                      <% if (standing.logo_url) { %>
+                        <img src="data:image/png;base64,<%= standing.logo_url.toString('base64') %>" alt="Team Logo" class="sidebar_imgs">
+                      <% } else { %>
+                        <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                      <% } %>
+                      <span><%= standing.team_name %></span>
+                    </td>
+                    <td><%= standing.played %></td>
+                    <td><%= standing.won %></td>
+                    <td><%= standing.drawn %></td>
+                    <td><%= standing.lost %></td>
+                    <td><%= standing.goals_for %></td>
+                    <td><%= standing.goals_against %></td>
+                    <td><%= standing.goal_difference %></td>
+                    <td><%= standing.points %></td>
+                  </tr>
+                <% }) %>
+                <tr>
+              </tbody>
+          </table>
+          
+          </section> 
+          </main>
+      </section>
+    </div>
+  </div>
+  <%- include ("partials/footer.ejs") %>

@@ -1,124 +1,140 @@
-<%- include ("partials/header", { title: title }) %>
-    <div class="">
-      <div class="selection_link">
-        <a href="/"><button type="button" class="selection_btn">FootBall</button></a>
-        <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
-        <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
-      </div>
-      <section class="dashcontainer">
-        <%- include ("partials/leagues_detail.ejs") %>
-          <main class="main_display">
-            <nav class="border-bottom">
-                <div class="">
-                  <div class="qualification_group">
-                    <div class="qualification_link">
-                      <a href="" class="qualification">
-                        <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
-                        <div>
-                          <h5 class="text_color"><%= league.league_name %></h5>
-                          <p>Liberia</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="qualification_link">
-                     <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                    </div>
-                  </div>
+<%- include("partials/header", { title: title }) %>
+
+<div class="">
+  <!-- Selection links for each league -->
+  <div class="selection_link">
+    <a href="/league/1"><button type="button" class="selection_btn">Football League 1</button></a>
+    <a href="/league/2"><button type="button" class="selection_btn">Basketball League 2</button></a>
+    <a href="/league/3"><button type="button" class="selection_btn">Kickball League 3</button></a>
+    <a href="/league/4"><button type="button" class="selection_btn">Tennis League 4</button></a>
+  </div>
+
+  <section class="dashcontainer">
+    <%- include("partials/leagues_detail.ejs") %>
+    
+    <main class="main_display">
+      <nav class="border-bottom">
+        <div class="">
+          <div class="qualification_group">
+            <div class="qualification_link">
+              <a href="" class="qualification">
+                <img class="qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                <div>
+                  <h5 class="text_color"><%= league.league_name %></h5>
+                  <p>Liberia</p>
                 </div>
-                <div class="" id="navbarCollapse">
-                  <div class="d-flex">
-                    <a href="/league1_overview/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Overview</a>
-                    <a href="/fixture/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Matches</a>
-                    <a href="/league1_table/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
-                </div>
-              </div>
-            </nav>
-          <section class="main_content-sec">
-            <ul class="nav flex-column gap-2">
-              <li class="nav-item">
-                  <a class="nav-item nav-link sidebar_headlings text_color d-flex justify-content-between align-items-center" href="#">
-                    <span>FIXTURES</span>
-                      <i class="fa-solid fa-angle-right"></i>
-                  </a>
-                  
-                  <% matches.forEach(match => { %>
-                  <fieldset class="main_content d-flex justify-content-between align-items-center">
-                    <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
-                    <div class="d-flex lign-items-center gap-4 ms-2">
+              </a>
+            </div>
+            <div class="qualification_link">
+              <button type="button" onclick="select_favorite()">
+                <i class="fa-regular fa-star fs-2 text_color"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="" id="navbarCollapse">
+          <div class="d-flex">
+            <!-- Dynamic nav links for the current league -->
+            <a href="/league/<%= league.league_id %>/overview" class="nav-item nav-link fs-4 fw-bold text-light">Overview</a>
+            <a href="/league/<%= league.league_id %>/fixture" class="nav-item nav-link fs-4 fw-bold text-light">Matches</a>
+            <a href="/league/<%= league.league_id %>/table" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="main_content-sec">
+        <ul class="nav flex-column gap-2">
+          <!-- Display fixtures for the selected league -->
+          <li class="nav-item">
+            <a class="nav-item nav-link sidebar_headings text_color d-flex justify-content-between align-items-center" href="#">
+              <span>FIXTURES</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+            <% if (matches.length > 0) { %>
+              <% matches.forEach(match => { %>
+                <fieldset class="main_content d-flex justify-content-between align-items-center">
+                  <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
+                    <div class="d-flex align-items-center gap-4 ms-2">
                       <div class="d-flex align-items-center flex-column">
                         <p><%= match.match_date %></p>
                         <p><%= match.status %></p>
                       </div>
                       <div class="main_content_teams">
                         <div class="d-flex gap-2">
-                          
                           <% if (match.home_team_logo) { %>
-                            <img src="data:image/png;base64,<%= match.home_team_logo.toString('base64') %>" alt="League Logo" class="sidebar_imgs">
+                            <img src="data:image/png;base64,<%= match.home_team_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
                           <% } else { %>
-                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="Home Team Logo" class="sidebar_imgs">
                           <% } %>
                           <p><%= match.home_team_name %></p>
                         </div>
                         <div class="d-flex gap-2">
                           <% if (match.away_team_logo) { %>
-                            <img src="data:image/png;base64,<%= match.away_team_logo.toString('base64') %>" alt="League Logo" class="sidebar_imgs">
+                            <img src="data:image/png;base64,<%= match.away_team_logo.toString('base64') %>" alt="Away Team Logo" class="sidebar_imgs">
                           <% } else { %>
-                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="Away Team Logo" class="sidebar_imgs">
                           <% } %>
                           <p><%= match.away_team_name %></p>
                         </div>
                       </div>
                     </div>
-                    
-                   </a>
-                   <div class="contant me-2">
-                    <button type="button" onclick="selsect_favorite">
-                   <i class="fa-regular fa-star fs-2 text_color"></i>
-                  </button>
-                 </div>
+                  </a>
+                  <div class="contant me-2">
+                    <button type="button" onclick="select_favorite()">
+                      <i class="fa-regular fa-star fs-2 text_color"></i>
+                    </button>
+                  </div>
                 </fieldset>
               <% }) %>
-              
-              <% countymatches.forEach(countymatches => { %>
-                <fieldset class="main_content">
-                  <a href="/<%= countymatches.home_county_name %>vs/<%= countymatches.away_county_name %>" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                  <div class="d-flex lign-items-center gap-4 ms-2">
-                    <div class="d-flex align-items-center">
-                      <p><%= countymatches.match_status %></p>
-                    </div>
-                    <div class="main_content_teams">
-                      <div class="d-flex gap-2">
-                        <% if (countymatches.home_county_logo) { %>
-                          <img src="data:image/png;base64,<%= countymatches.home_county_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
-                        <% } else { %>
-                          <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                        <% } %>
-                        <p class="team-p"><%= countymatches.home_county_name %></p>
+            <% } else { %>
+              <p>No matches available for this league.</p>
+            <% } %>
+          </li>
+
+          <!-- Display county matches only if available for the selected league -->
+          <li class="nav-item">
+           
+            <% if (countymatches.length > 0) { %>
+              <% countymatches.forEach(countymatch => { %>
+                <fieldset class="main_content d-flex justify-content-between align-items-center">
+                  <a href="/<%= countymatch.home_county_name %>vs/<%= countymatch.away_county_name %>" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
+                    <div class="d-flex align-items-center gap-4 ms-2">
+                      <div class="d-flex align-items-center">
+                        <p><%= countymatch.match_status %></p>
                       </div>
-                      <div class="d-flex gap-2">
-                        <% if (countymatches.away_county_logo) { %>
-                          <img src="data:image/png;base64,<%= countymatches.away_county_logo.toString('base64') %>" alt="Away Team Logo" class="sidebar_imgs">
-                        <% } else { %>
-                          <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                        <% } %>
-                        <p class="team-p"><%= countymatches.away_county_name %></p>
+                      <div class="main_content_teams">
+                        <div class="d-flex gap-2">
+                          <% if (countymatch.home_county_logo) { %>
+                            <img src="data:image/png;base64,<%= countymatch.home_county_logo.toString('base64') %>" alt="Home County Logo" class="sidebar_imgs">
+                          <% } else { %>
+                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                          <% } %>
+                          <p class="team-p"><%= countymatch.home_county_name %></p>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <% if (countymatch.away_county_logo) { %>
+                            <img src="data:image/png;base64,<%= countymatch.away_county_logo.toString('base64') %>" alt="Away County Logo" class="sidebar_imgs">
+                          <% } else { %>
+                            <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                          <% } %>
+                          <p class="team-p"><%= countymatch.away_county_name %></p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="contant me-2">
-                    <i class="fa-regular fa-star fs-2"></i>
-                  </div>
-                 </a>
-              </fieldset>
+                    <div class="contant me-2">
+                      <i class="fa-regular fa-star fs-2"></i>
+                    </div>
+                  </a>
+                </fieldset>
               <% }) %>
+            <% } else { %>
+              <p>No county matches available for this league.</p>
+            <% } %>
           </li>
         </ul>
-          </section>
-         
-          </main>
       </section>
-    </div>
-  </div>
-  <%- include ("partials/footer.ejs") %>
+    </main>
+  </section>
+</div>
+
+<%- include("partials/footer.ejs") %>

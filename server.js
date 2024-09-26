@@ -1353,7 +1353,7 @@ app.get("/fixture/:league_id", (req, res) => {
         }
 
       // Fetch county data
-      db.all("SELECT * FROM county WHERE league_id = ?", [leagueId], (err, countydata) => {
+      db.all("SELECT * FROM county ", (err, countydata) => {
         if (err) {
           console.log("Error retrieving county data: ", err);
           return res.status(500).send("Error retrieving county data");

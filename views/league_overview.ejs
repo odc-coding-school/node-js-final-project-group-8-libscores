@@ -81,92 +81,11 @@
                 </fieldset>
               <% }) %>
               
-              <% countymatches.forEach(countymatches => { %>
-                <fieldset class="main_content">
-                  <a href="/<%= countymatches.home_county_name %>vs/<%= countymatches.away_county_name %>" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
-                  <div class="d-flex lign-items-center gap-4 ms-2">
-                    <div class="d-flex align-items-center">
-                      <p><%= countymatches.match_status %></p>
-                    </div>
-                    <div class="main_content_teams">
-                      <div class="d-flex gap-2">
-                        <% if (countymatches.home_county_logo) { %>
-                          <img src="data:image/png;base64,<%= countymatches.home_county_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
-                        <% } else { %>
-                          <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                        <% } %>
-                        <p class="team-p"><%= countymatches.home_county_name %></p>
-                      </div>
-                      <div class="d-flex gap-2">
-                        <% if (countymatches.away_county_logo) { %>
-                          <img src="data:image/png;base64,<%= countymatches.away_county_logo.toString('base64') %>" alt="Away Team Logo" class="sidebar_imgs">
-                        <% } else { %>
-                          <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                        <% } %>
-                        <p class="team-p"><%= countymatches.away_county_name %></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="contant me-2">
-                    <i class="fa-regular fa-star fs-2"></i>
-                  </div>
-                 </a>
-              </fieldset>
-              <% }) %>
+              
           </li>
         </ul>
           </section>
-          <div class="nav flex-column gap-2 table_link">
-            <a class="nav-item nav-link sidebar_headlings text_color d-flex justify-content-between align-items-center fw_blod fs-5" href="#">
-              <span>Table</span>
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-          </div>
-          <table class="table_leageu1">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Team</th>
-                <th>P</th>
-                <th>W</th>
-                <th>D</th>
-                <th>L</th>
-                <th>F</th>
-                <th>A</th>
-                <th>GD</th>
-                <th>PTS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% leagueStand.forEach((standing, index) => { %>
-                <tr>
-                  <td><%= index + 1 %></td>
-                  <td>
-                    <% if (standing.logo_url) { %>
-                      <img src="data:image/png;base64,<%= standing.logo_url.toString('base64') %>" alt="Team Logo" class="sidebar_imgs">
-                    <% } else { %>
-                      <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                    <% } %>
-                    <span><%= standing.team_name %></span>
-                  </td>
-                  <td><%= standing.played %></td>
-                  <td><%= standing.won %></td>
-                  <td><%= standing.drawn %></td>
-                  <td><%= standing.lost %></td>
-                  <td><%= standing.goals_for %></td>
-                  <td><%= standing.goals_against %></td>
-                  <td><%= standing.goal_difference %></td>
-                  <td><%= standing.points %></td>
-                </tr>
-              <% }) %>
-              <tr>
-                <td rowspan="4" colspan="10">
-                  <a href="/full_table">See Full table</a>
-                </td>
-              </tr>                 
-            </tbody>
-          </table>
-          
+         
           </main>
       </section>
     </div>

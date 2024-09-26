@@ -1,19 +1,24 @@
 <%- include ("partials/header", { title: title }) %>
     <div class="">
       <div class="selection_link">
-        <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
-        <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
-        <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
+        <!-- Dynamic links to each league by passing the league_id -->
+        <a href="/"><button type="button" class="selection_btn">Football</button></a>
+        <a href=""><button type="button" class="selection_btn">Basketball</button></a>
+        <a href=""><button type="button" class="selection_btn">Kickball </button></a>
       </div>
       <section class="dashcontainer">
-        <%- include ("partials/leagues_detail.ejs") %>
+        <%- include ("partials/leagues_detail", {leaguedata: leaguedata}) %>
           <main class="main_display">
             <nav class="border-bottom">
                 <div class="">
                   <div class="qualification_group">
                     <div class="qualification_link">
-                      <a href="" class="qualification">
-                        <img class=" qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                      <a href="/league_overview/<%= league.league_id %>" class="qualification">
+                        <% if (leaguedata.league_logo) { %>
+                          <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
+                        <% } else { %>
+                          <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                        <% } %>
                         <div>
                           <h5 class="text_color"><%= league.league_name %></h5>
                           <p>Liberia</p>
@@ -29,9 +34,9 @@
                 </div>
                 <div class="" id="navbarCollapse">
                   <div class="d-flex">
-                    <a href="/league1_overview" class="nav-item nav-link  link_colorh d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Overview</a>
-                    <a href="/league1_matches" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Matches</a>
-                    <a href="/league1_table" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Table</a>
+                    <a href="/league_overview/<%= league.league_id %>" class="nav-item nav-link  link_colorh d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Overview</a>
+                    <a href="/fixture/<%= league.league_id %>" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Matches</a>
+                    <a href="/league_table/<%= league.league_id %>" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Table</a>
                 </div>
               </div>
             </nav>

@@ -13,7 +13,7 @@
         <div class="">
           <div class="qualification_group">
             <div class="qualification_link">
-              <a href="" class="qualification">
+              <a href="/league_overview/<%= league.league_id %>" class="qualification">
                 <% if (leaguedata.league_logo) { %>
                   <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
                 <% } else { %>
@@ -36,7 +36,7 @@
           <div class="d-flex">
             <a href="/league_overview/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Overview</a>
             <a href="/fixture/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Matches</a>
-            <a href="/league/<%= league.league_id %>/table" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
+            <a href="/league_table/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
           </div>
         </div>
       </nav>

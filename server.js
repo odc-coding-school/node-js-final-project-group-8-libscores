@@ -373,8 +373,7 @@ app.get("/league_overview/:league_id", (req, res) => {
           db.all(`
             SELECT 
               l.league_logo, 
-              l.league_name, 
-              'qualification' AS league_stage,  
+              l.league_name,  
               away_county.county_name AS away_county_name,
               away_county.county_logo AS away_county_logo,
               home_county.county_name AS home_county_name,

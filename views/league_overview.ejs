@@ -14,7 +14,11 @@
           <div class="qualification_group">
             <div class="qualification_link">
               <a href="" class="qualification">
-                <img class="qualification_img" src="" alt="">
+                <% if (leaguedata.league_logo) { %>
+                  <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
+                <% } else { %>
+                  <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                <% } %>
                 <div>
                   <h5 class="text_color"><%= league.league_name %></h5>
                   <p>Liberia</p>

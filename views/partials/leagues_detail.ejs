@@ -11,7 +11,11 @@
       <a href="/league_overview/<%= league.league_id %>" class="text-decoration-none">
           <fieldset class="aside_content">
               <div class="contant">
-                  <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
+                <% if (leaguedata.league_logo) { %>
+                    <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
+                  <% } else { %>
+                    <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
                   <div class="text_content">League Stage</div>
               </div>
           </fieldset>
@@ -19,7 +23,11 @@
       <a href="/league1_qualification" class="text-decoration-none">
           <fieldset class="aside_content">
               <div class="contant">
-                  <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
+                <% if (leaguedata.league_logo) { %>
+                    <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
+                  <% } else { %>
+                    <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
                   <div class="text_content">Qualification</div>
               </div>
           </fieldset>

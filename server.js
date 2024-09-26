@@ -1337,7 +1337,7 @@ app.get("/county/:county_id", (req, res) => {
 });
 
 // Matches_fixture page
-app.get("/fixture/:league_id", (req, res) => {
+app.get("/fixture/", (req, res) => {
   const leagueId = req.params.league_id;
     // Fetch teams data
     db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teamdata) => {

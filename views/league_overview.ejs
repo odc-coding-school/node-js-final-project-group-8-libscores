@@ -2,19 +2,19 @@
 <div class="">
   <div class="selection_link">
     <!-- Dynamic links to each league by passing the league_id -->
-    <a href="/league/1"><button type="button" class="selection_btn">Football League 1</button></a>
-    <a href="/league/2"><button type="button" class="selection_btn">Basketball League 2</button></a>
-    <a href="/league/3"><button type="button" class="selection_btn">Kickball League 3</button></a>
+    <a href="/"><button type="button" class="selection_btn">Football</button></a>
+    <a href=""><button type="button" class="selection_btn">Basketball</button></a>
+    <a href=""><button type="button" class="selection_btn">Kickball </button></a>
   </div>
   <section class="dashcontainer">
-    <%- include("partials/leagues_detail", {leaguedata: leaguedata}) %>
+    <%- include ("partials/leagues_detail.ejs") %>
     <main class="main_display">
       <nav class="border-bottom">
         <div class="">
           <div class="qualification_group">
             <div class="qualification_link">
               <a href="" class="qualification">
-                <img class="qualification_img" src="data:image/png;base64<%league.league_logo.toString('base64')%>" alt="">
+                <img class="qualification_img" src="" alt="">
                 <div>
                   <h5 class="text_color"><%= league.league_name %></h5>
                   <p>Liberia</p>

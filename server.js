@@ -368,7 +368,8 @@ app.get("/league_overview/:league_id", (req, res) => {
           return res.status(500).send("Error retrieving matches data");
         }
 
-          // Updated matches query to join with county and leagues
+        // Fetch county matches only for County Meet league
+        if (leagueId == 4) {  // Assuming County Meet has league_id = 4
           db.all(`
             SELECT 
               l.league_logo, 
@@ -385,24 +386,25 @@ app.get("/league_overview/:league_id", (req, res) => {
             INNER JOIN county AS home_county ON m.home_county_id = home_county.county_id
             INNER JOIN county AS away_county ON m.away_county_id = away_county.county_id
             INNER JOIN leagues l ON home_county.league_id = l.league_id
-            WHERE 
-              m.home_county_score IS NOT NULL AND 
-              m.away_county_score IS NOT NULL AND 
-              home_county.county_name IS NOT NULL AND
-              away_county.county_name IS NOT NULL
-          `, (err, countymatches) => {
+            WHERE l.league_id = ?
+          `, [leagueId], (err, countymatches) => {
             if (err) {
-              console.log("Error: ", err);
+              console.log("Error retrieving county match data: ", err);
               return res.status(500).send("Error retrieving county match data");
             }
 
-        // Render the league overview page with the fetched league, teams, and matches data
-        res.render("league_overview", { leagueId, league, teams, matches, countymatches,  title: `LibScore |${league.league_name}` });
+            // Render the league overview page with both league and county matches data
+            res.render("league_overview", { leagueId, league, teams, matches, countymatches, title: `LibScore | ${league.league_name}` });
+          });
+        } else {
+          // Render the league overview page without county matches for non-County Meet leagues
+          res.render("league_overview", { leagueId, league, teams, matches, countymatches: [], title: `LibScore | ${league.league_name}` });
+        }
       });
-    });
     });
   });
 });
+
 
 
 app.get("/league_stage/", (req, res) => {

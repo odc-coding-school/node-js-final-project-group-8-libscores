@@ -625,22 +625,10 @@ app.get("/league_table/:league_id", (req, res) => {
           console.log("No league standing found");
           return res.status(404).send("No league standing found");
         }
-
-        db.all("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, leaguedata) => {
-          if (err) {
-            console.log("Error retrieving league data: ", err);
-            return res.status(500).send("Error retrieving league data");
-          }
-    
-          if (!leaguedata) {
-            console.log("League not found");
-            return res.status(404).send("League not found");
-          }
   
   // Render a view for the league overview Table page    
-  res.render('league_table', { league, leagueStand, leaguedata, title: `${league.league_name}League Table`});
+  res.render('league_table', { league, leagueStand , title: `${league.league_name}League Table`});
  });
-});
 });
 });
 
@@ -718,6 +706,7 @@ app.get('/player_stats_all/:team_id', (req, res) => {
   });
 });
 
+ 
 // Players stsats ass
 app.get('/player_stats_ass/:team_id', (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -1337,7 +1326,7 @@ app.get("/county/:county_id", (req, res) => {
 });
 
 // Matches_fixture page
-app.get("/fixture/", (req, res) => {
+app.get("/fixture/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
     // Fetch teams data
     db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teamdata) => {

@@ -1326,59 +1326,110 @@ app.get("/county/:county_id", (req, res) => {
 });
 
 // Matches_fixture page
-app.get("/fixture", (req, res) => {
-  // Fetch teams data
-  db.all("SELECT * FROM teams", (err, teamdata) => {
-    if (err) {
-      console.log("Error: ", err);
-      return res.status(500).send("Error retrieving team data");
-    }
-
-    // Fetch leagues data
-    db.all("SELECT * FROM leagues", (err, leaguedata) => {
+app.get("/fixture/:league_id", (req, res) => {
+  const leagueId = req.params.league_id;
+    // Fetch teams data
+    db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teamdata) => {
       if (err) {
-        console.log("Error: ", err);
-        return res.status(500).send("Error retrieving league data");
+        console.log("Error retrieving team data: ", err);
+        return res.status(500).send("Error retrieving team data");
+      }
+      
+      if (!teamdata || teamdata.length === 0) {
+        console.log("No teams found");
+        return res.status(404).send("No teams found");
       }
 
-      // Fetch county data
-      db.all("SELECT * FROM county", (err, countydata) => {
+      // Fetch leagues data
+      db.all("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, leaguedata) => {
         if (err) {
-          console.log("Error: ", err);
+          console.log("Error retrieving league data: ", err);
+          return res.status(500).send("Error retrieving league data");
+        }
+  
+        if (!leaguedata) {
+          console.log("League not found");
+          return res.status(404).send("League not found");
+        }
+
+      // Fetch county data
+      db.all("SELECT * FROM county WHERE league_id = ?", [leagueId], (err, countydata) => {
+        if (err) {
+          console.log("Error retrieving county data: ", err);
           return res.status(500).send("Error retrieving county data");
+        }
+        
+        if (!countydata || countydata.length === 0) {
+          console.log("No county found");
+          return res.status(404).send("No county found");
         }
 
         // Fetch matches data
         db.all(`
           SELECT 
             m.match_id,
-            ht.team_name AS home_team_name,
-            at.team_name AS away_team_name,
-            ht.team_logo AS home_team_logo,
-            at.team_logo AS away_team_logo,
+            m.home_team_id,
+            m.away_team_id,
+            m.match_date,
+            m.venue,
+            m.status,
             m.home_team_score,
             m.away_team_score,
-            m.match_date,
-            m.venue
+            ht.team_name AS home_team_name,
+            ht.team_logo AS home_team_logo,
+            at.team_name AS away_team_name,
+            at.team_logo AS away_team_logo
           FROM matches m
           INNER JOIN teams ht ON m.home_team_id = ht.team_id
           INNER JOIN teams at ON m.away_team_id = at.team_id
-        `, (err, matchdata) => {
+          WHERE ht.league_id = ? OR at.league_id = ?
+        `, [leagueId, leagueId], (err, matchdata) => {
           if (err) {
-            console.log("Error: ", err);
-            return res.status(500).send("Error retrieving match data");
+            console.log("Error retrieving matches data: ", err);
+            return res.status(500).send("Error retrieving matches data");
           }
 
+          if ( leagueId === 4){
+            db.all(`
+              SELECT 
+                m.county_match_id,
+                m.home_county_id,
+                m.away_county_id,
+                m.match_date,
+                m.venue,
+                m.status,
+                m.home_county_score,
+                m.away_county_score,
+                ht.county_name AS home_county_name,
+                ht.county_logo AS home_county_logo,
+                at.county_name AS away_county_name,
+                at.county_logo AS away_county_logo
+              FROM county_matches m
+              INNER JOIN county ht ON m.home_county_id = ht.county_id
+              INNER JOIN county at ON m.away_county_id = at.county_id
+              WHERE ht.league_id = ? OR at.league_id = ?
+            `, [leagueId, leagueId], (err, countymatches) => {
+              if (err) {
+                console.log("Error retrieving county matches data: ", err);
+                return res.status(500).send("Error retrieving county matches data");
+              }
+    
+          // Render the fixture page with both league and county matches data
+          res.render("fixture", { teamdata, matchdata, leaguedata, countydata, countymatches, title: "LibScore | League Fixture"});
+        });
+      } else {
+        // Render the fixture page without county matches for non-County Meet leagues
+        res.render("fixture", { teamdata, matchdata, leaguedata, countydata, countymatches: [], title: "LibScore | League Fixture" });
+      }
+
           // Render the fixture page with team, league, county, and match data
-          res.render('fixture', { teamdata, leaguedata, countydata, matchdata });
         });
       });
     });
   });
 });
 
-
-// Matches_fixture page
+// League Standing page
 app.get("/league_standing", (req, res) => { 
   db.all("SELECT * FROM leagues", (err, league) => {
     if (err) {
@@ -1548,68 +1599,6 @@ app.post('/submit_county_match', (req, res) => {
     res.json({ message: "County Match data inserted successfully", county_match_id: this.lastID });
   });
 });
-
-// Matches_fixture page
-app.get("/fixture/:league_id", (req, res) => {
-  const leagueId = req.params.league_id;
-
-  // Fetch the teams associated with a particular league
-  db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teamdata) => {
-    if (err) {
-      console.log("Error retrieving team data: ", err);
-      return res.status(500).send("Error retrieving team data");
-    }
-    
-    if (!teamdata || teamdata.length === 0) {
-      console.log("No teams found");
-      return res.status(404).send("No teams found");
-    }
-
-    // Fetch the specific league by league_id
-    db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
-      if (err) {
-        console.log("Error retrieving league data: ", err);
-        return res.status(500).send("Error retrieving league data");
-      }
-
-      if (!league) {
-        console.log("League not found");
-        return res.status(404).send("League not found");
-      }
-
-      // Fetch the matches associated with the teams in the league
-      db.all(`
-        SELECT 
-          m.match_id,
-          m.home_team_id,
-          m.away_team_id,
-          m.match_date,
-          m.venue,
-          m.status,
-          m.home_team_score,
-          m.away_team_score,
-          ht.team_name AS home_team_name,
-          ht.team_logo AS home_team_logo,
-          at.team_name AS away_team_name,
-          at.team_logo AS away_team_logo
-        FROM matches m
-        INNER JOIN teams ht ON m.home_team_id = ht.team_id
-        INNER JOIN teams at ON m.away_team_id = at.team_id
-        WHERE ht.league_id = ? OR at.league_id = ?
-      `, [leagueId, leagueId], (err, matchdata) => {
-        if (err) {
-          console.log("Error retrieving matches data: ", err);
-          return res.status(500).send("Error retrieving matches data");
-        }
-
-          // Render the fixture page with the team, match, league, and county data
-          res.render('fixture', { teamdata, league, matchdata, countydata });
-        });
-      });
-    });
-  });
-
-
 
 // Server listening
 app.listen(port, () => {

@@ -6,25 +6,25 @@
         <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
       </div>
       <section class="dashcontainer">
-        <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata }) %>
+        <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata,  countydata: countydata }) %>
           <main class="main_display">
 
       <nav class="qualification_main_nav">
         <div class="qualificationmain_nav_lc">
           <div class="qualification_link">
             <a href="#" class="qualification">
-              <img class="qualification_img" src="<%= league.logo %>" alt="">
+              <img class="qualification_img" src="<%= leaguedata.logo %>" alt="">
               <div class="qualification_heading">
-                <h5 class="text-light"><%= league.league_name %></h5>
-                <p><%= league.country %></p>
+                <h5 class="text-light"><%= leaguedata.league_name %></h5>
+                <p><%= leaguedata.country %></p>
               </div>
             </a>
           </div>
           <div class="qualification-action-btn">
-            <a href="/team/<%= league.league_id %>"><button type="button" class="qualification-btn">Overview</button></a>
-            <a href="/team_matches/<%= league.league_id %>"><button type="button" class="qualification-btn">Matches</button></a>
-            <a href="/team_table/<%= league.league_id %>"><button type="button" class="qualification-btn">Table</button></a>
-            <a href="/player_stats_all/<%= league.league_id %>"><button type="button" class="qualification-btn">Play-Stats</button></a>
+            <a href="/team/<%= leaguedata.league_id %>"><button type="button" class="qualification-btn">Overview</button></a>
+            <a href="/team_matches/<%= leaguedata.league_id %>"><button type="button" class="qualification-btn">Matches</button></a>
+            <a href="/team_table/<%= leaguedata.league_id %>"><button type="button" class="qualification-btn">Table</button></a>
+            <a href="/player_stats_all/<%= leaguedata.league_id %>"><button type="button" class="qualification-btn">Play-Stats</button></a>
           </div>
         </div>
       </nav>
@@ -46,11 +46,19 @@
               </div>
               <div class="main_content_teams">
                 <div class="d-flex gap-2">
-                  <img class="main_content_imgs" src="<%= match.home_team_logo %>" alt="Home team logo">
+                  <% if (match.home_team_logo) { %>
+                    <img class="main_content_imgs" src="data:image/png;base64,<%= match.home_team_logo.toString('base64') %>" alt="Home team logo">
+                  <% } else { %>
+                    <img src="../images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
                   <p><%= match.home_team_name %></p>
                 </div>
                 <div class="d-flex gap-2">
-                  <img class="main_content_imgs" src="<%= match.away_team_logo %>" alt="Away team logo">
+                  <% if (match.away_team_logo) { %>
+                    <img class="main_content_imgs" src="data:image/png;base64,<%= match.away_team_logo.toString('base64') %>" alt="Home team logo">
+                  <% } else { %>
+                    <img src="../images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                  <% } %>
                   <p><%= match.away_team_name %></p>
                 </div>
               </div>
@@ -63,17 +71,39 @@
         </fieldset>
         <% }) %>
 
-        <% leaguedata.forEach(league => { %>
-        <div class="qualification_link">
-          <a href="#" class="qualification">
-            <img class="qualification_img" src="<%= league.logo %>" alt="">
-            <div class="qualification_heading">
-              <h5 class="text-light"><%= league.league_name %>: <%= league.group %></h5>
-              <p><%= league.country %></p>
-            </div>
-          </a>
-        </div>
-        <% }) %>
+        <% countymatches.forEach(match => { %>
+          <fieldset class="main_content">
+            <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
+              <div class="d-flex align-items-center gap-4 ms-2">
+                <div class="d-flex align-items-center">
+                  <p><%= match.home_county_name %> vs <%= match.away_county_name %></p>
+                </div>
+                <div class="main_content_teams">
+                  <div class="d-flex gap-2">
+                    <% if (match.home_county_logo) { %>
+                      <img class="main_content_imgs" src="data:image/png;base64,<%= match.home_county_logo.toString('base64') %>" alt="Home team logo">
+                    <% } else { %>
+                      <img src="../images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                    <% } %>
+                    <p><%= match.home_county_name %></p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <% if (match.away_county_logo) { %>
+                      <img class="main_content_imgs" src="data:image/png;base64,<%= match.away_county_logo.toString('base64') %>" alt="Home team logo">
+                    <% } else { %>
+                      <img src="../images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                    <% } %>
+                    <p><%= match.away_county_name %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="contant me-2">
+                <p>Score: <%= match.home_county_score %> - <%= match.away_county_score %></p>
+                <i class="fa-regular fa-star fs-2"></i>
+              </div>
+            </a>
+          </fieldset>
+          <% }) %>
       </section>
     </main>
   </section>

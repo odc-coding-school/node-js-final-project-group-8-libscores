@@ -31,7 +31,8 @@
                     <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
                   <% } %>
                   <div>
-                    <h5><%= match.league_name %></h5>
+                    <h5 class="text_color"><%= match.league_stage %></h5>
+                    <p><%= match.league_name %></p>
                   </div>
                 </a>
               </div>
@@ -83,7 +84,8 @@
           <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
         <% } %>
         <div>
-          <h5><%= countymatches.league_name %></h5>
+          <h5 class="text_color"><%= countymatches.league_stage %></h5>
+          <p><%= countymatches.league_name %></p>
         </div>
       </a>
     </div>

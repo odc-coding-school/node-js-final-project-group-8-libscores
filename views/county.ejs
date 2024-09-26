@@ -1,0 +1,94 @@
+
+  <%- include ("partials/header", { title: title }) %>
+<div class="">
+  <div class="selection_link">
+    <a href="#"><button type="button" class="selection_btn">FootBall</button></a>
+    <a href="#"><button type="button" class="selection_btn">Basketball</button></a>
+    <a href="#"><button type="button" class="selection_btn">KickBall</button></a>
+  </div>
+  <section class="dashcontainer">
+    <%- include('partials/sidebar', { teamdata: teamdata, leaguedata: leaguedata, countydata: countydata, title:title }) %>
+    <main class="main_display">
+      <nav class="qualification_main_nav">
+        <div class="qualificationmain_nav_lc">
+          <div class="qualification_link">
+            <% if (countyFullData && countyFullData.length > 0) { %>
+            <a href="" class="qualification">
+              <img src="data:image/png;base64,<%= countyFullData[0].home_county_logo.toString('base64') %>" alt="<%= countyFullData[0].home_county_name %> logo" class="sidebar_imgs">
+              <div class="qualification_heading">
+                <h5 class="text-light"><%= countyFullData[0].home_county_name %></h5>
+                <p><%= leaguedata ? leaguedata.league_name : 'League Name Unavailable' %></p>
+              </div>
+            </a>
+            <% } else { %>
+              <p class="d-flex justify-content-center pt-1">No match data available for this county  </p>
+            <% } %>
+          </div>
+          <div class="qualification-action-btn">
+            <a href="/county/<%= countydata.county_id %>"><button type="button" class="qualification-btn">Overview</button></a>
+            <a href="/county_matches/<%= countydata.county_id %>"><button type="button" class="qualification-btn">Matches</button></a>
+            <a href="/county_table/<%= countydata.county_id %>"><button type="button" class="qualification-btn">Table</button></a>
+            <a href="/county_player_stats_all/<%= countydata.county_id %>"><button type="button" class="qualification-btn">Play-Stats</button></a>
+          </div>
+        </div>
+      </nav>
+           <!-- Next County Match Section -->
+      <div class="next-match">
+        <h3>NEXT COUNTY MATCH</h3>
+        <% if (countyFullData && countyFullData.length > 0) { %>
+          <div class="next-match-info">
+            <div class="team1">
+              <img class="next-match-img" src="data:image/png;base64,<%= countyFullData[0].home_county_logo.toString('base64') %>" alt="<%= countyFullData[0].home_county_name %> logo" class="sidebar_imgs">
+              <h5><%= countyFullData[0].home_county_name %></h5>
+            </div>
+              <div class="game-time">
+              <h3><%= countyFullData[0].match_date %></h3>
+              <p><%= countyFullData[0].status %></p>
+            </div>
+            <div class="team2">
+              <img class="next-match-img" src="data:image/png;base64,<%= countyFullData[0].away_county_logo.toString('base64') %>" alt="<%= countyFullData[0].away_county_name %> logo" class="sidebar_imgs">
+              <h5><%= countyFullData[0].away_county_name %></h5>
+            </div>
+          </div>
+        <% } else { %>
+          <p class="d-flex justify-content-center">No upcoming county matches available.</p>
+        <% } %>
+      </div>
+
+      <!-- County Form and Recent Matches -->
+      <section class="main_content-sec">
+        <h3>FORM</h3>
+        <% if (countyFullData && countyFullData.length > 0) { %>
+          <!-- Loop over the matches and display them -->
+        <% countyFullData.forEach(match => { %>
+        <fieldset class="main_content">
+          <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
+            <div class="d-flex align-items-center gap-4 ms-2">
+              <div class="d-flex align-items-center">
+                <p><%= match.match_date %></p>
+              </div>
+              <div class="main_content_teams">
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="data:image/png;base64,<%= match.home_county_logo.toString('base64') %>" alt="<%= match.home_county_name %> logo">
+                  <p><%= match.home_county_name %></p>
+                </div>
+                <div class="d-flex gap-2">
+                  <img class="main_content_imgs" src="data:image/png;base64,<%= match.away_county_logo.toString('base64') %>" alt="<%= match.away_county_name %> logo">
+                  <p><%= match.away_county_name %></p>
+                </div>
+              </div>
+            </div>
+            <div class="contant me-2">
+              <i class="fa-regular fa-star fs-2"></i>
+            </div>
+          </a>
+        </fieldset>
+        <% }) %>
+        <% } else { %>
+          <p class="d-flex justify-content-center">No matches found for this county.</p>
+        <% } %>
+      </section>
+    </main>
+  </section>
+</div>
+<%- include ("partials/footer.ejs") %>

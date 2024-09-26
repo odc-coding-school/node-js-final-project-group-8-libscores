@@ -119,6 +119,22 @@ db.serialize(() => {
       FOREIGN KEY(team_id) REFERENCES teams(team_id)
     )
   `);
+    //County Players table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS county_players (
+        county_player_id INTEGER PRIMARY KEY,
+        county_id INTEGER,
+        county_player_name TEXT NOT NULL,
+        position TEXT,
+        jersey_number INTEGER,
+        age INTEGER,
+        county TEXT,
+        goals_scored INTEGER DEFAULT 0,
+        assists INTEGER DEFAULT 0,
+        matches_played INTEGER DEFAULT 0,
+        FOREIGN KEY(county_id) REFERENCES county(county_id)
+      )
+    `);
   // this is the live_scores table
   db.run(`
     CREATE TABLE IF NOT EXISTS live_scores (
@@ -336,6 +352,18 @@ app.get("/league_overview/:league_id", (req, res) => {
       return res.status(404).send("League not found");
     }
 
+    db.all("SELECT * FROM leagues", (err, leaguedata) => {
+      if (err) {
+        console.log("Error: ", err);
+        return res.status(500).send("Error retrieving league data");
+      }
+
+      if (!leaguedata || leaguedata.length === 0) {
+        console.log("No leagues found");
+        return res.status(404).send("No leagues found");
+      }
+
+
     // Fetch teams associated with the league
     db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teams) => {
       if (err) {
@@ -397,13 +425,13 @@ app.get("/league_overview/:league_id", (req, res) => {
             }
 
         // Render the league overview page with the fetched league, teams, and matches data
-        res.render("league_overview", { leagueId, league, teams, matches, countymatches,  title: `LibScore |${league.league_name}` });
+        res.render("league_overview", { leagueId, league, teams, matches, leaguedata: league, countymatches, title: `LibScore |${league.league_name}` });
       });
     });
     });
   });
 });
-
+});
 
 app.get("/league_stage/", (req, res) => {
   const leagueId = req.params.league_id;
@@ -1224,6 +1252,72 @@ app.get("/team/:team_id", (req, res) => {
               countydata,
               title: 'LibScore | Team',
               message: teamFullData.length === 0 ? "No matches found for this team." : null
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
+// County page
+app.get("/county/:county_id", (req, res) => {
+  const countyId = req.params.county_id;
+  const leagueId = req.query.league_id || null; 
+
+  db.all("SELECT * FROM teams", (err, teamdata) => {
+    if (err) {
+      return res.status(500).send("Error retrieving team data");
+    }
+
+    db.all("SELECT * FROM leagues", (err, leaguedata) => {
+      if (err) {
+        return res.status(500).send("Error retrieving league data");
+      }
+
+      db.all("SELECT * FROM county", (err, countydata) => {
+        if (err) {
+          return res.status(500).send("Error retrieving county data");
+        }
+
+        const selectedLeague = leaguedata.find(league => league.league_id == leagueId) || leaguedata[0];
+
+        db.all(`
+          SELECT 
+            m.county_match_id,
+            m.match_date,
+            m.venue,
+            m.status,
+            m.home_county_score,
+            m.away_county_score,
+            ht.county_name AS home_county_name,
+            ht.county_logo AS home_county_logo,
+            at.county_name AS away_county_name,
+            at.county_logo AS away_county_logo
+          FROM county_matches m
+          INNER JOIN county ht ON m.home_county_id = ht.county_id
+          INNER JOIN county at ON m.away_county_id = at.county_id
+          WHERE ht.county_id = ? OR at.county_id = ?
+        `, [countyId, countyId], (err, countyFullData) => {
+          if (err) {
+            return res.status(500).send("Error retrieving county match data");
+          }
+
+          db.all("SELECT * FROM county_players WHERE county_id = ?", [countyId], (err, countyPlayers) => {
+            if (err) {
+              return res.status(500).send("Error retrieving county players data");
+            }
+
+            res.render("county", {
+              countyId,
+              countyPlayers,
+              teamdata,
+              selectedLeague,
+              countyFullData: countyFullData || [],
+              leaguedata,
+              countydata,
+              title: 'LibScore | County',
+              message: countyFullData.length === 0 ? "No county matches found for this county." : null
             });
           });
         });

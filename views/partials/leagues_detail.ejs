@@ -5,13 +5,17 @@
       <a class="nav-item nav-link sidebar_headlings" href="/">
             <i class="fa-solid fa-angle-left fs-2 fw-2 text_color"></i>
       </a>
-      <span class="text_color fs-4 fw-4">County Meet</span>
+      <span class="text_color fs-4 fw-4"><%= leaguedata.league_name %></span>
   </div>
   <div class="">
       <a href="/league1_overview" class="text-decoration-none">
           <fieldset class="aside_content">
               <div class="contant">
-                  <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
+                <% if (leaguedata && leaguedata.league_logo) { %>
+                    <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="League Stage" class="sidebar_imgs rounded-circle">
+                  <% } else { %>
+                    <p>LCS</p>
+                  <% } %>
                   <div class="text_content">League Stage</div>
               </div>
           </fieldset>
@@ -19,7 +23,11 @@
       <a href="/league1_qualification" class="text-decoration-none">
           <fieldset class="aside_content">
               <div class="contant">
-                  <img src="./images/county_meet_log.jpg" alt="" class="sidebar_imgs rounded-circle">
+                <% if (leaguedata && leaguedata.league_logo) { %>
+                    <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="League Stage" class="sidebar_imgs rounded-circle">
+                  <% } else { %>
+                    <p>LCS</p>
+                  <% } %>
                   <div class="text_content">Qualification</div>
               </div>
           </fieldset>

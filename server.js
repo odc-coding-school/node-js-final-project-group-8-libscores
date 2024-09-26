@@ -1234,46 +1234,57 @@ app.get("/team/:team_id", (req, res) => {
   });
 });
 
-// Matches_fixture page
 app.get("/fixture", (req, res) => {
+  // Fetch teams data
   db.all("SELECT * FROM teams", (err, teamdata) => {
     if (err) {
       console.log("Error: ", err);
       return res.status(500).send("Error retrieving team data");
     }
-    
-    if (!teamdata || teamdata.length === 0) {
-      console.log("No teams found");
-      return res.status(404).send("No teams found");
-    }
 
+    // Fetch leagues data
     db.all("SELECT * FROM leagues", (err, leaguedata) => {
       if (err) {
         console.log("Error: ", err);
         return res.status(500).send("Error retrieving league data");
       }
-      
-      if (!leaguedata || leaguedata.length === 0) {
-        console.log("No leagues found");
-        return res.status(404).send("No leagues found");
-      }
 
+      // Fetch county data
       db.all("SELECT * FROM county", (err, countydata) => {
         if (err) {
           console.log("Error: ", err);
           return res.status(500).send("Error retrieving county data");
         }
-        
-        if (!countydata || countydata.length === 0) {
-          console.log("No counties found");
-          return res.status(404).send("No counties found");
-        }
 
-        res.render('fixture', { teamdata, leaguedata, countydata,});
+        // Fetch matches data
+        db.all(`
+          SELECT 
+            m.match_id,
+            ht.team_name AS home_team_name,
+            at.team_name AS away_team_name,
+            ht.team_logo AS home_team_logo,
+            at.team_logo AS away_team_logo,
+            m.home_team_score,
+            m.away_team_score,
+            m.match_date,
+            m.venue
+          FROM matches m
+          INNER JOIN teams ht ON m.home_team_id = ht.team_id
+          INNER JOIN teams at ON m.away_team_id = at.team_id
+        `, (err, matchdata) => {
+          if (err) {
+            console.log("Error: ", err);
+            return res.status(500).send("Error retrieving match data");
+          }
+
+          // Render the fixture page with team, league, county, and match data
+          res.render('fixture', { teamdata, leaguedata, countydata, matchdata });
+        });
       });
     });
   });
 });
+
 
 // Matches_fixture page
 app.get("/league_standing", (req, res) => { 
@@ -1381,7 +1392,7 @@ app.post('/submit_league', upload.single('leagues_logo'), (req, res) => {
   const leagueLogo = req.file ? req.file.buffer : null; // Store image as BLOB
 
   const insertLeague = `
-    INSERT INTO leagues (league_name, leagues_logo)
+    INSERT INTO leagues (league_name, league_logo)
     VALUES (?, ?)`;
 
   db.run(insertLeague, [

@@ -7,14 +7,14 @@
     <a href="/league/3"><button type="button" class="selection_btn">Kickball League 3</button></a>
   </div>
   <section class="dashcontainer">
-    <%- include("partials/leagues_detail.ejs") %>
+    <%- include("partials/leagues_detail", {league: league }) %>
     <main class="main_display">
       <nav class="border-bottom">
         <div class="">
           <div class="qualification_group">
             <div class="qualification_link">
               <a href="" class="qualification">
-                <img class="qualification_img" src="./images/ELWA-Utd-logo-128x128-removebg-preview.png" alt="">
+                <img class="qualification_img" src="data:image/png;base64<%league.league_logo.toString('base64')%>" alt="">
                 <div>
                   <h5 class="text_color"><%= league.league_name %></h5>
                   <p>Liberia</p>

@@ -193,6 +193,10 @@ a .contant .text_content{
   border: 3px solid var(--border_color);
  }
 
+ .header_display {
+  border-bottom: 2px solid var(--border_color);
+ }
+
  .main_nav{
   width: 100%;
   height:8vh;
@@ -327,7 +331,7 @@ a .contant .text_content{
   width: 98%;
   margin-left: 1%;
   color: var(--text_Dcolor);
-  border: 1px solid #ffffff;
+  border: 1px solid var(--border_color);
   border-collapse: collapse;
   padding: 1rem;
   border-radius: 2rem;
@@ -342,7 +346,7 @@ a .contant .text_content{
 .table_leageu1 td {
   text-align: center;
   padding: 0.75rem;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--border_color);
 
 }
 

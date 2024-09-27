@@ -441,6 +441,12 @@ a .qualification-btn{
   display: flex;
   justify-content: left;
  }
+
+ .match_status{
+  display: flex;
+  flex-direction: column;
+  
+ }
  .next-match{
   display: flex;
   flex-direction: column;

@@ -8,38 +8,38 @@
       </div>
       <section class="dashcontainer">
         <%- include ("partials/leagues_detail", {leaguedata: leaguedata}) %>
-          <main class="main_display">
-            <nav class="border-bottom">
-                <div class="">
-                  <div class="qualification_group">
-                    <div class="qualification_link">
-                      <a href="/league_overview/<%= league.league_id %>" class="qualification">
-                        <% if (leaguedata.league_logo) { %>
-                          <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
-                        <% } else { %>
-                          <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
-                        <% } %>
-                        <div>
-                          <h5 class="text_color"><%= league.league_name %></h5>
-                          <p>Liberia</p>
-                        </div>
-                      </a>
+        <main class="main_display">
+          <nav class="border-bottom">
+            <div class="">
+              <div class="qualification_group">
+                <div class="qualification_link">
+                  <a href="/league_overview/<%= league.league_id %>" class="qualification">
+                    <% if (leaguedata.league_logo) { %>
+                      <img src="data:image/png;base64,<%= leaguedata.league_logo.toString('base64') %>" alt="Home Team Logo" class="sidebar_imgs">
+                    <% } else { %>
+                      <img src="./images/teams_flag/generic-logo-128x128.jpg" alt="" class="sidebar_imgs">
+                    <% } %>
+                    <div>
+                      <h5 class="text_color"><%= league.league_name %></h5>
+                      <p>Liberia</p>
                     </div>
-                    <div class="qualification_link">
-                     <button type="button" onclick="selsect_favorite">
-                      <i class="fa-regular fa-star fs-2 text_color"></i>
-                     </button>
-                    </div>
-                  </div>
+                  </a>
                 </div>
-                <div class="" id="navbarCollapse">
-                  <div class="d-flex">
-                    <a href="/league_overview/<%= league.league_id %>" class="nav-item nav-link  link_colorh d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Overview</a>
-                    <a href="/fixture/<%= league.league_id %>" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Matches</a>
-                    <a href="/league_table/<%= league.league_id %>" class="nav-item nav-link link_color d-flex gap-2 justify-content-center align-items-center fs-4 fw-bold">Table</a>
+                <div class="qualification_link">
+                  <button type="button" onclick="select_favorite">
+                    <i class="fa-regular fa-star fs-2 text_color"></i>
+                  </button>
                 </div>
               </div>
-            </nav>
+            </div>
+            <div class="" id="navbarCollapse">
+              <div class="d-flex">
+                <a href="/league_overview/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Overview</a>
+                <a href="/league_matches/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Matches</a>
+                <a href="/league_table/<%= league.league_id %>" class="nav-item nav-link fs-4 fw-bold text-light">Table</a>
+              </div>
+            </div>
+          </nav>
           <section class="table_content_sec">
             <table class="table_leageu1">
               <thead>

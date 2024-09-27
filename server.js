@@ -337,6 +337,68 @@ app.get("/", (req, res) => {
 });
 });
 
+app.get("/form", (req, res) => {
+  db.all('SELECT * FROM leagues', (err, rows) => {
+      if (err) {
+          console.error("Error fetching leauses:", err);
+          return res.status(500).send("Error fetching leagues.");
+      }
+
+      if (!rows || rows.length === 0) {
+          console.warn("No league found in the database.");
+      } else {
+          console.log("Fetched league:", rows);
+      }
+
+      res.render('form', { leagueid: rows });
+  });
+});
+
+app.get("/league_form", (req, res) => { 
+  res.render('league_dataf');
+});
+
+app.get("/team_form", (req, res) => { 
+ db.all("SELECT * FROM leagues WHERE league_id IN (1, 2, 3)", (err, leagueType) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.status(500).send("Error retrieving leagues data");
+    }
+    
+    if (!leagueType || leagueType.length === 0) {
+      console.log("No leagues found");
+      return res.status(404).send("No leagues found");
+    }
+    
+    // Render the view with the leagueType data
+    res.render('team_dataf', { leagueType });
+  });
+});
+
+app.get("/county_form", (req, res) => { 
+  db.all(`SELECT * FROM leagues  WHERE league_id = 4`, (err, leagueType) => {
+    if (err) {
+      console.log("Error: ", err);
+      return res.status(500).send("Error retrieving leagues data");
+    }
+    
+    if (!leagueType || leagueType.length === 0) {
+      console.log("No leagues found");
+      return res.status(404).send("No leagues found");
+    }
+    
+    // Render the view with the leagueType data
+    res.render('county_dataf', { leagueType });
+  });
+});
+
+app.get("/match_form", (req, res) => { 
+  res.render('match_info_form');
+});
+
+app.get("/match_county_form", (req, res) => { 
+  res.render('match_county_form');
+});
 
 app.get("/league_overview/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
@@ -420,11 +482,11 @@ app.get("/league_overview/:league_id", (req, res) => {
             }
 
             // Render the league overview page with both league and county matches data
-            res.render("league_overview", { leagueId, league, teams, matches, leaguedata: league, countymatches, title: `LibScore | ${league.league_name}`});
+            res.render("league_overview", { league, teams, matches, leaguedata: league, countymatches, title: `LibScore | ${league.league_name}`});
           });
         } else {
           // Render the league overview page without county matches for non-County Meet leagues
-          res.render("league_overview", { leagueId, league, teams, matches, leaguedata: league, countymatches: [], title: `LibScore | ${league.league_name}` });
+          res.render("league_overview", { league, teams, matches, leaguedata: league, countymatches: [], title: `LibScore | ${league.league_name}` });
         }
       });
     });
@@ -514,69 +576,6 @@ app.get("/league_stage/", (req, res) => {
   });
 });
 
-app.get("/form", (req, res) => {
-  db.all('SELECT * FROM leagues', (err, rows) => {
-      if (err) {
-          console.error("Error fetching leauses:", err);
-          return res.status(500).send("Error fetching leagues.");
-      }
-
-      if (!rows || rows.length === 0) {
-          console.warn("No league found in the database.");
-      } else {
-          console.log("Fetched league:", rows);
-      }
-
-      res.render('form', { leagueid: rows });
-  });
-});
-
-app.get("/league_form", (req, res) => { 
-  res.render('league_dataf');
-});
-
-app.get("/team_form", (req, res) => { 
- db.all("SELECT * FROM leagues WHERE league_id IN (1, 2, 3)", (err, leagueType) => {
-    if (err) {
-      console.log("Error: ", err);
-      return res.status(500).send("Error retrieving leagues data");
-    }
-    
-    if (!leagueType || leagueType.length === 0) {
-      console.log("No leagues found");
-      return res.status(404).send("No leagues found");
-    }
-    
-    // Render the view with the leagueType data
-    res.render('team_dataf', { leagueType });
-  });
-});
-
-app.get("/county_form", (req, res) => { 
-  db.all(`SELECT * FROM leagues  WHERE league_id = 4`, (err, leagueType) => {
-    if (err) {
-      console.log("Error: ", err);
-      return res.status(500).send("Error retrieving leagues data");
-    }
-    
-    if (!leagueType || leagueType.length === 0) {
-      console.log("No leagues found");
-      return res.status(404).send("No leagues found");
-    }
-    
-    // Render the view with the leagueType data
-    res.render('county_dataf', { leagueType });
-  });
-});
-
-app.get("/match_form", (req, res) => { 
-  res.render('match_info_form');
-});
-
-app.get("/match_county_form", (req, res) => { 
-  res.render('match_county_form');
-});
-
 app.get("/league_matches/:league_id", (req, res) => {
   const leagueId = req.params.league_id;
 
@@ -590,42 +589,134 @@ app.get("/league_matches/:league_id", (req, res) => {
       return res.status(404).send("League not found");
     }
 
-    // Fetch the matches related to the league
-    db.all("SELECT * FROM matches WHERE league_id = ?", [leagueId], (err, matches) => {
+    db.all("SELECT * FROM teams WHERE league_id = ?", [leagueId], (err, teamdata) => {
       if (err) {
+        console.log("Error retrieving team data: ", err);
+        return res.status(500).send("Error retrieving team data");
+      }
+      
+      if (!teamdata || teamdata.length === 0) {
+        console.log("No teams found");
+        return res.status(404).send("No teams found");
+      }
+
+
+       // Fetch leagues data
+       db.all("SELECT * FROM leagues", (err, leaguedata) => {
+        if (err) {
+          console.log("Error: ", err);
+          return res.status(500).send("Error retrieving league data");
+        }
+  
+        if (!leaguedata || leaguedata.length === 0) {
+          console.log("No leagues found");
+          return res.status(404).send("No leagues found");
+        }
+
+
+      // Fetch county data
+      db.all("SELECT * FROM county ", (err, countydata) => {
+        if (err) {
+          console.log("Error retrieving county data: ", err);
+          return res.status(500).send("Error retrieving county data");
+        }
+        
+        if (!countydata || countydata.length === 0) {
+          console.log("No county found");
+          return res.status(404).send("No county found");
+        }
+
+    // Fetch matches data
+    db.all(`
+      SELECT 
+        m.match_id,
+        m.home_team_id,
+        m.away_team_id,
+        m.match_date,
+        m.venue,
+        m.status,
+        m.home_team_score,
+        m.away_team_score,
+        ht.team_name AS home_team_name,
+        ht.team_logo AS home_team_logo,
+        at.team_name AS away_team_name,
+        at.team_logo AS away_team_logo
+      FROM matches m
+      INNER JOIN teams ht ON m.home_team_id = ht.team_id
+      INNER JOIN teams at ON m.away_team_id = at.team_id
+      WHERE ht.league_id = ? OR at.league_id = ?
+    `, [leagueId, leagueId], (err, matchdata) => {
+      if (err) {
+        console.log("Error retrieving matches data: ", err);
         return res.status(500).send("Error retrieving matches data");
       }
 
-      // Render a view for the league matches page
-      res.render("league_matches", { league, matches });
+  if ( leagueId === 4){
+    db.all(`
+      SELECT 
+        m.county_match_id,
+        m.home_county_id,
+        m.away_county_id,
+        m.match_date,
+        m.venue,
+        m.status,
+        m.home_county_score,
+        m.away_county_score,
+        ht.county_name AS home_county_name,
+        ht.county_logo AS home_county_logo,
+        at.county_name AS away_county_name,
+        at.county_logo AS away_county_logo
+      FROM county_matches m
+      INNER JOIN county ht ON m.home_county_id = ht.county_id
+      INNER JOIN county at ON m.away_county_id = at.county_id
+      WHERE ht.league_id = ? OR at.league_id = ?
+    `, [leagueId, leagueId], (err, countymatches) => {
+      if (err) {
+        console.log("Error retrieving county matches data: ", err);
+        return res.status(500).send("Error retrieving county matches data");
+      }
+     
+          // Render the league matches page with both league and county matches data
+          res.render("league_matches", { league, leaguedata: league, countymatches, matchdata, teamdata, countydata, title: "LibScore | League Matches"});
+        });
+      } else {
+        // Render the league matches page without county matches for non-County Meet leagues
+        res.render("league_matches", { league, leaguedata: league, matchdata, teamdata, countydata, countymatches: [], title: "LibScore | League Matches" });
+      }
+
+      // Render the league matches page with team, league, county, and match data
+    });
     });
   });
+});
+});
 });
 
 app.get("/league_table/:league_id", (req, res) => {
     const leagueId = req.params.league_id;
   
-    // Fetch the league  table details based on league_id
+    // Fetch league-specific data for the league_id
     db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
       if (err) {
+        console.log("Error retrieving league data: ", err);
         return res.status(500).send("Error retrieving league data");
       }
-      
+
       if (!league) {
         return res.status(404).send("League not found");
       }
 
-         // Fetch leagues data
-         db.all("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, leaguedata) => {
-          if (err) {
-            console.log("Error retrieving league data: ", err);
-            return res.status(500).send("Error retrieving league data");
-          }
-    
-          if (!leaguedata) {
-            console.log("League not found");
-            return res.status(404).send("League not found");
-          }
+         
+      db.all("SELECT * FROM leagues", (err, leaguedata) => {
+        if (err) {
+          console.log("Error: ", err);
+          return res.status(500).send("Error retrieving league data");
+        }
+  
+        if (!leaguedata || leaguedata.length === 0) {
+          console.log("No leagues found");
+          return res.status(404).send("No leagues found");
+        }
 
       db.all("SELECT * FROM league_standings", (err, leagueStand) => {
         if (err) {
@@ -639,10 +730,40 @@ app.get("/league_table/:league_id", (req, res) => {
         }
   
   // Render a view for the league overview Table page    
-  res.render('league_table', { league, leagueStand, leaguedata, title: `${league.league_name}League Table`});
+  res.render('league_table', { league, leagueStand, leaguedata: league, title: `${league.league_name}League Table`});
  });
 });
 });
+});
+
+//The qualification page
+app.get("/league_qualification/:league_id", (req, res) => {
+    const leagueId = req.params.league_id;
+  
+    // Fetch the league  table details based on league_id
+    db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
+      if (err) {
+        return res.status(500).send("Error retrieving league data");
+      }
+      
+      if (!league) {
+        return res.status(404).send("League not found");
+      }
+  
+  // Render a view for the league overview Table page    
+  res.render('qualification', { league });
+  });
+});
+
+// League Standing page
+app.get("/league_standing", (req, res) => { 
+  db.all("SELECT * FROM leagues", (err, league) => {
+    if (err) {
+      console.log("Error retrieving league: ", err);
+      return res.status(500).send("Error retrieving league data");
+    }
+  res.render("team_standingf", { leagueInfo:  league });
+  });
 });
 
 // Players stsats all
@@ -719,7 +840,6 @@ app.get('/player_stats_all/:team_id', (req, res) => {
   });
 });
 
- 
 // Players stsats ass
 app.get('/player_stats_ass/:team_id', (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -926,25 +1046,6 @@ app.get('/player_stats_yc/:team_id', (req, res) => {
   });
 });
 
-//The qualification page
-app.get("/league_qualification/:league_id", (req, res) => {
-    const leagueId = req.params.league_id;
-  
-    // Fetch the league  table details based on league_id
-    db.get("SELECT * FROM leagues WHERE league_id = ?", [leagueId], (err, league) => {
-      if (err) {
-        return res.status(500).send("Error retrieving league data");
-      }
-      
-      if (!league) {
-        return res.status(404).send("League not found");
-      }
-  
-  // Render a view for the league overview Table page    
-  res.render('qualification', { league });
-  });
-});
-
 // Team matches page
 app.get('/team_matches/:team_id', (req, res) => {
 
@@ -1040,6 +1141,7 @@ db.all("SELECT * FROM teams", (err, teamdata) => {
   });
 });
 });
+
 // Team away page
 app.get("/team_table_away", (req, res) => {
   db.all("SELECT * FROM teams", (err, teamdata) => {
@@ -1440,17 +1542,6 @@ app.get("/fixture/:league_id", (req, res) => {
         });
       });
     });
-  });
-});
-
-// League Standing page
-app.get("/league_standing", (req, res) => { 
-  db.all("SELECT * FROM leagues", (err, league) => {
-    if (err) {
-      console.log("Error retrieving league: ", err);
-      return res.status(500).send("Error retrieving league data");
-    }
-  res.render("team_standingf", { leagueInfo:  league });
   });
 });
 

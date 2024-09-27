@@ -48,9 +48,9 @@
             <fieldset class="main_content d-flex justify-content-between align-items-center">
               <a href="#" class="main_content_link d-flex text_color justify-content-between align-items-center text-decoration-none">
                 <div class="d-flex align-items-center gap-4 ms-2">
-                  <div class="d-flex align-items-center flex-column">
-                    <p><%= match.match_date %></p>
-                    <p><%= match.status %></p>
+                  <div class="match_status">
+                    <p><%= match.status%></p> <br>                                             
+                    <p><%= match.match_date%></p>
                   </div>
                   <div class="main_content_teams">
                     <div class="d-flex gap-2">
@@ -84,8 +84,9 @@
               <fieldset class="main_content">
                 <a href="/<%= match.home_county_name %>vs/<%= match.away_county_name %>" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
                   <div class="d-flex align-items-center gap-4 ms-2">
-                    <div class="d-flex align-items-center">
-                      <p><%= match.match_status %></p>
+                    <div class="match_status">
+                      <p><%= match.status%></p> <br>                                             
+                      <p><%= match.match_date%></p>
                     </div>
                     <div class="main_content_teams">
                       <div class="d-flex gap-2">

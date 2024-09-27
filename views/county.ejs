@@ -57,15 +57,15 @@
 
       <!-- County Form and Recent Matches -->
       <section class="main_content-sec">
-        <h3>FORM</h3>
         <% if (countyFullData && countyFullData.length > 0) { %>
           <!-- Loop over the matches and display them -->
         <% countyFullData.forEach(match => { %>
         <fieldset class="main_content">
           <a href="#" class="main_content_link d-flex justify-content-between align-items-center text-decoration-none">
             <div class="d-flex align-items-center gap-4 ms-2">
-              <div class="d-flex align-items-center">
-                <p><%= match.match_date %></p>
+              <div class="match_status">
+                <p><%= match.status%></p> <br>                                             
+                <p><%= match.match_date%></p>
               </div>
               <div class="main_content_teams">
                 <div class="d-flex gap-2">

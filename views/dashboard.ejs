@@ -24,7 +24,7 @@
             <% matches.forEach(match => { %>
             <div class="qualification_group">
               <div class="qualification_link">
-                <a href="" class="qualification">
+                <a href="#" class="qualification">
                   <% if (match.league_logo) { %>
                     <img src="data:image/png;base64,<%= match.league_logo.toString('base64') %>" alt="League Logo" class="sidebar_imgs">
                   <% } else { %>
@@ -36,7 +36,7 @@
                 </a>
               </div>
               <div class="qualification_link">
-                <a href="">
+                <a href="#">
                   <i class="fa-solid fa-angle-right"></i>
                 </a>
               </div>
@@ -76,7 +76,7 @@
 <% countymatches.forEach(countymatches => { %>
   <div class="qualification_group">
     <div class="qualification_link">
-      <a href="" class="qualification">
+      <a href="#" class="qualification">
         <% if (countymatches.league_logo) { %>
           <img src="data:image/png;base64,<%= countymatches.league_logo.toString('base64') %>" alt="League Logo" class="sidebar_imgs">
         <% } else { %>

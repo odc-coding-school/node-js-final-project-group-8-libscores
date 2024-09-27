@@ -718,14 +718,14 @@ app.get("/league_table/:league_id", (req, res) => {
           return res.status(404).send("No leagues found");
         }
 
-      db.all("SELECT * FROM league_standings", (err, leagueStand) => {
+      db.all("SELECT * FROM league_standings WHERE league_id = ?", [leagueId], (err, leagueStand) => {
         if (err) {
           console.log("Error: ", err);
           return res.status(500).send("Error retrieving county data");
         }
         
         if (!leagueStand || leagueStand.length === 0) {
-          console.log("No league standing found");
+
           return res.status(404).send("No league standing found");
         }
   

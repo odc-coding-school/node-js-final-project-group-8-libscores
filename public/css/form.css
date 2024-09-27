@@ -107,3 +107,69 @@ form input::-webkit-inner-spin-button {
         font-size: 1.3em;
     }
 }
+
+
+
+/* The 404 page styling starts here */
+
+:root {
+    --bg_color: #020035;
+    --btnDefC: #43456E;
+    --focusTColo: #000000;
+    --text_Dcolor: #ffffff;
+    --lhover_color: #fe0101;
+    --tableD_hoverc: #808080;
+    --border_color: #769BF5;
+    --ffont_family: "Roboto", sans-serif;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--ffont_family);
+  }
+
+  body {
+    background-color: var(--bg_color);
+    color: var(--text_Dcolor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 6rem;
+    animation: shake 1.5s infinite;
+    color: var(--lhover_color);
+  }
+
+  p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    padding: 15px 30px;
+    background-color: var(--btnDefC);
+    color: var(--text_Dcolor);
+    border: 2px solid var(--border_color);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  a:hover {
+    background-color: var(--lhover_color);
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+  }

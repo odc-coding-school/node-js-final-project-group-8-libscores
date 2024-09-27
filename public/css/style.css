@@ -29,13 +29,17 @@ input, button{
   background: none;
 
 }
-
+button{
+  cursor: pointer;
+}
+a {
+  text-decoration: none; 
+  color: inherit; 
+}
 .text_color {
   color: var(--text_Dcolor);
   margin-left: 0;
 }
-
-/* The home page styleing starts here */
 
 header{
   width: 100%;
@@ -85,14 +89,15 @@ header{
   display: flex;
   gap: 4rem;
   padding: 2rem 0;
+
 }
 
-a .selection_btn:active{
+/* a .selection_btn:focus{
  background: var(--text_Dcolor); 
  outline: none;
  border-radius: 2rem;
  color: var(--focusTColo);
-}
+} */
 
 a .selection_btn{
   background: var(--btnDefC); 
@@ -103,6 +108,9 @@ a .selection_btn{
   color: var(--text_Dcolor);
   font-weight: 700;
  }
+ .changed-color {
+  background-color: green; /* Change to green on click */
+}
 
  
  .main-aside{
@@ -445,7 +453,7 @@ a .qualification-btn{
  .match_status{
   display: flex;
   flex-direction: column;
-  
+
  }
  .next-match{
   display: flex;

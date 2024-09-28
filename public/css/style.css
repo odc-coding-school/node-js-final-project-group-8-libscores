@@ -14,13 +14,13 @@
 
 /* Setting the colors and font family in the root */
 :root{
-  --bg_color: #020035;
-  --btnDefC: #43456E;
-  --focusTColo: #000000;
-  --text_Dcolor: #ffffff;
-  --lhover_color: #fe0101;
-  --tableD_hoverc: #808080;
-  --border_color: #769BF5;
+  --bg_color: #1A1A4D;          /* Slightly lighter dark blue */
+  --btnDefC: #5C6BC0;           /* Vibrant blue for buttons */
+  --focusTColo: #000000;        /* Bright yellow for focus states */
+  --text_Dcolor: #FFFFFF;       /* White text */
+  --lhover_color: #FF4C4C;      /* Muted red for link hovers */
+  --tableD_hoverc: #303060;     /* Soft blue-gray for table row hovers */
+  --border_color: #769BF5;      /* Light blue */
   --ffont_family: "Roboto", sans-serif;
 }
 input, button{
@@ -140,18 +140,16 @@ form{
 
 }
 
+.aside_content:hover{
+  background: #43456E;
+  color: var(--focusTColo);
+}
+
 li .sidebar_headlings{
   color: var(--tableD_hoverc);
   font-weight: 700;
   font-size: 1.1rem;
 }
-
-a.aside_content:focus{
-  background-color: #769BF5; 
-  outline: none;
-  border-radius: 2rem;
-  color: var(--focusTColo);
- }
 
 .contant{
   display: flex;
@@ -419,6 +417,15 @@ a .contant .text_content{
 }
 
 /* team stlye */
+.qualification:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.qualification:hover .sidebar_imgs {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
 
 .qualification-action-btn {
   display: flex;

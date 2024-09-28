@@ -258,7 +258,8 @@ app.get("/", (req, res) => {
 
         // Fetch matches data
         db.all(`
-          SELECT 
+          SELECT
+            l.league_id,   
             l.league_logo, 
             l.league_name, 
             'qualification' AS league_stage,  
@@ -282,6 +283,7 @@ app.get("/", (req, res) => {
           // Fetch county matches data
           db.all(`
             SELECT 
+              l.league_id,  
               l.league_logo, 
               l.league_name, 
               'qualification' AS league_stage,  
@@ -314,8 +316,8 @@ app.get("/", (req, res) => {
               }
               
               if (!leagueStand || leagueStand.length === 0) {
-                console.log("No league_standing found");
-                return res.status(404).send("No league_standing found");
+                console.log("No league standing found for league_id:", leagueId);
+                leagueStand = []; // Assign an empty array
               }
 
             // Render dashboard with all data and selected league
@@ -432,6 +434,17 @@ app.get("/league_overview/:league_id", (req, res) => {
           return res.status(404).send("No leagues found");
         }
 
+        db.all("SELECT * FROM league_standings WHERE league_id = ?", [leagueId], (err, leagueStand) => {
+          if (err) {
+            console.log("Error: ", err);
+            return res.status(500).send("Error retrieving county data");
+          }
+          
+          if (!leagueStand || leagueStand.length === 0) {
+  
+            return res.status(404).send("No league standing found");
+          }
+
       // Fetch matches associated with the league
       db.all(`
         SELECT 
@@ -482,19 +495,20 @@ app.get("/league_overview/:league_id", (req, res) => {
             }
 
             // Render the league overview page with both league and county matches data
-            res.render("league_overview", { league, teams, matches, leaguedata: league, countymatches, title: `LibScore | ${league.league_name}`});
+            res.render("league_overview", { league, leagueStand, teams, matches, leaguedata: league, countymatches, title: `LibScore | ${league.league_name}`});
           });
         } else {
           // Render the league overview page without county matches for non-County Meet leagues
-          res.render("league_overview", { league, teams, matches, leaguedata: league, countymatches: [], title: `LibScore | ${league.league_name}` });
+          res.render("league_overview", { league, leagueStand, teams, matches, leaguedata: league, countymatches: [], title: `LibScore | ${league.league_name}` });
         }
       });
     });
   });
 });
 });
+});
 
-app.get("/league_stage/", (req, res) => {
+app.get("/league_stage", (req, res) => {
   const leagueId = req.params.league_id;
 
   // Fetch league-specific data for overview
@@ -725,8 +739,8 @@ app.get("/league_table/:league_id", (req, res) => {
         }
         
         if (!leagueStand || leagueStand.length === 0) {
-
-          return res.status(404).send("No league standing found");
+          console.log("No league standing found for league_id:", leagueId);
+          leagueStand = []; // Assign an empty array
         }
   
   // Render a view for the league overview Table page    
@@ -762,8 +776,17 @@ app.get("/league_standing", (req, res) => {
       console.log("Error retrieving league: ", err);
       return res.status(500).send("Error retrieving league data");
     }
-  res.render("team_standingf", { leagueInfo:  league });
+
+    db.all("SELECT * FROM teams", (err, teams) => {
+      if (err) {
+        console.log("Error retrieving league: ", err);
+        return res.status(500).send("Error retrieving league data");
+      }
+
+
+  res.render("team_standingf", { leagueInfo:  league, teams });
   });
+});
 });
 
 // Players stsats all

@@ -18,7 +18,7 @@
         </a>
         <div id="leagues-list">
           <% leaguedata.forEach(league => { %>
-            <a href="/league_overview/<%= league.league_id %>" class="text-decoration-none"z>
+            <a href="/league_overview/<%= league.league_id %>" class="text-decoration-none sidebar_links">
               <fieldset class="aside_content">
                 <div class="contant">
                   <% if (league.league_logo) { %>
@@ -42,7 +42,7 @@
         </a>
         <div id="teams-list" class="d-none">
           <% teamdata.forEach(team => { %>
-            <a href="/team/<%= team.team_id %>" class="text-decoration-none">
+            <a href="/team/<%= team.team_id %>" class="text-decoration-none sidebar_links">
               <fieldset class="aside_content">
                 <div class="contant">
                   <% if (team.team_logo) { %>
@@ -66,7 +66,7 @@
         </a>
         <div id="counties-list" class="d-none">
           <% countydata.forEach(county => { %>
-            <a href="/county/<%= county.county_id %>" class="text-decoration-none">
+            <a href="/county/<%= county.county_id %>" class="text-decoration-none sidebar_links">
               <fieldset class="aside_content">
                 <div class="contant">
                   <% if (county.county_logo) { %>

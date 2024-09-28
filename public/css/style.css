@@ -8,6 +8,7 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  font-family: var(--ffont_family);
 }
 
 
@@ -43,7 +44,7 @@ a {
 
 header{
   width: 100%;
-  height: 25vh;
+  height: 15vh;
   display: flex;
   align-items: end;
 }

@@ -20,32 +20,33 @@
 
   <form id="team-form" method="POST" action="/league_standing" enctype="multipart/form-data"> 
     <div class="team-info">
-      <!-- League ID -->
-      <label for="league_id">League ID:</label>
-      <select name="league_id" id="league_id" class="form-control" required>
-        <option value="">Select League</option>
-        <% leagueInfo.forEach(function(league){ %>
-          <option value="<%= league.league_id %>"><%= league.league_name %></option>
-        <% }); %>
-      </select>
-      
-      <!-- Team Name -->
-      <label for="team_name">Team Name:</label>
-      <select name="team_name" id="team_name" class="form-control" required>
-        <option value="">Select Team Name</option>
-        <% teams.forEach(function(team){ %>
-          <option value="<%= team.team_name %>"><%= team.team_name %></option>
-        <% }); %>
-      </select>
+      <div class="team-info">
+        <!-- League ID -->
+        <label for="league_id">League ID:</label>
+        <select name="league_id" id="league_id" class="form-control" required>
+            <option value="">Select League</option>
+            <% leagueInfo.forEach(function(league){ %>
+                <option value="<%= league.league_id %>"><%= league.league_name %></option>
+            <% }); %>
+        </select>
+        
+        <!-- Team Name -->
+        <label for="team_name">Team Name:</label>
+        <select name="team_name" id="team_name" class="form-control" required>
+            <option value="">Select Team Name</option>
+            <% teams.forEach(function(team){ %>
+              <option value="<%= team.team_name %>"><%= team.team_name %></option>
+          <% }); %>
+        </select>
 
-      <!-- Team ID -->
-      <label for="team_id">Team ID:</label>
-      <select name="team_id" id="team_id" class="form-control" required>
-        <option value="">Select Team ID</option>
-        <% teams.forEach(function(team){ %>
-          <option value="<%= team.team_id %>"><%= team.team_id %></option>
-        <% }); %>
-      </select>
+        <!-- Team ID -->
+        <label for="team_id">Team ID:</label>
+        <select name="team_id" id="team_id" class="form-control" required>
+            <option value="">Select Team ID</option>
+             <% teams.forEach(function(team){ %>
+                <option value="<%= team.team_id %>"><%= team.team_id %></option>
+            <% }); %>
+        </select>
       
       <!-- Team Logo (Custom Dropdown) -->
       <label for="logo_url">Select Team Logo</label>

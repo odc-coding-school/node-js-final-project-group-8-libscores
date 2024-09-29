@@ -11,8 +11,14 @@
 <body>
     <h1>Live Scores Data Form</h1>
 
-    
-<form id="team-form" method="POST" action="/submit_match"> 
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+          <span id="close-popup" class="popup-close">&times;</span>
+          <p>Match entry saved successfully!</p>
+        </div>
+    </div>
+
+<form id="team-form matchform" method="POST" action="/submit_match"> 
     
     <div class="match-info">
         <!-- Form for Matches -->

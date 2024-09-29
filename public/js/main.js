@@ -179,4 +179,101 @@ function formDisplay() {
 
 formDisplay();
 
+document.addEventListener('DOMContentLoaded', function() {
+    const leagueSelect = document.getElementById('league_id');
+    const teamNameSelect = document.getElementById('team_name');
+    const teamIdSelect = document.getElementById('team_id');
+
+    // Function to clear dropdown options
+    function clearDropdown(selectElement) {
+        selectElement.innerHTML = '<option value="">Select ' + selectElement.name.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) + '</option>';
+    }
+
+    // Function to populate dropdown
+    function populateDropdown(selectElement, items, valueKey, textKey) {
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item[valueKey];
+            option.textContent = item[textKey];
+            selectElement.appendChild(option);
+        });
+    }
+
+    // Event listener for league selection
+    leagueSelect.addEventListener('change', function() {
+        const selectedLeagueId = parseInt(this.value);
+        
+        // Clear existing options
+        clearDropdown(teamNameSelect);
+        clearDropdown(teamIdSelect);
+        
+        if (selectedLeagueId === 4) { // Assuming league_id 4 is County
+            // Populate with counties
+            populateDropdown(teamNameSelect, allCounties, 'county_name', 'county_name');
+            populateDropdown(teamIdSelect, allCounties, 'county_id', 'county_id');
+        } else {
+            // Populate with teams
+            const filteredTeams = allTeams.filter(team => team.league_id === selectedLeagueId);
+            populateDropdown(teamNameSelect, filteredTeams, 'team_name', 'team_name');
+            populateDropdown(teamIdSelect, filteredTeams, 'team_id', 'team_id');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const startBtn = document.getElementById('start-timer-btn');
+    const pauseBtn = document.getElementById('pause-timer-btn');
+    const timerDisplay = document.getElementById('timer-display');
+  
+    let timerInterval;
+    let timeElapsed = 0; // time in seconds
+    let halfTime = false; // track whether it's half-time
+  
+    // Function to format the time in mm:ss
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+  
+    // Function to start the timer for the live score
+    function startTimer() {
+        startBtn.style.display = 'none'; // Hide start button
+        pauseBtn.style.display = 'inline'; // Show pause button
+  
+        timerInterval = setInterval(() => {
+            timeElapsed++;
+            timerDisplay.textContent = formatTime(timeElapsed);
+  
+            if (timeElapsed === 45 * 60) {
+                clearInterval(timerInterval); // Pause at half-time
+                alert('Half-Time! 15 minutes break.');
+                halfTime = true;
+                setTimeout(() => {
+                    timeElapsed = 45 * 60; // Reset the time for the second half
+                    startTimer(); // Resume for the second half
+                }, 15 * 60 * 1000); // 15-minute break in milliseconds
+            }
+  
+            if (halfTime && timeElapsed === 90 * 60) {
+                clearInterval(timerInterval); // Full-time
+                alert('Match Over!');
+            }
+        }, 1000); // Update every second
+    }
+  
+    // Function to pause the timer
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        startBtn.style.display = 'inline'; // Show start button to resume
+        pauseBtn.style.display = 'none'; // Hide pause button
+    }
+  
+    // Event listener for start button
+    startBtn.addEventListener('click', startTimer);
+  
+    // Event listener for pause button
+    pauseBtn.addEventListener('click', pauseTimer);
+  });
+  
 

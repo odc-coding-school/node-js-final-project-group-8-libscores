@@ -152,6 +152,25 @@ db.serialize(() => {
     )
   `);
 
+    // this is the live_scores table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS match_result (
+        match_result_id INTEGER PRIMARY KEY,
+        match_id INTEGER,
+        home_team_id INTEGER,
+        away_team_id INTEGER,
+        match_date TEXT,
+        match_time TEXT,
+        home_team_score INTEGER,
+        away_team_score INTEGER,
+        team_id INTEGER,
+        FOREIGN KEY(match_id) REFERENCES matches(match_id),
+        FOREIGN KEY(team_id) REFERENCES teams(team_id),
+        FOREIGN KEY (home_team_id) REFERENCES teams(team_id),
+        FOREIGN KEY (away_team_id) REFERENCES teams(team_id)
+      )
+    `);
+
   // Match statistics table
   db.run(`
     CREATE TABLE IF NOT EXISTS match_statistics (
@@ -783,9 +802,15 @@ app.get("/league_standing", (req, res) => {
         return res.status(500).send("Error retrieving league data");
       }
 
+      db.all("SELECT * FROM county", (err, county) => {
+        if (err) {
+          console.log("Error retrieving league: ", err);
+          return res.status(500).send("Error retrieving league data");
+        }
 
-  res.render("team_standingf", { leagueInfo:  league, teams });
+  res.render("team_standingf", { leagueInfo:  league, teams, county });
   });
+});
 });
 });
 
@@ -1699,9 +1724,23 @@ app.post('/submit_match', (req, res) => {
       return res.status(500).json({ error: err.message });
     }
 
-    res.json({ message: "Match data inserted successfully", match_id: this.lastID });
+    res.sendStatus(200);
   });
 });
+
+app.post('/update-match-time/:matchId', (req, res) => {
+  const matchId = req.params.matchId;
+  const { timeElapsed } = req.body;
+
+  const updateMatchTimeQuery = `UPDATE matches SET match_time = ? WHERE id = ?`;
+  db.run(updateMatchTimeQuery, [timeElapsed, matchId], function(err) {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to update match time' });
+    }
+    res.json({ success: true });
+  });
+});
+
 
 // POST route for counties matches
 app.post('/submit_county_match', (req, res) => {

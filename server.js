@@ -1767,6 +1767,15 @@ app.post('/submit_county_match', (req, res) => {
   });
 });
 
+// The get for the Admin side of the site
+
+app.get("/admin", (req, res) => {
+  if(!req.session.userId){
+    return res.redirect("SportLibAdmin/login")
+  }
+  res.render("SportLibAdmin/index", { title: 'SportLib | Admin Dashboard'});
+});
+
 // Server listening
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

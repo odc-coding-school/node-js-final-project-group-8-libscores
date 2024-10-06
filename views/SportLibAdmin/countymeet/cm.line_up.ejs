@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>SportLib</title>
+  <title><%= title %></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,7 +37,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="/" target="_blank" class="logo d-flex align-items-center">
         <img src="../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">SportLib</span>
       </a>
@@ -203,7 +203,7 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="/profile" data-bs-toggle="dropdown">
             <img src="" alt="" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">T. Daiminah</span>
           </a><!-- End Profile Iamge Icon -->
@@ -218,7 +218,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="/profile">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -228,7 +228,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="/profile">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -238,7 +238,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="/login">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -258,7 +258,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="../index.html">
+        <a class="nav-link " href="/admin">
           <img src="../assets/img/lfa_logo.png" width="20px">
           <span>Dashboard</span>
         </a>
@@ -293,22 +293,22 @@
       </li><!-- End League Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="/admin_cmo">
           <img src="../assets/img/cmlogo.jpeg" width="20px"></i><span>County Meet</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="cm.overview.html">
+            <a href="/admin_cmo">
               <i class="bi bi-circle"></i><span>Overview</span>
             </a>
           </li>
           <li>
-            <a href="cm.matches.html">
+            <a href="/admin_cmm">
               <i class="bi bi-circle"></i><span>Matches</span>
             </a>
           </li>
           <li>
-            <a href="cm.table.html">
+            <a href="/admin_cmt">
               <i class="bi bi-circle"></i><span>Table</span>
             </a>
           </li>
@@ -448,21 +448,14 @@
         </ul>
       </li><!-- End LFA First Division League Nav -->
 
-      <li class="nav-heading">Pages</li>
+      <li class="nav-heading">Admin nav-profile</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../users-profile.html">
+        <a class="nav-link collapsed" href="/profile">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
 
     </ul>
 
@@ -474,9 +467,9 @@
       <h1>County Meet</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../index.html">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
           <li class="breadcrumb-item">County Meet</li>
-          <li class="breadcrumb-item active">Seasons</li>
+          <li class="breadcrumb-item active">Line Up</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -486,17 +479,17 @@
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <h2 class="pe-5">Seasons</h2>
+                <h2 class="pe-5">Line Up</h2>
                 <div class=" navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
-                        <a href="./cm.matches.html" class="nav-item nav-link active">Matches</a>
-                        <a href="./cm.line_up.html" class="nav-item nav-link">Line Up</a>
-                        <a href="./cm.players.html" class="nav-item nav-link">Player</a>
-                        <a href="./cm.groups.html" class="nav-item nav-link">Groups</a>
-                        <a href="./cm.seasons.html" class="nav-item nav-link">Seasons</a>   
+                        <a href="/admin_cmm" class="nav-item nav-link active">Matches</a>
+                        <a href="/admin_cml" class="nav-item nav-link">Line Up</a>
+                        <a href="/admin_cmp" class="nav-item nav-link">Player</a>
+                        <a href="/admin_cmg" class="nav-item nav-link">Groups</a>
+                        <a href="/admin_cms" class="nav-item nav-link">Seasons</a>   
                     </div>
                     <div class="navbar-nav ms-auto">
-                      <button type="button" class="btn btn-outline-primary" id="addSeasonForm">&plus; Season</button>
+                      <button type="button" class="btn btn-outline-primary" id="addLineupForm">&plus; Line Up</button>
                     </div>
                 </div>
             </div>
@@ -537,9 +530,7 @@
     <div class="copyright">
       &copy; Copyright <strong><span>SportLib</span></strong>. All Rights Reserved
     </div>
-    <div class="credits">
-      Designed by <a href="https://node-js-final-project-group-8-libscores-io41.onrender.com/">SportLib</a>
-    </div>
+  
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

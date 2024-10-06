@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const session = require("express-session");
 const crypto = require('crypto');
 const db = new sqlite3.Database('lib_score.db');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const app = express();
-const port = 5001;
 
 // List of all the tables
 db.serialize(() => {
@@ -1767,17 +1767,128 @@ app.post('/submit_county_match', (req, res) => {
   });
 });
 
-// The get for the Admin side of the site
+// The get routes for the Admin side of the site
 
-app.get("/admin", (req, res) => {
-  if(!req.session.userId){
-    return res.redirect("SportLibAdmin/login")
+app.get("/register", (req, res) => {
+  res.render("SportLibAdmin/pages-register", { title: 'Register Admin | SportLib'});
+});
+
+app.get("/login", (req, res) => {
+  res.render("SportLibAdmin/login", { title: 'Login | SportLib'});
+});
+
+// GET route for admin dashboard
+app.get("/admin", async (req, res) => {
+  try {
+    // Define the JOIN query for standings
+    const joinQuery = `
+      SELECT 
+        teams.team_id,
+        teams.team_name,
+        teams.city,
+        leagues.league_name,
+        league_standings.played,
+        league_standings.points
+      FROM 
+        teams
+      INNER JOIN 
+        leagues ON teams.league_id = leagues.league_id
+      INNER JOIN 
+        league_standings ON teams.team_id = league_standings.team_id
+    `;
+
+    // Execute the JOIN query for standings data
+    const joinedData = await new Promise((resolve, reject) => {
+      db.all(joinQuery, (err, rows) => {
+        if (err) {
+          console.error('Error executing JOIN query:', err.message);
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+
+    if (!joinedData || joinedData.length === 0) {
+      return res.status(404).send("No standings data found");
+    }
+
+    // Query to fetch match data
+    const matchQuery = `
+      SELECT
+        home_team.team_name AS home_team_name,
+        away_team.team_name AS away_team_name,
+        m.status AS match_status,
+        m.home_team_score,
+        m.away_team_score
+      FROM matches m
+      INNER JOIN teams AS home_team ON m.home_team_id = home_team.team_id
+      INNER JOIN teams AS away_team ON m.away_team_id = away_team.team_id
+    `;
+
+    // Execute the query to fetch match data
+    const matchData = await new Promise((resolve, reject) => {
+      db.all(matchQuery, (err, rows) => {
+        if (err) {
+          console.log("Error retrieving match data:", err);
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+
+    if (!matchData || matchData.length === 0) {
+      return res.status(404).send("No match data found");
+    }
+
+    // Render the admin dashboard with both standings and match data
+    res.render("SportLibAdmin/index", {
+      title: 'Admin Dashboard | SportLib',
+      data: joinedData,
+      matches: matchData
+    });
+  } catch (err) {
+    console.error("Error: ", err);
+    res.status(500).send("Error retrieving data");
   }
-  res.render("SportLibAdmin/index", { title: 'SportLib | Admin Dashboard'});
 });
 
-// Server listening
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.get("/profile", (req, res) => {
+  res.render("SportLibAdmin/users-profile", { title: 'Admin Profile | SportLib'});
 });
- 
+
+app.get("/admin_cmo", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.overview.ejs", { title: 'County Meet overview | SportLib'});
+});
+
+app.get("/admin_cmm", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.matches.ejs", { title: 'County Meet Matches | SportLib'});
+});
+
+app.get("/admin_cmt", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.table.ejs", { title: 'County Meet Table | SportLib'});
+});
+
+app.get("/admin_cml", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.line_up.ejs", { title: 'County Meet Line Up | SportLib'});
+});
+
+app.get("/admin_cmg", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.groups.ejs", { title: 'County Meet Groups | SportLib'});
+});
+
+app.get("/admin_cms", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.season.ejs", { title: 'County Meet Season | SportLib'});
+});
+
+app.get("/admin_cmp", (req, res) => {
+  res.render("SportLibAdmin/countymeet/cm.players.ejs", { title: 'County Meet Players | SportLib'});
+});
+
+
+ // Start the server
+const PORT = process.env.PORT || 3010;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});

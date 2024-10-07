@@ -66,6 +66,7 @@ db.serialize(() => {
       FOREIGN KEY (away_team_id) REFERENCES teams(team_id)
     )
   `); 
+
   // this is the league standing table
   db.run(`
     CREATE TABLE IF NOT EXISTS league_standings (
@@ -85,6 +86,26 @@ db.serialize(() => {
     FOREIGN KEY (team_id) REFERENCES teams(team_id)
     )
   `); 
+
+    // this is the  county meet standing table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS cmeet_standings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      county_name TEXT,
+      county_id INTEGER,
+      league_id INTEGER,
+      logo_url BLOB,
+      played INTEGER,
+      won INTEGER,
+      drawn INTEGER,
+      lost INTEGER,
+      goals_for INTEGER,
+      goals_against INTEGER,
+      goal_difference INTEGER,
+      points INTEGER,
+      FOREIGN KEY (county_id) REFERENCES county(county_id)
+      )
+    `); 
 
     // this is the county matches table
     db.run(`
@@ -1859,7 +1880,54 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/admin_cmo", (req, res) => {
-  res.render("SportLibAdmin/countymeet/cm.overview.ejs", { title: 'County Meet overview | SportLib'});
+
+  db.all(`
+            SELECT 
+              l.league_id,  
+              l.league_logo, 
+              l.league_name, 
+              'qualification' AS league_stage,  
+              away_county.county_name AS away_county_name,
+              away_county.county_logo AS away_county_logo,
+              home_county.county_name AS home_county_name,
+              home_county.county_logo AS home_county_logo,
+              m.status AS match_status,
+              m.home_county_score,
+              m.away_county_score
+            FROM county_matches m
+            INNER JOIN county AS home_county ON m.home_county_id = home_county.county_id
+            INNER JOIN county AS away_county ON m.away_county_id = away_county.county_id
+            INNER JOIN leagues l ON home_county.league_id = l.league_id
+            WHERE 
+              m.home_county_score IS NOT NULL AND 
+              m.away_county_score IS NOT NULL AND 
+              home_county.county_name IS NOT NULL AND
+              away_county.county_name IS NOT NULL
+          `, (err, countymatches) => {
+            if (err) {
+              console.log("Error: ", err);
+              return res.status(500).send("Error retrieving county match data");
+            }
+
+            db.all("SELECT * FROM league_standings WHERE league_id = 4", (err, leagueStand) => {
+              if (err) {
+                console.log("Error: ", err);
+                return res.status(500).send("Error retrieving county data");
+              }
+              
+              if (!leagueStand || leagueStand.length === 0) {
+                console.log("No league standing found for league_id");
+                leagueStand = []; // Assign an empty array
+              }
+
+    res.render("SportLibAdmin/countymeet/cm.overview.ejs", {
+       title: 'County Meet overview | SportLib',
+      leagueStand,
+      countymatches
+    });
+
+  });
+});
 });
 
 app.get("/admin_cmm", (req, res) => {

@@ -1930,15 +1930,15 @@ app.get("/admin_cmo", (req, res) => {
 });
 });
 
-app.get("/admin_cmm", (req, res) => {
+app.get("/admin_countyMeet-matches", (req, res) => {
   res.render("SportLibAdmin/countymeet/cm.matches.ejs", { title: 'County Meet Matches | SportLib'});
 });
 
-app.get("/admin_cmt", (req, res) => {
+app.get("/admin_countyMeet-table", (req, res) => {
   res.render("SportLibAdmin/countymeet/cm.table.ejs", { title: 'County Meet Table | SportLib'});
 });
 
-app.get("/admin_cml", (req, res) => {
+app.get("/admin_countyMeet-line-up", (req, res) => {
   res.render("SportLibAdmin/countymeet/cm.line_up.ejs", { title: 'County Meet Line Up | SportLib'});
 });
 
